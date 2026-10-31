@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -395,14 +395,14 @@
                             <span class="nav-dropdown-icon"><i class="fa-solid fa-van-shuttle"></i></span>
                             <div class="nav-dropdown-info">
                                 <span class="nav-dropdown-title">Mini Bus Booking</span>
-                                <span class="nav-dropdown-sub">12–26 seater Tempo Traveller</span>
+                                <span class="nav-dropdown-sub">12�26 seater Tempo Traveller</span>
                             </div>
                         </a>
                         <a href="luxury-bus.html" class="nav-dropdown-link">
                             <span class="nav-dropdown-icon"><i class="fa-solid fa-bus"></i></span>
                             <div class="nav-dropdown-info">
                                 <span class="nav-dropdown-title">Luxury Bus Booking</span>
-                                <span class="nav-dropdown-sub">32–55 seater AC Volvo coaches</span>
+                                <span class="nav-dropdown-sub">32�55 seater AC Volvo coaches</span>
                             </div>
                         </a>
                         <a href="group-transportation.html" class="nav-dropdown-link">
@@ -429,8 +429,8 @@
                     </div>
                 </li>
                 <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="packages.html">Tour Packages</a></li>
-                <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="../corporate/corporate.html">Corporate</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -482,8 +482,8 @@
             </div>
         </li>
         <li><a href="destinations.html">Destinations</a></li>
-        <li><a href="packages.html">Tour Packages</a></li>
-        <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="../corporate/corporate.html">Corporate</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -648,7 +648,7 @@
                 <div style="background:#fef7e6; border:1px solid #f9df9e; border-radius:8px; padding:12px 16px; margin:14px 0;">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <span style="font-size:13px; color:#78350f; font-weight:600;">Total Payable (Taxes Included):</span>
-                        <span style="font-size:20px; font-weight:800; color:#78350f; font-family:'Outfit';" id="flightModalTotal">₹0</span>
+                        <span style="font-size:20px; font-weight:800; color:#78350f; font-family:'Outfit';" id="flightModalTotal">?0</span>
                     </div>
                     <span style="font-size:11px; color:#92400e; display:block; margin-top:2px;">Instant e-ticket generation and SMS confirmation.</span>
                 </div>
@@ -830,7 +830,7 @@ function renderFlights(flights, cabinClass = 'economy') {
                 </div>
 
                 <div class="flight-price-col">
-                    <div class="flight-price-val">₹${fare.toLocaleString('en-IN')}</div>
+                    <div class="flight-price-val">?${fare.toLocaleString('en-IN')}</div>
                     <button type="button" class="btn btn-gold" style="width:100%;" onclick="openFlightBooking('${f.id}', '${cabinClass}', ${fare})">
                         Book Now
                     </button>
@@ -850,7 +850,7 @@ function openFlightBooking(flightId, cabinClass, fare) {
 
     document.getElementById('modalSummaryRoute').innerHTML = `${flight.from} (${flight.fromCode}) &rarr; ${flight.to} (${flight.toCode})`;
     document.getElementById('modalSummaryAirline').textContent = `${flight.airline} ${flight.flightNumber} (${cabinClass.toUpperCase()})`;
-    document.getElementById('modalSummaryTime').textContent = `${flight.depTime} – ${flight.arrTime} (${flight.duration} ${flight.stops})`;
+    document.getElementById('modalSummaryTime').textContent = `${flight.depTime} � ${flight.arrTime} (${flight.duration} ${flight.stops})`;
 
     recalculateFlightTotal();
     document.getElementById('flightBookingModal').classList.add('active');
@@ -864,7 +864,7 @@ function recalculateFlightTotal() {
     const unitFare = parseInt(document.getElementById('bookFlightFare').value || 0, 10);
     const count = parseInt(document.getElementById('flightPassengerCount').value || 1, 10);
     const total = unitFare * count;
-    document.getElementById('flightModalTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+    document.getElementById('flightModalTotal').textContent = `?${total.toLocaleString('en-IN')}`;
 }
 
 function handleFlightBooking(e) {

@@ -23,57 +23,46 @@
         </div>
 
         <div class="sidebar-menu">
-            <div class="sidebar-section-title">Menu</div>
+            <div class="sidebar-section-title">Navigation</div>
+            <a href="customer-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard</span>
+            </a>
             <a href="my-bookings.html" class="sidebar-link active">
                 <i class="fa-solid fa-calendar-check"></i>
                 <span>My Bookings</span>
                 <span class="nav-count" id="badgeTotalBookings">0</span>
+            </a>
+            <a href="my-bookings.html?filter=Confirmed" class="sidebar-link">
+                <i class="fa-solid fa-clock"></i>
+                <span>Upcoming Trips</span>
+                <span class="nav-count" id="badgeUpcoming">0</span>
+            </a>
+            <a href="my-bookings.html?filter=Completed" class="sidebar-link">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Booking History</span>
+            </a>
+            <a href="destinations.html" class="sidebar-link">
+                <i class="fa-solid fa-heart"></i>
+                <span>Saved Destinations</span>
             </a>
             <a href="profile.html" class="sidebar-link">
                 <i class="fa-solid fa-user-gear"></i>
                 <span>My Profile</span>
             </a>
 
-            <div class="sidebar-section-title">Book New Travel &amp; Transport</div>
-            <a href="local-taxi.html" class="sidebar-link">
-                <i class="fa-solid fa-taxi"></i>
-                <span>Local Taxi</span>
+            <div class="sidebar-section-title">Help &amp; System</div>
+            <a href="customer-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notifications</span>
             </a>
-            <a href="outstation-cabs.html" class="sidebar-link">
-                <i class="fa-solid fa-car"></i>
-                <span>Outstation Cabs</span>
+            <a href="contact.html" class="sidebar-link">
+                <i class="fa-solid fa-headset"></i>
+                <span>Support</span>
             </a>
-            <a href="airport-transfer.html" class="sidebar-link">
-                <i class="fa-solid fa-plane-departure"></i>
-                <span>Airport Transfer</span>
-            </a>
-            <a href="mini-bus.html" class="sidebar-link">
-                <i class="fa-solid fa-van-shuttle"></i>
-                <span>Mini Bus</span>
-            </a>
-            <a href="luxury-bus.html" class="sidebar-link">
-                <i class="fa-solid fa-bus"></i>
-                <span>Luxury Bus</span>
-            </a>
-            <a href="group-transportation.html" class="sidebar-link">
-                <i class="fa-solid fa-users"></i>
-                <span>Group Transport</span>
-            </a>
-            <a href="railway-booking.html" class="sidebar-link">
-                <i class="fa-solid fa-train"></i>
-                <span>Railway Booking</span>
-            </a>
-            <a href="st-bus-booking.html" class="sidebar-link">
-                <i class="fa-solid fa-bus-simple"></i>
-                <span>Maharashtra ST Bus</span>
-            </a>
-            <a href="packages.html" class="sidebar-link">
-                <i class="fa-solid fa-suitcase"></i>
-                <span>Tour Packages</span>
-            </a>
-            <a href="../corporate/corporate.html" class="sidebar-link">
-                <i class="fa-solid fa-building"></i>
-                <span>Corporate Mobility</span>
+            <a href="javascript:void(0)" class="sidebar-link" onclick="Auth.logout()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Logout</span>
             </a>
         </div>
 
@@ -235,10 +224,24 @@
         // Match bookings belonging to this customer (by customerId or customerEmail)
         customerBookings = allBookings.filter(b => 
             (user && b.customerId === user.id) || 
-            (user && b.customerEmail && b.customerEmail.toLowerCase() === user.email.toLowerCase())
+            (user && b.customerEmail && b.customerEmail.toLowerCase() === user.email.toLowerCase()) ||
+            (!b.corporateId)
         );
 
         updateStats();
+
+        // Check URL params for filter
+        const params = new URLSearchParams(window.location.search);
+        const filterParam = params.get('filter');
+        if (filterParam) {
+            const select = document.getElementById('statusFilter');
+            if (select) {
+                select.value = filterParam;
+                filterBookings();
+                return;
+            }
+        }
+
         renderTable(customerBookings);
     }
 

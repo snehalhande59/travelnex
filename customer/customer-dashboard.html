@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Overview | TRAVELNEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .cust-overview-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 1024px) {
+            .cust-overview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .next-trip-card {
+            background: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
+            border-radius: 16px;
+            padding: 24px 28px;
+            color: #ffffff;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(7, 55, 127, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .next-trip-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(245, 181, 27, 0.2);
+            color: #F5B51B;
+            border: 1px solid rgba(245, 181, 27, 0.4);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 700;
+            width: fit-content;
+            margin-bottom: 14px;
+        }
+        .next-trip-dest {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+            font-family: 'Outfit', sans-serif;
+        }
+        .next-trip-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-size: 13px;
+            color: #eaf1fa;
+            margin-bottom: 20px;
+        }
+        .next-trip-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .next-trip-meta i {
+            color: #F5B51B;
+        }
+        .next-trip-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 14px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .profile-progress-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border-light, #D5E1F0);
+            box-shadow: 0 4px 20px rgba(11, 43, 99, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .prog-circle-wrap {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 14px 0;
+        }
+        .prog-bar-bg {
+            height: 10px;
+            background: #eaf1fa;
+            border-radius: 10px;
+            overflow: hidden;
+            flex: 1;
+        }
+        .prog-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #F5B51B, #07377F);
+            width: 85%;
+            border-radius: 10px;
+        }
+        .quick-booking-shortcuts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+        .quick-shortcut-pill {
+            background: #ffffff;
+            border: 1px solid var(--border-light, #D5E1F0);
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--navy, #0B2B63);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(11, 43, 99, 0.04);
+        }
+        .quick-shortcut-pill:hover {
+            transform: translateY(-4px);
+            border-color: #07377F;
+            box-shadow: 0 8px 24px rgba(7, 55, 127, 0.12);
+            color: #07377F;
+        }
+        .quick-shortcut-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #eaf1fa;
+            color: #07377F;
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+            transition: all 0.25s ease;
+        }
+        .quick-shortcut-pill:hover .quick-shortcut-icon {
+            background: #07377F;
+            color: #F5B51B;
+        }
+        .quick-shortcut-title {
+            font-size: 12px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <!-- Sidebar: Exactly 9 items as requested -->
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="index.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Customer</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Navigation</div>
+            <a href="customer-dashboard.html" class="sidebar-link active">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="my-bookings.html" class="sidebar-link">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>My Bookings</span>
+                <span class="nav-count" id="badgeTotalBookings">0</span>
+            </a>
+            <a href="my-bookings.html?filter=Confirmed" class="sidebar-link">
+                <i class="fa-solid fa-clock"></i>
+                <span>Upcoming Trips</span>
+                <span class="nav-count" id="badgeUpcoming">0</span>
+            </a>
+            <a href="my-bookings.html?filter=Completed" class="sidebar-link">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Booking History</span>
+            </a>
+            <a href="destinations.html" class="sidebar-link">
+                <i class="fa-solid fa-heart"></i>
+                <span>Saved Destinations</span>
+            </a>
+            <a href="profile.html" class="sidebar-link">
+                <i class="fa-solid fa-user-gear"></i>
+                <span>My Profile</span>
+            </a>
+
+            <div class="sidebar-section-title">Help &amp; System</div>
+            <a href="javascript:void(0)" class="sidebar-link" onclick="openNotificationsModal()">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notifications</span>
+                <span class="nav-count" style="background:#F5B51B; color:#0B2B63;">2</span>
+            </a>
+            <a href="contact.html" class="sidebar-link">
+                <i class="fa-solid fa-headset"></i>
+                <span>Support</span>
+            </a>
+            <a href="javascript:void(0)" class="sidebar-link" onclick="Auth.logout()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar" id="navAvatar">C</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name" id="navUserName">Customer User</div>
+                <div class="sidebar-user-role">Customer Account</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout()" title="Logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="index.html">Home</a> &gt; Customer Portal &gt; Overview</div>
+                    <h1 class="page-title" id="welcomeUserHeading">Customer Dashboard</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <a href="index.html" class="portal-switch-pill">
+                    <i class="fa-solid fa-globe"></i> Website Homepage
+                </a>
+                <a href="cab-booking.html" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-plus"></i> Book New Ride
+                </a>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <!-- 4 Overview Statistics as requested -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fa-solid fa-suitcase-rolling"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Total Bookings</div>
+                        <div class="stat-value" id="statTotalBookings">0</div>
+                        <div class="stat-subtext">All time reservations</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i class="fa-solid fa-clock"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Upcoming Trips</div>
+                        <div class="stat-value" id="statUpcomingTrips">0</div>
+                        <div class="stat-subtext">Confirmed &amp; In Progress</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Completed Trips</div>
+                        <div class="stat-value" id="statCompletedTrips">0</div>
+                        <div class="stat-subtext">Successfully fulfilled</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red"><i class="fa-solid fa-hourglass-half"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Pending Requests</div>
+                        <div class="stat-value" id="statPendingRequests">0</div>
+                        <div class="stat-subtext">Awaiting driver assignment</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Upcoming Trip & Profile Progress Grid -->
+            <div class="cust-overview-grid">
+                <!-- Next Upcoming Trip Card -->
+                <div class="next-trip-card" id="nextTripCard">
+                    <div>
+                        <div class="next-trip-badge"><i class="fa-solid fa-car-side"></i> Next Upcoming Trip</div>
+                        <h2 class="next-trip-dest" id="nextTripDest">Loading upcoming trip...</h2>
+                        <div class="next-trip-meta">
+                            <span><i class="fa-regular fa-calendar"></i> <span id="nextTripDate">--</span></span>
+                            <span><i class="fa-regular fa-clock"></i> <span id="nextTripTime">--</span></span>
+                            <span><i class="fa-solid fa-shield"></i> <span id="nextTripStatus">Confirmed</span></span>
+                        </div>
+                        <p style="font-size:13px; color:#eaf1fa; margin-bottom:12px;" id="nextTripVehicle">Assigned Vehicle: Loading...</p>
+                    </div>
+                    <div class="next-trip-footer">
+                        <div style="font-size:18px; font-weight:800; color:#F5B51B;" id="nextTripFare">₹0</div>
+                        <button type="button" class="btn btn-outline" style="border-color:#F5B51B; color:#ffffff;" id="btnViewNextTrip" onclick="viewNextTripDetails()">
+                            View Trip Details <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profile Completion Card -->
+                <div class="profile-progress-card">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                            <h3 style="font-size:16px; font-weight:800; color:var(--navy,#0B2B63);">Profile Completion</h3>
+                            <span style="font-size:13px; font-weight:800; color:#07377F;">85%</span>
+                        </div>
+                        <p style="font-size:12.5px; color:var(--text-muted,#53647F); line-height:1.5;">Complete your emergency contact and GST info for one-tap checkout.</p>
+                        
+                        <div class="prog-circle-wrap">
+                            <div class="prog-bar-bg">
+                                <div class="prog-bar-fill"></div>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; flex-direction:column; gap:8px; font-size:12px; color:var(--navy,#0B2B63);">
+                            <div><i class="fa-solid fa-check-circle" style="color:#22c55e;"></i> Mobile Verified</div>
+                            <div><i class="fa-solid fa-check-circle" style="color:#22c55e;"></i> Email Verified</div>
+                            <div><i class="fa-regular fa-circle" style="color:#94a3b8;"></i> Emergency Contact Added</div>
+                        </div>
+                    </div>
+
+                    <a href="profile.html" class="btn btn-outline btn-sm" style="margin-top:16px; text-align:center;">
+                        Edit Profile Details
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Booking Shortcuts -->
+            <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="font-size:16px; font-weight:800; color:var(--navy,#0B2B63);">Quick Booking Shortcuts</h3>
+                <span style="font-size:12px; color:var(--text-muted,#53647F);">Select a service to start</span>
+            </div>
+            <div class="quick-booking-shortcuts">
+                <a href="local-taxi.html" class="quick-shortcut-pill">
+                    <div class="quick-shortcut-icon"><i class="fa-solid fa-taxi"></i></div>
+                    <span class="quick-shortcut-title">Local Taxi</span>
+                </a>
+                <a href="outstation-cabs.html" class="quick-shortcut-pill">
+                    <div class="quick-shortcut-icon"><i class="fa-solid fa-car-side"></i></div>
+                    <span class="quick-shortcut-title">Outstation Cab</span>
+                </a>
+                <a href="airport-transfer.html" class="quick-shortcut-pill">
+                    <div class="quick-shortcut-icon"><i class="fa-solid fa-plane-departure"></i></div>
+                    <span class="quick-shortcut-title">Airport Pickup</span>
+                </a>
+                <a href="mini-bus.html" class="quick-shortcut-pill">
+                    <div class="quick-shortcut-icon"><i class="fa-solid fa-van-shuttle"></i></div>
+                    <span class="quick-shortcut-title">Mini Bus</span>
+                </a>
+                <a href="luxury-bus.html" class="quick-shortcut-pill">
+                    <div class="quick-shortcut-icon"><i class="fa-solid fa-bus"></i></div>
+                    <span class="quick-shortcut-title">Luxury Bus</span>
+                </a>
+                <a href="packages.html" class="quick-shortcut-pill">
+                    <div class="quick-shortcut-icon"><i class="fa-solid fa-suitcase-rolling"></i></div>
+                    <span class="quick-shortcut-title">Tour Packages</span>
+                </a>
+                <a href="railway-booking.html" class="quick-shortcut-pill">
+                    <div class="quick-shortcut-icon"><i class="fa-solid fa-train"></i></div>
+                    <span class="quick-shortcut-title">Railway Booking</span>
+                </a>
+                <a href="st-bus-booking.html" class="quick-shortcut-pill">
+                    <div class="quick-shortcut-icon"><i class="fa-solid fa-bus-simple"></i></div>
+                    <span class="quick-shortcut-title">Maharashtra ST</span>
+                </a>
+            </div>
+
+            <!-- Filterable Bookings Table -->
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Recent Trips &amp; Active Reservations</div>
+                    <div class="table-filters">
+                        <div class="search-input-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="searchInput" placeholder="Search ID, destination..." oninput="filterBookings()">
+                        </div>
+
+                        <select id="statusFilter" class="form-control" style="width: auto; height: 38px; font-size: 13px;" onchange="filterBookings()">
+                            <option value="ALL">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="bookingsTable">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Service</th>
+                                <th>Route / Details</th>
+                                <th>Travel Date</th>
+                                <th>Fare</th>
+                                <th>Status</th>
+                                <th>Assigned Driver</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTableBody">
+                            <!-- Injected dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state" style="display:none; padding:40px 20px;">
+                    <div class="empty-icon"><i class="fa-solid fa-car-tunnel"></i></div>
+                    <h3>No bookings found</h3>
+                    <p>You have not booked any trips matching this filter criteria yet.</p>
+                    <a href="cab-booking.html" class="btn btn-primary btn-sm">Book Your First Ride</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Booking Detail Modal -->
+<div class="modal-overlay" id="bookingDetailModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modalBookingId">Booking Details</h3>
+            <button type="button" class="modal-close-btn" onclick="document.getElementById('bookingDetailModal').classList.remove('active')">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBookingBody">
+            <!-- Dynamically populated -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" onclick="document.getElementById('bookingDetailModal').classList.remove('active')">Close</button>
+            <button type="button" class="btn btn-primary" id="modalPrintInvBtn">
+                <i class="fa-solid fa-file-invoice"></i> Download Summary
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Notifications Modal -->
+<div class="modal-overlay" id="notificationsModal">
+    <div class="modal-container" style="max-width:480px;">
+        <div class="modal-header">
+            <h3 class="modal-title"><i class="fa-solid fa-bell" style="color:#07377F;"></i> Notifications</h3>
+            <button type="button" class="modal-close-btn" onclick="closeNotificationsModal()">&times;</button>
+        </div>
+        <div class="modal-body" style="padding:16px;">
+            <div style="display:flex; flex-direction:column; gap:12px;">
+                <div style="background:#f8fbff; border:1px solid #d5e1f0; border-radius:10px; padding:12px;">
+                    <div style="font-weight:700; color:#0B2B63; font-size:13px; margin-bottom:4px;">Chauffeur Assigned</div>
+                    <div style="font-size:12px; color:#53647F;">Driver Ramesh Pawar (MH 12 AB 4501) has been assigned to your Pune to Mahabaleshwar trip.</div>
+                </div>
+                <div style="background:#f8fbff; border:1px solid #d5e1f0; border-radius:10px; padding:12px;">
+                    <div style="font-weight:700; color:#0B2B63; font-size:13px; margin-bottom:4px;">Special Flash Discount</div>
+                    <div style="font-size:12px; color:#53647F;">Get 15% off on your next airport transfer with code AIRPORT15.</div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-sm" onclick="closeNotificationsModal()">Mark All as Read</button>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+
+<script>
+    let allCustomerBookings = [];
+    let currentViewingBookingId = null;
+
+    function openNotificationsModal() {
+        document.getElementById('notificationsModal').classList.add('active');
+    }
+    function closeNotificationsModal() {
+        document.getElementById('notificationsModal').classList.remove('active');
+    }
+
+    function loadCustomerBookings() {
+        const user = Auth.getCurrentUser();
+        if (user) {
+            document.getElementById('navUserName').textContent = user.name;
+            document.getElementById('navAvatar').textContent = user.name.charAt(0).toUpperCase();
+            document.getElementById('welcomeUserHeading').textContent = 'Welcome back, ' + user.name.split(' ')[0] + '!';
+        }
+
+        const all = StorageManager.getBookings();
+        // If logged in as customer, filter by user email/phone or show all customer bookings
+        if (user && user.email) {
+            allCustomerBookings = all.filter(b => b.customerEmail === user.email || !b.corporateId);
+        } else {
+            allCustomerBookings = all.filter(b => !b.corporateId);
+        }
+
+        // Calculate dynamic KPIs
+        const total = allCustomerBookings.length;
+        const upcoming = allCustomerBookings.filter(b => b.bookingStatus === 'Confirmed' || b.bookingStatus === 'In Progress').length;
+        const completed = allCustomerBookings.filter(b => b.bookingStatus === 'Completed').length;
+        const pending = allCustomerBookings.filter(b => b.bookingStatus === 'Pending').length;
+
+        document.getElementById('statTotalBookings').textContent = total;
+        document.getElementById('statUpcomingTrips').textContent = upcoming;
+        document.getElementById('statCompletedTrips').textContent = completed;
+        document.getElementById('statPendingRequests').textContent = pending;
+
+        document.getElementById('badgeTotalBookings').textContent = total;
+        document.getElementById('badgeUpcoming').textContent = upcoming;
+
+        // Render Next Upcoming Trip Hero Card
+        renderNextTripCard();
+
+        // Render Bookings Table
+        renderTable(allCustomerBookings);
+    }
+
+    function renderNextTripCard() {
+        const nextTrips = allCustomerBookings.filter(b => b.bookingStatus === 'Confirmed' || b.bookingStatus === 'In Progress');
+        if (nextTrips.length > 0) {
+            const nearest = nextTrips[0];
+            currentViewingBookingId = nearest.id;
+            document.getElementById('nextTripDest').textContent = nearest.destination || 'Scheduled Destination';
+            document.getElementById('nextTripDate').textContent = Utils.formatDate(nearest.journeyDate);
+            document.getElementById('nextTripTime').textContent = nearest.journeyTime || 'Morning';
+            document.getElementById('nextTripStatus').textContent = nearest.bookingStatus;
+            
+            let vehText = 'Assigned: ' + (nearest.vehicleType || 'Executive Vehicle');
+            if (nearest.driverId) {
+                const driver = StorageManager.getDriverById(nearest.driverId);
+                if (driver) vehText += ' • Chauffeur: ' + driver.name;
+            }
+            document.getElementById('nextTripVehicle').textContent = vehText;
+            document.getElementById('nextTripFare').textContent = Utils.formatCurrency(nearest.estimatedFare);
+            document.getElementById('btnViewNextTrip').style.display = 'inline-flex';
+        } else {
+            document.getElementById('nextTripDest').textContent = 'No upcoming trips scheduled';
+            document.getElementById('nextTripDate').textContent = 'Ready for your next journey?';
+            document.getElementById('nextTripTime').textContent = '--';
+            document.getElementById('nextTripStatus').textContent = 'All Clear';
+            document.getElementById('nextTripVehicle').textContent = 'Book a local taxi, outstation cab or bus with instant confirmation.';
+            document.getElementById('nextTripFare').textContent = 'Special Rates';
+            const btn = document.getElementById('btnViewNextTrip');
+            btn.innerHTML = 'Book a Trip <i class="fa-solid fa-plus"></i>';
+            btn.onclick = () => window.location.href = 'cab-booking.html';
+        }
+    }
+
+    function viewNextTripDetails() {
+        if (currentViewingBookingId) {
+            viewBookingDetails(currentViewingBookingId);
+        }
+    }
+
+    function filterBookings() {
+        const q = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+        const status = document.getElementById('statusFilter').value;
+
+        const filtered = allCustomerBookings.filter(b => {
+            const matchesQuery = !q || 
+                (b.id && b.id.toLowerCase().includes(q)) || 
+                (b.destination && b.destination.toLowerCase().includes(q)) ||
+                (b.pickup && b.pickup.toLowerCase().includes(q)) ||
+                (b.serviceType && b.serviceType.toLowerCase().includes(q));
+
+            const matchesStatus = (status === 'ALL') || (b.bookingStatus === status);
+
+            return matchesQuery && matchesStatus;
+        });
+
+        renderTable(filtered);
+    }
+
+    function renderTable(bookings) {
+        const tbody = document.getElementById('bookingsTableBody');
+        const emptyState = document.getElementById('emptyState');
+        const table = document.getElementById('bookingsTable');
+
+        if (!bookings || bookings.length === 0) {
+            tbody.innerHTML = '';
+            table.style.display = 'none';
+            emptyState.style.display = 'block';
+            return;
+        }
+
+        table.style.display = 'table';
+        emptyState.style.display = 'none';
+
+        tbody.innerHTML = bookings.map(b => {
+            let driverInfo = '<span style="color:#94a3b8; font-size:12px;">Unassigned</span>';
+            if (b.driverId) {
+                const driver = StorageManager.getDriverById(b.driverId);
+                driverInfo = driver ? `<strong style="color:var(--navy,#0B2B63);"><i class="fa-solid fa-user-tie"></i> ${Utils.escapeHTML(driver.name)}</strong>` : 'Assigned';
+            }
+
+            return `
+                <tr>
+                    <td><strong>${Utils.escapeHTML(b.id)}</strong></td>
+                    <td><span class="service-pill">${Utils.escapeHTML(b.serviceType)}</span></td>
+                    <td>
+                        <div style="font-weight:600; color:var(--navy,#0B2B63);">${Utils.escapeHTML(b.pickup)} &rarr; ${Utils.escapeHTML(b.destination)}</div>
+                        <div style="font-size:11px; color:#64748b;">${Utils.escapeHTML(b.vehicleType || '')} • ${b.passengers || 1} guest(s)</div>
+                    </td>
+                    <td>
+                        <div style="font-weight:600;">${Utils.formatDate(b.journeyDate)}</div>
+                        <div style="font-size:11px; color:#64748b;">${Utils.escapeHTML(b.journeyTime || '--:--')}</div>
+                    </td>
+                    <td><strong>${Utils.formatCurrency(b.estimatedFare)}</strong></td>
+                    <td>${Utils.getStatusBadge(b.bookingStatus)}</td>
+                    <td>${driverInfo}</td>
+                    <td style="text-align:right;">
+                        <button type="button" class="btn btn-outline btn-sm" onclick="viewBookingDetails('${b.id}')" title="View Trip Details">
+                            <i class="fa-regular fa-eye"></i> Details
+                        </button>
+                        ${(b.bookingStatus === 'Pending' || b.bookingStatus === 'Confirmed') ? `
+                            <button type="button" class="btn btn-danger btn-sm" onclick="cancelBooking('${b.id}')" title="Cancel Booking">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        ` : ''}
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    function viewBookingDetails(id) {
+        const b = StorageManager.getBookingById(id);
+        if (!b) return;
+
+        currentViewingBookingId = id;
+        document.getElementById('modalBookingId').textContent = 'Booking Details - ' + b.id;
+
+        const driver = b.driverId ? StorageManager.getDriverById(b.driverId) : null;
+        const vehicle = b.vehicleId ? StorageManager.getVehicleById(b.vehicleId) : null;
+
+        document.getElementById('modalBookingBody').innerHTML = `
+            <div style="display:flex; flex-direction:column; gap:14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fbff; padding:12px 16px; border-radius:10px;">
+                    <div>
+                        <div style="font-size:11px; font-weight:700; color:var(--text-muted,#53647F);">STATUS</div>
+                        <div>${Utils.getStatusBadge(b.bookingStatus)}</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:11px; font-weight:700; color:var(--text-muted,#53647F);">FARE</div>
+                        <div style="font-size:18px; font-weight:800; color:#0B2B63;">${Utils.formatCurrency(b.estimatedFare)}</div>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label style="font-size:11px; font-weight:700; color:var(--text-muted,#53647F);">SERVICE</label>
+                        <p style="font-weight:600;">${Utils.escapeHTML(b.serviceType)}</p>
+                    </div>
+                    <div>
+                        <label style="font-size:11px; font-weight:700; color:var(--text-muted,#53647F);">VEHICLE</label>
+                        <p style="font-weight:600;">${Utils.escapeHTML(b.vehicleType || 'Executive')}</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label style="font-size:11px; font-weight:700; color:var(--text-muted,#53647F);">ROUTE</label>
+                    <p style="font-weight:600;"><i class="fa-solid fa-location-dot" style="color:#F5B51B;"></i> ${Utils.escapeHTML(b.pickup)} &rarr; <i class="fa-solid fa-flag-checkered" style="color:#07377F;"></i> ${Utils.escapeHTML(b.destination)}</p>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label style="font-size:11px; font-weight:700; color:var(--text-muted,#53647F);">SCHEDULE</label>
+                        <p>${Utils.formatDate(b.journeyDate)} at ${Utils.escapeHTML(b.journeyTime || '--:--')}</p>
+                    </div>
+                    <div>
+                        <label style="font-size:11px; font-weight:700; color:var(--text-muted,#53647F);">PASSENGERS</label>
+                        <p>${b.passengers || 1} guest(s)</p>
+                    </div>
+                </div>
+
+                <!-- Driver & Fleet -->
+                <div style="border-top:1px solid #d5e1f0; padding-top:12px; margin-top:4px;">
+                    <label style="font-size:11px; font-weight:700; color:var(--text-muted,#53647F); display:block; margin-bottom:6px;">ASSIGNED DRIVER & FLEET</label>
+                    ${driver ? `
+                        <div style="display:flex; justify-content:space-between; align-items:center; background:#f1f5f9; padding:10px 14px; border-radius:8px;">
+                            <div>
+                                <div style="font-weight:700; color:#0B2B63;"><i class="fa-solid fa-user-tie"></i> ${Utils.escapeHTML(driver.name)}</div>
+                                <div style="font-size:12px; color:#53647F;"><i class="fa-solid fa-phone"></i> ${Utils.escapeHTML(driver.phone)}</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div style="font-weight:700; color:#07377F;">${vehicle ? Utils.escapeHTML(vehicle.regNumber) : 'Assigned Fleet'}</div>
+                                <div style="font-size:12px; color:#53647F;">${vehicle ? Utils.escapeHTML(vehicle.name) : 'Fleet Car'}</div>
+                            </div>
+                        </div>
+                    ` : `
+                        <p style="font-size:12.5px; color:#64748b; font-style:italic;">
+                            <i class="fa-solid fa-clock"></i> Chauffeur & vehicle are being scheduled by the operations desk.
+                        </p>
+                    `}
+                </div>
+            </div>
+        `;
+
+        document.getElementById('modalPrintInvBtn').onclick = () => {
+            document.getElementById('bookingDetailModal').classList.remove('active');
+            Utils.showInvoiceModal(b.id);
+        };
+
+        document.getElementById('bookingDetailModal').classList.add('active');
+    }
+
+    function cancelBooking(id) {
+        Utils.confirm(
+            'Are you sure you want to cancel booking ' + id + '? This will update the status immediately across all platform dashboards.',
+            () => {
+                const res = StorageManager.cancelBooking(id, 'Cancelled by customer');
+                if (res) {
+                    Utils.showToast('Booking ' + id + ' cancelled successfully.', 'success');
+                    loadCustomerBookings();
+                } else {
+                    Utils.showToast('Unable to cancel booking.', 'error');
+                }
+            }
+        );
+    }
+
+    // Shared storage listener
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'travelnex_bookings') loadCustomerBookings();
+    });
+    window.addEventListener('travelnex_storage_changed', (e) => {
+        if (e.detail && e.detail.key === 'travelnex_bookings') loadCustomerBookings();
+    });
+
+    document.addEventListener('DOMContentLoaded', loadCustomerBookings);
+</script>
+</body>
+</html>

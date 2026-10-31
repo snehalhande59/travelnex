@@ -1,8 +1,5 @@
-node_modules/
-.next/
-.env
-.env.*
-!.env.example
-dist/
-build/
+# System & Temp Files
 .DS_Store
+Thumbs.db
+*.log
+TRAVELNEX/

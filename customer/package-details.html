@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -163,14 +163,14 @@
                             <span class="nav-dropdown-icon"><i class="fa-solid fa-van-shuttle"></i></span>
                             <div class="nav-dropdown-info">
                                 <span class="nav-dropdown-title">Mini Bus Booking</span>
-                                <span class="nav-dropdown-sub">12–26 seater Tempo Traveller</span>
+                                <span class="nav-dropdown-sub">12�26 seater Tempo Traveller</span>
                             </div>
                         </a>
                         <a href="luxury-bus.html" class="nav-dropdown-link">
                             <span class="nav-dropdown-icon"><i class="fa-solid fa-bus"></i></span>
                             <div class="nav-dropdown-info">
                                 <span class="nav-dropdown-title">Luxury Bus Booking</span>
-                                <span class="nav-dropdown-sub">32–55 seater AC Volvo coaches</span>
+                                <span class="nav-dropdown-sub">32�55 seater AC Volvo coaches</span>
                             </div>
                         </a>
                         <a href="group-transportation.html" class="nav-dropdown-link">
@@ -197,8 +197,8 @@
                     </div>
                 </li>
                 <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="packages.html">Tour Packages</a></li>
-                <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="../corporate/corporate.html">Corporate</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -250,8 +250,8 @@
             </div>
         </li>
         <li><a href="destinations.html">Destinations</a></li>
-        <li><a href="packages.html">Tour Packages</a></li>
-        <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="../corporate/corporate.html">Corporate</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -364,8 +364,8 @@
             <div class="pkg-booking-sticky" id="book">
                 <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--border);">
                     <div>
-                        <span style="font-size:12px; color:#94a3b8; text-decoration:line-through;" id="sideOldPrice">₹42,000</span>
-                        <div style="font-size:28px; font-weight:800; color:var(--dark-purple); line-height:1;" id="sidePrice">₹31,500</div>
+                        <span style="font-size:12px; color:#94a3b8; text-decoration:line-through;" id="sideOldPrice">?42,000</span>
+                        <div style="font-size:28px; font-weight:800; color:var(--dark-purple); line-height:1;" id="sidePrice">?31,500</div>
                         <span style="font-size:11px; color:var(--text-muted);">per person (All Inclusive)</span>
                     </div>
                     <span style="background:var(--lavender-soft); color:var(--primary-purple); font-size:12px; font-weight:800; padding:4px 12px; border-radius:20px;">Instant Book</span>
@@ -401,7 +401,7 @@
                     <div style="background:#faf8fe; border-radius:10px; padding:12px; font-size:12.5px; margin-top:4px;">
                         <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
                             <span style="color:#64748b;">Estimated Total:</span>
-                            <strong style="color:var(--dark-purple); font-size:16px;" id="sideTotalFare">₹63,000</strong>
+                            <strong style="color:var(--dark-purple); font-size:16px;" id="sideTotalFare">?63,000</strong>
                         </div>
                         <span style="color:#10b981; font-size:11px; font-weight:700;"><i class="fa-solid fa-circle-check"></i> Free Cancellation up to 7 days prior</span>
                     </div>
@@ -454,7 +454,7 @@
         </div>
     </div>
     <div class="container" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:20px; text-align:center; font-size:12px; color:#a78bfa;">
-        © 2026 TRAVELNEX Technologies Pvt. Ltd. All Rights Reserved.
+        � 2026 TRAVELNEX Technologies Pvt. Ltd. All Rights Reserved.
     </div>
 </footer>
 
@@ -544,7 +544,7 @@ document.getElementById('sideBookingForm').addEventListener('submit', function(e
     };
 
     const res = StorageManager.createBooking(booking);
-    alert(`🎉 Reservation ${res.id} Confirmed!\n\nPackage: ${activePackage.title}\nTotal: ₹${total.toLocaleString('en-IN')}\n\nRedirecting to your booking tracking console.`);
+    alert(`?? Reservation ${res.id} Confirmed!\n\nPackage: ${activePackage.title}\nTotal: ?${total.toLocaleString('en-IN')}\n\nRedirecting to your booking tracking console.`);
     window.location.href = `booking-details.html?id=${res.id}`;
 });
 

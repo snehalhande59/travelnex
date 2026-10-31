@@ -286,8 +286,9 @@ const Utils = {
 // Global shorthand
 const showToast = (msg, type) => Utils.showToast(msg, type);
 
-// Global Mobile Drawer Controller
+// Global Mobile Drawer & Navbar Controller
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Mobile Drawer Controller
     const navToggle = document.getElementById('navToggle');
     const mobileDrawer = document.getElementById('mobileNavDrawer');
     const mobileBackdrop = document.getElementById('mobileNavBackdrop');
@@ -308,4 +309,58 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle) navToggle.addEventListener('click', openDrawer);
     if (mobileClose) mobileClose.addEventListener('click', closeDrawer);
     if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeDrawer);
+
+    // 2. Global Auth State for Navbar & Topbar
+    if (typeof Auth !== 'undefined' && Auth.getCurrentUser) {
+        const currentUser = Auth.getCurrentUser();
+        if (currentUser) {
+            const firstName = (currentUser.name || 'User').split(' ')[0];
+            const authBtns = document.querySelectorAll('#navbarAuthBtn, .nav-auth-pill');
+            authBtns.forEach(btn => {
+                btn.innerHTML = `<i class="fa-solid fa-circle-user"></i> <span>${Utils.escapeHTML(firstName)}</span>`;
+                btn.href = 'profile.html';
+                btn.title = `Logged in as ${currentUser.name}`;
+            });
+            const topbarSignIn = document.getElementById('topbarSignIn');
+            if (topbarSignIn) {
+                topbarSignIn.innerHTML = `<i class="fa-solid fa-circle-user"></i> ${Utils.escapeHTML(firstName)}`;
+                topbarSignIn.href = 'profile.html';
+            }
+            const drawerAuthLink = document.getElementById('drawerAuthLink');
+            if (drawerAuthLink) {
+                drawerAuthLink.innerHTML = `<i class="fa-solid fa-circle-user"></i> My Profile (${Utils.escapeHTML(firstName)})`;
+                drawerAuthLink.href = 'profile.html';
+            }
+        }
+    }
+
+    // 3. Global Scroll Reveal Animations
+    const reveals = document.querySelectorAll('.scroll-reveal');
+    if (reveals.length > 0) {
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(r => observer.observe(r));
+        } else {
+            reveals.forEach(r => r.classList.add('revealed'));
+        }
+    }
+
+    // 4. Smooth Anchor Scrolling
+    document.querySelectorAll('a[href^="#"]:not([href="#"]):not([href="#enquiry"])').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                e.preventDefault();
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
 });

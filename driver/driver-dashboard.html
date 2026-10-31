@@ -23,23 +23,37 @@
         </div>
 
         <div class="sidebar-menu">
-            <div class="sidebar-section-title">Driver App</div>
+            <div class="sidebar-section-title">Navigation</div>
             <a href="driver-dashboard.html" class="sidebar-link active">
                 <i class="fa-solid fa-gauge-high"></i>
-                <span>Driver Dashboard</span>
+                <span>Dashboard</span>
             </a>
             <a href="assigned-trips.html" class="sidebar-link">
                 <i class="fa-solid fa-car-side"></i>
                 <span>Assigned Trips</span>
                 <span class="nav-count" id="badgeAssigned">0</span>
             </a>
+            <a href="assigned-trips.html?filter=today" class="sidebar-link">
+                <i class="fa-solid fa-calendar-day"></i>
+                <span>Today's Schedule</span>
+            </a>
             <a href="trip-history.html" class="sidebar-link">
                 <i class="fa-solid fa-clock-rotate-left"></i>
-                <span>Trip History & Earnings</span>
+                <span>Trip History</span>
             </a>
             <a href="driver-profile.html" class="sidebar-link">
                 <i class="fa-solid fa-user-gear"></i>
                 <span>Driver Profile</span>
+            </a>
+
+            <div class="sidebar-section-title">System</div>
+            <a href="javascript:void(0)" class="sidebar-link" onclick="Utils.showToast('You have 0 unread alerts.', 'info')">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+            <a href="javascript:void(0)" class="sidebar-link" onclick="Auth.logout('../driver/driver-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Logout</span>
             </a>
         </div>
 

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -388,14 +388,14 @@
                             <span class="nav-dropdown-icon"><i class="fa-solid fa-van-shuttle"></i></span>
                             <div class="nav-dropdown-info">
                                 <span class="nav-dropdown-title">Mini Bus Booking</span>
-                                <span class="nav-dropdown-sub">12–26 seater Tempo Traveller</span>
+                                <span class="nav-dropdown-sub">12�26 seater Tempo Traveller</span>
                             </div>
                         </a>
                         <a href="luxury-bus.html" class="nav-dropdown-link">
                             <span class="nav-dropdown-icon"><i class="fa-solid fa-bus"></i></span>
                             <div class="nav-dropdown-info">
                                 <span class="nav-dropdown-title">Luxury Bus Booking</span>
-                                <span class="nav-dropdown-sub">32–55 seater AC Volvo coaches</span>
+                                <span class="nav-dropdown-sub">32�55 seater AC Volvo coaches</span>
                             </div>
                         </a>
                         <a href="group-transportation.html" class="nav-dropdown-link">
@@ -422,8 +422,8 @@
                     </div>
                 </li>
                 <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="packages.html">Tour Packages</a></li>
-                <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="../corporate/corporate.html">Corporate</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -475,8 +475,8 @@
             </div>
         </li>
         <li><a href="destinations.html">Destinations</a></li>
-        <li><a href="packages.html">Tour Packages</a></li>
-        <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="../corporate/corporate.html">Corporate</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -525,9 +525,9 @@
                 <label><i class="fa-solid fa-indian-rupee-sign"></i> Budget</label>
                 <select id="filterBudget" onchange="applyCruiseFilter()">
                     <option value="all">Any Budget</option>
-                    <option value="30000">Under ₹30,000</option>
-                    <option value="70000">Under ₹70,000</option>
-                    <option value="100000">Under ₹1,00,000</option>
+                    <option value="30000">Under ?30,000</option>
+                    <option value="70000">Under ?70,000</option>
+                    <option value="100000">Under ?1,00,000</option>
                 </select>
             </div>
             <div class="filter-group">
@@ -621,7 +621,7 @@
                 <div style="background:#fef7e6; border:1px solid #f9df9e; border-radius:8px; padding:12px 16px; margin:14px 0;">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <span style="font-size:13px; color:#78350f; font-weight:600;">Estimated Total Fare:</span>
-                        <span style="font-size:20px; font-weight:800; color:#78350f; font-family:'Outfit';" id="modalTotalPrice">₹0</span>
+                        <span style="font-size:20px; font-weight:800; color:#78350f; font-family:'Outfit';" id="modalTotalPrice">?0</span>
                     </div>
                     <span style="font-size:11px; color:#92400e; display:block; margin-top:2px;">Includes port taxes, stateroom accommodation & gourmet meals.</span>
                 </div>
@@ -766,8 +766,8 @@ function renderCruises(cruises) {
                         <div class="cruise-price-block">
                             <span class="price-label">Starting per person</span>
                             <div>
-                                <span class="price-value">₹${cruise.price.toLocaleString('en-IN')}</span>
-                                ${cruise.originalPrice ? `<span class="price-strike">₹${cruise.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                                <span class="price-value">?${cruise.price.toLocaleString('en-IN')}</span>
+                                ${cruise.originalPrice ? `<span class="price-strike">?${cruise.originalPrice.toLocaleString('en-IN')}</span>` : ''}
                             </div>
                         </div>
                         <button type="button" class="btn btn-gold" onclick="openCruiseBooking('${cruise.id}')">
@@ -839,7 +839,7 @@ function openCruiseBooking(cruiseId) {
     const cabinSelect = document.getElementById('bookCabinType');
     cabinSelect.innerHTML = (cruise.cabins || ['Standard Cabin']).map((c, idx) => {
         const extra = idx === 0 ? 0 : idx * 6500;
-        return `<option value="${c}" data-extra="${extra}">${c} ${extra ? `(+₹${extra.toLocaleString('en-IN')})` : '(Base Fare)'}</option>`;
+        return `<option value="${c}" data-extra="${extra}">${c} ${extra ? `(+?${extra.toLocaleString('en-IN')})` : '(Base Fare)'}</option>`;
     }).join('');
 
     recalculateCruisePrice();
@@ -857,7 +857,7 @@ function recalculateCruisePrice() {
     const extraPerGuest = parseInt(cabinOption.options[cabinOption.selectedIndex]?.dataset?.extra || 0, 10);
 
     const total = (basePrice + extraPerGuest) * guests;
-    document.getElementById('modalTotalPrice').textContent = `₹${total.toLocaleString('en-IN')}`;
+    document.getElementById('modalTotalPrice').textContent = `?${total.toLocaleString('en-IN')}`;
 }
 
 function handleCruiseBooking(e) {

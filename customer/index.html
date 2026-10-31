@@ -101,94 +101,118 @@ input, select { font-family: inherit; }
     color: var(--pink-accent);
 }
 
-/* 2. EXACT CUSTOMER NAVBAR (Strict Reference Match) */
+/* 2. EXACT TRAVELNEX NAVBAR (Royal Blue & Navy Background, White Text, Gold Accents) */
 .navbar {
-    height: 66px;
-    background: #ffffff;
-    display: flex;
-    align-items: center;
+    height: 70px;
+    background: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 12px rgba(46, 16, 101, 0.04);
-    border-bottom: 1px solid #edf0f5;
+    box-shadow: 0 4px 20px rgba(7, 55, 127, 0.22);
+    border-bottom: 1px solid rgba(245, 181, 27, 0.25);
+    width: 100%;
+}
+.navbar .container {
+    height: 100%;
+    max-width: 1360px;
+    width: 100%;
+    padding: 0 clamp(16px, 2.5vw, 32px);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-sizing: border-box;
 }
 .nav-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
     width: 100%;
+    height: 100%;
+    gap: 16px;
 }
 .logo {
     display: inline-flex;
     align-items: center;
-    gap: 9px;
+    gap: 10px;
     font-family: 'Outfit', sans-serif;
     font-size: 22px;
     font-weight: 800;
     letter-spacing: -0.5px;
-    color: var(--dark-purple);
+    color: #ffffff;
+    text-decoration: none;
     flex-shrink: 0;
 }
 .logo-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 9px;
-    background: var(--purple-btn-gradient);
-    color: #ffffff;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #F5B51B 0%, #DE9F0C 100%);
+    color: #0B2B63;
     display: grid;
     place-items: center;
-    font-size: 16px;
+    font-size: 17px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(245, 181, 27, 0.35);
+    transition: transform 0.25s ease;
+}
+.logo:hover .logo-icon {
+    transform: scale(1.06) rotate(-3deg);
 }
 .logo span {
-    color: var(--pink-accent);
+    color: var(--accent-yellow);
 }
 .nav-links {
+    height: 100%;
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: clamp(8px, 1.2vw, 22px);
     list-style: none;
     margin: 0;
     padding: 0;
 }
 .nav-links li {
-    display: inline-flex;
+    height: 100%;
+    display: flex;
     align-items: center;
+    position: relative;
 }
 .nav-links a {
-    position: relative;
-    font-size: 13.5px;
-    font-weight: 600;
-    color: #374151;
-    padding: 22px 2px;
+    height: 100%;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    padding: 0 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #ffffff;
+    position: relative;
     transition: color 0.2s ease;
     text-decoration: none;
     white-space: nowrap;
 }
 .nav-links a:hover {
-    color: var(--primary-blue);
+    color: var(--accent-yellow);
 }
 .nav-links a.active {
-    color: var(--primary-blue);
+    color: var(--accent-yellow);
     font-weight: 700;
 }
 .nav-links a.active::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    bottom: -1px;
+    left: 2px;
+    right: 2px;
     height: 3px;
     background: var(--accent-yellow);
-    border-radius: 2px 2px 0 0;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 -2px 8px rgba(245, 181, 27, 0.5);
 }
 
 /* Services Dropdown (Desktop) */
 .nav-dropdown-item {
+    height: 100%;
     position: relative;
 }
 .nav-dropdown-toggle {
@@ -196,21 +220,25 @@ input, select { font-family: inherit; }
 }
 .nav-caret {
     font-size: 10px;
-    transition: transform 0.25s ease;
+    margin-left: 4px;
+    transition: transform 0.25s ease, color 0.2s ease;
+    color: rgba(255, 255, 255, 0.8);
 }
 .nav-dropdown-item:hover .nav-caret,
 .nav-dropdown-item.active .nav-caret {
     transform: rotate(180deg);
+    color: var(--accent-yellow);
 }
 .nav-dropdown-menu {
     position: absolute;
-    top: calc(100% - 2px);
+    top: 100%;
     left: 0;
-    width: 320px;
+    width: 340px;
     background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: 14px;
-    box-shadow: 0 16px 40px rgba(11, 43, 99, 0.14);
+    border: 1px solid rgba(7, 55, 127, 0.12);
+    border-top: 3px solid var(--accent-yellow);
+    border-radius: 0 0 14px 14px;
+    box-shadow: 0 18px 45px rgba(11, 43, 99, 0.2);
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -218,7 +246,7 @@ input, select { font-family: inherit; }
     opacity: 0;
     visibility: hidden;
     transform: translateY(8px);
-    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.24s;
     z-index: 1050;
 }
 .nav-dropdown-item:hover .nav-dropdown-menu,
@@ -226,6 +254,57 @@ input, select { font-family: inherit; }
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+}
+.nav-dropdown-link {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 10px 12px !important;
+    border-radius: 10px !important;
+    transition: background 0.2s ease, transform 0.18s ease !important;
+    text-decoration: none !important;
+    white-space: normal !important;
+    color: var(--text-dark) !important;
+    height: auto !important;
+}
+.nav-dropdown-link::after {
+    display: none !important;
+}
+.nav-dropdown-link:hover {
+    background: var(--light-blue-bg) !important;
+    color: var(--primary-blue) !important;
+    transform: translateX(4px);
+}
+.nav-dropdown-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: rgba(7, 55, 127, 0.08);
+    color: var(--primary-blue);
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.nav-dropdown-link:hover .nav-dropdown-icon {
+    background: var(--primary-blue);
+    color: var(--accent-yellow);
+}
+.nav-dropdown-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+}
+.nav-dropdown-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--dark-navy);
+}
+.nav-dropdown-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
 }
 .nav-dropdown-link {
     display: flex !important;
@@ -309,6 +388,27 @@ input, select { font-family: inherit; }
     gap: 12px;
     flex-shrink: 0;
 }
+.nav-auth-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #ffffff !important;
+    font-size: 13px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 0 14px;
+    height: 38px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+.nav-auth-pill:hover {
+    background: rgba(245, 181, 27, 0.25);
+    color: var(--accent-yellow) !important;
+    border-color: var(--accent-yellow);
+}
 .btn-book-trip {
     display: inline-flex;
     align-items: center;
@@ -316,39 +416,214 @@ input, select { font-family: inherit; }
     gap: 8px;
     background: var(--accent-yellow);
     color: var(--dark-navy) !important;
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 800;
-    height: 38px;
+    height: 40px;
     padding: 0 20px;
     border-radius: 8px;
-    transition: var(--transition);
-    box-shadow: 0 4px 14px rgba(245, 181, 27, 0.3);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 14px rgba(245, 181, 27, 0.35);
     border: none;
     cursor: pointer;
     white-space: nowrap;
     text-decoration: none;
+    flex-shrink: 0;
 }
 .btn-book-trip:hover {
-    background: var(--pink-hover);
+    background: #e5a714;
     color: var(--dark-navy) !important;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(245, 181, 27, 0.45);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 181, 27, 0.55);
 }
 .menu-toggle {
     display: none;
-    background: none;
-    font-size: 20px;
-    color: var(--dark-purple);
-    width: 38px;
-    height: 38px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    font-size: 18px;
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
     border-radius: 8px;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: none;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
 }
 .menu-toggle:hover {
-    background: var(--lavender-soft);
+    background: rgba(245, 181, 27, 0.25);
+    color: var(--accent-yellow);
+    border-color: var(--accent-yellow);
+}
+
+/* ==========================================================================
+   OUR TRANSPORTATION & TRAVEL SERVICES SECTION
+   ========================================================================== */
+.services-platform-section {
+    padding: 75px 0 85px;
+    background: #F8FAFC;
+    border-bottom: 1px solid #E2E8F0;
+    position: relative;
+}
+.services-grid-platform {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 36px;
+}
+.service-platform-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 26px 22px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 8px 24px rgba(11, 43, 99, 0.06);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+.service-platform-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(7, 55, 127, 0.14);
+    border-color: rgba(7, 55, 127, 0.3);
+}
+.service-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.service-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--light-blue-bg);
+    color: var(--primary-blue);
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    transition: all 0.25s ease;
+}
+.service-platform-card:hover .service-card-icon {
+    background: var(--primary-blue);
+    color: var(--accent-yellow);
+    transform: scale(1.08);
+}
+.service-card-badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary-blue);
+    background: var(--light-blue-bg);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+.service-card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--dark-navy);
+    margin-bottom: 8px;
+}
+.service-card-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 18px;
+    flex: 1;
+}
+.service-card-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-blue);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.service-card-action:hover {
+    color: #DE9F0C;
+    transform: translateX(4px);
+}
+.corporate-platform-banner {
+    background: linear-gradient(135deg, #07377F 0%, #0B2B63 60%, #061C40 100%);
+    border-radius: 18px;
+    padding: 32px 36px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    box-shadow: 0 14px 35px rgba(7, 55, 127, 0.25);
+    border: 1px solid rgba(245, 181, 27, 0.35);
+}
+.corporate-banner-text h3 {
+    font-size: 22px;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+.corporate-banner-text p {
+    font-size: 13.5px;
+    color: #EAF1FA;
+    max-width: 650px;
+    line-height: 1.6;
+}
+.corporate-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+.btn-corp-portal {
+    background: var(--accent-yellow);
+    color: var(--dark-navy) !important;
+    font-weight: 800;
+    font-size: 13.5px;
+    height: 42px;
+    padding: 0 22px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(245, 181, 27, 0.35);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+.btn-corp-portal:hover {
+    background: #e5a714;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(245, 181, 27, 0.5);
+}
+.btn-corp-login {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 13.5px;
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+.btn-corp-login:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: #ffffff;
+}
+
+@media (max-width: 1100px) {
+    .services-grid-platform { grid-template-columns: repeat(2, 1fr); }
+    .corporate-platform-banner { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 640px) {
+    .services-grid-platform { grid-template-columns: 1fr; }
+    .corporate-banner-actions { flex-direction: column; width: 100%; }
+    .btn-corp-portal, .btn-corp-login { width: 100%; justify-content: center; }
 }
 
 /* 3. HERO SECTION */
@@ -1202,15 +1477,17 @@ input, select { font-family: inherit; }
 .mobile-drawer {
     position: fixed;
     top: 0;
-    right: -320px;
-    width: 300px;
+    right: -340px;
+    width: 320px;
+    max-width: 86vw;
     height: 100%;
     background: #ffffff;
     z-index: 2000;
-    padding: 30px 24px;
+    padding: 24px 20px;
     box-shadow: -10px 0 35px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
     transition: right 0.35s ease;
 }
 .mobile-drawer.active {
@@ -1291,6 +1568,11 @@ input, select { font-family: inherit; }
     .destinations-grid-blueprint { grid-template-columns: repeat(2, 1fr); }
     .footer-grid-blueprint { grid-template-columns: repeat(2, 1fr); }
 }
+@media (max-width: 1160px) {
+    .nav-links, .nav-contact-pill { display: none !important; }
+    .menu-toggle { display: inline-flex !important; }
+    .btn-book-trip { height: 38px; padding: 0 16px; font-size: 12.5px; }
+}
 @media (max-width: 992px) {
     .hero-content { grid-template-columns: 1fr; }
     .hero-cards-wrapper { display: none; }
@@ -1301,11 +1583,9 @@ input, select { font-family: inherit; }
 }
 @media (max-width: 768px) {
     .topbar { display: none; }
-    .nav-links, .nav-contact-pill { display: none; }
-    .menu-toggle { display: block; }
-    .hero { min-height: 520px; padding: 40px 0 100px; }
-    .hero h1 { font-size: 32px; }
-    .floating-search-section { margin-top: -50px; }
+    .hero { min-height: 500px; padding: 40px 0 90px; }
+    .hero h1 { font-size: 28px; }
+    .floating-search-section { margin-top: -45px; }
     .search-form-grid { grid-template-columns: 1fr; }
     .btn-submit-search { grid-column: span 1; }
     .deals-grid-four { grid-template-columns: 1fr; }
@@ -1314,6 +1594,334 @@ input, select { font-family: inherit; }
     .footer-grid-blueprint { grid-template-columns: 1fr; }
     .newsletter-subscribe-form { flex-direction: column; border-radius: 16px; padding: 12px; gap: 10px; }
     .btn-newsletter-submit { width: 100%; border-radius: 12px; }
+}
+@media (max-width: 540px) {
+    .navbar .container { padding: 0 16px; }
+    .nav-actions .btn-book-trip { display: none !important; }
+}
+
+/* 11 Services Card Enhancements */
+.service-card-rate-badge {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--primary-blue);
+    background: #EAF1FA;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(7, 55, 127, 0.12);
+}
+.service-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+}
+.btn-card-outline {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary-blue);
+    border: 1.5px solid var(--primary-blue);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+.btn-card-outline:hover {
+    background: var(--light-blue-bg);
+    color: var(--dark-navy);
+}
+.btn-card-primary {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    background: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+.btn-card-primary:hover {
+    background: linear-gradient(135deg, #0B2B63 0%, #07377F 100%);
+    box-shadow: 0 4px 12px rgba(7, 55, 127, 0.28);
+}
+
+/* How TRAVELNEX Works */
+.how-it-works-section {
+    padding: 85px 0;
+    background: #f8fbff;
+    position: relative;
+    border-top: 1px solid var(--border-light);
+}
+.steps-grid-four {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+}
+.step-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(11, 43, 99, 0.05);
+    border: 1px solid var(--border-light);
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.step-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(7, 55, 127, 0.12);
+    border-color: rgba(7, 55, 127, 0.3);
+}
+.step-number-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--light-blue-bg);
+    color: var(--primary-blue);
+    font-weight: 800;
+    font-size: 12px;
+    display: grid;
+    place-items: center;
+}
+.step-icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
+    color: var(--accent-yellow);
+    display: grid;
+    place-items: center;
+    font-size: 26px;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 20px rgba(7, 55, 127, 0.22);
+}
+.step-card h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--dark-navy);
+    margin-bottom: 10px;
+}
+.step-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+}
+
+/* Customer Testimonials */
+.testimonials-section {
+    padding: 85px 0;
+    background: #ffffff;
+}
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 40px;
+}
+.testimonial-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 30px 26px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 10px 30px rgba(11, 43, 99, 0.06);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(7, 55, 127, 0.12);
+}
+.testimonial-stars {
+    color: var(--accent-yellow);
+    font-size: 15px;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 4px;
+}
+.testimonial-quote {
+    font-size: 14px;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 22px;
+    flex: 1;
+    font-style: italic;
+}
+.testimonial-user {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-top: 1px solid var(--border-light);
+    padding-top: 16px;
+}
+.user-avatar-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+.user-info-text h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark-navy);
+    margin-bottom: 2px;
+}
+.user-info-text span {
+    font-size: 11.5px;
+    color: var(--text-muted);
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 85px 0;
+    background: #f8fbff;
+    border-top: 1px solid var(--border-light);
+}
+.faq-accordion-box {
+    max-width: 900px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.faq-item {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+.faq-item.active {
+    border-color: var(--primary-blue);
+    box-shadow: 0 6px 20px rgba(7, 55, 127, 0.08);
+}
+.faq-header-btn {
+    width: 100%;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark-navy);
+    cursor: pointer;
+    font-family: inherit;
+    gap: 16px;
+}
+.faq-header-btn i {
+    color: var(--primary-blue);
+    transition: transform 0.25s ease;
+}
+.faq-item.active .faq-header-btn i {
+    transform: rotate(180deg);
+}
+.faq-answer-body {
+    padding: 0 22px 18px;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    display: none;
+}
+.faq-item.active .faq-answer-body {
+    display: block;
+}
+
+/* Concierge Helpdesk Box */
+.helpdesk-cta-box {
+    background: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
+    border-radius: 18px;
+    padding: 34px 40px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 40px auto 0;
+    max-width: 1100px;
+    box-shadow: 0 12px 35px rgba(7, 55, 127, 0.22);
+}
+.helpdesk-text h3 {
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+.helpdesk-text p {
+    color: #eaf1fa;
+    font-size: 13.5px;
+}
+.helpdesk-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.btn-help-call {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #F5B51B;
+    color: #0B2B63;
+    font-weight: 800;
+    font-size: 13px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+.btn-help-call:hover {
+    background: #DE9F0C;
+}
+.btn-help-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+.btn-help-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 992px) {
+    .steps-grid-four { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .helpdesk-cta-box { flex-direction: column; text-align: center; }
+}
+@media (max-width: 600px) {
+    .steps-grid-four { grid-template-columns: 1fr; }
+    .service-card-actions { flex-direction: column; }
 }
 </style>
 </head>
@@ -1328,8 +1936,12 @@ input, select { font-family: inherit; }
             <span><i class="fa-solid fa-clock"></i> 24/7 Dedicated Concierge & Dispatch</span>
         </div>
         <div class="top-info">
+            <a href="login.html" id="topbarSignIn" style="color:#ffffff; font-weight:700; display:inline-flex; align-items:center; gap:6px; text-decoration:none;"><i class="fa-solid fa-user"></i> Sign In</a>
+            <span style="opacity:0.4;">|</span>
+            <a href="register.html" style="color:var(--accent-yellow); font-weight:700; display:inline-flex; align-items:center; gap:6px; text-decoration:none;"><i class="fa-solid fa-user-plus"></i> Register</a>
+            <span style="opacity:0.4;">|</span>
             <span><i class="fa-solid fa-shield-halved"></i> 100% Best Price Guarantee</span>
-            <span><i class="fa-solid fa-location-dot"></i> HQ: Pune, Maharashtra, India</span>
+            <span><i class="fa-solid fa-location-dot"></i> HQ: Pune, India</span>
         </div>
     </div>
 </div>
@@ -1342,8 +1954,8 @@ input, select { font-family: inherit; }
             <a href="index.html" class="logo">
                 <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
                 <div style="display:flex; flex-direction:column; line-height:1;">
-                    <span style="font-size:20px; font-weight:800; color:var(--dark-navy); letter-spacing:-0.5px;">TRAVEL<span style="color:var(--accent-yellow);">NEX</span> <i class="fa-solid fa-paper-plane" style="font-size:11px; color:var(--accent-yellow); margin-left:2px;"></i></span>
-                    <span style="font-size:8.5px; font-weight:600; color:var(--text-muted); letter-spacing:0.4px;">Travel Beyond Limits</span>
+                    <span style="font-size:20px; font-weight:800; color:#ffffff; letter-spacing:-0.5px;">TRAVEL<span style="color:var(--accent-yellow);">NEX</span> <i class="fa-solid fa-paper-plane" style="font-size:11px; color:var(--accent-yellow); margin-left:2px;"></i></span>
+                    <span style="font-size:8.5px; font-weight:600; color:#EAF1FA; letter-spacing:0.4px;">Travel Beyond Limits</span>
                 </div>
             </a>
 
@@ -1414,14 +2026,17 @@ input, select { font-family: inherit; }
                     </div>
                 </li>
                 <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="packages.html">Tour Packages</a></li>
-                <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="../corporate/corporate.html">Corporate</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
 
-            <!-- Right: Gold Book Your Trip Button & Hamburger -->
+            <!-- Right: Auth Pill + Gold Book Your Trip Button + Hamburger -->
             <div class="nav-actions">
+                <a href="login.html" id="navbarAuthBtn" class="nav-auth-pill d-none-mobile">
+                    <i class="fa-solid fa-circle-user"></i> <span>Sign In</span>
+                </a>
                 <a href="packages.html" class="btn-book-trip d-none-mobile">
                     <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
                 </a>
@@ -1465,12 +2080,13 @@ input, select { font-family: inherit; }
             </div>
         </div>
         <a href="destinations.html"><i class="fa-solid fa-earth-americas" style="color:var(--primary-blue);"></i> Destinations</a>
-        <a href="packages.html"><i class="fa-solid fa-suitcase" style="color:var(--primary-blue);"></i> Tour Packages</a>
-        <a href="../corporate/corporate.html"><i class="fa-solid fa-briefcase" style="color:var(--primary-blue);"></i> Corporate Transportation</a>
+        <a href="packages.html"><i class="fa-solid fa-suitcase" style="color:var(--primary-blue);"></i> Packages</a>
+        <a href="../corporate/corporate.html"><i class="fa-solid fa-briefcase" style="color:var(--primary-blue);"></i> Corporate</a>
         <a href="about.html"><i class="fa-solid fa-circle-info" style="color:var(--primary-blue);"></i> About Us</a>
         <a href="contact.html"><i class="fa-solid fa-envelope" style="color:var(--primary-blue);"></i> Contact</a>
-        <div style="padding:16px 0 0;">
-            <a href="packages.html" class="btn-book-trip" style="width:100%; text-align:center; justify-content:center;">
+        <div style="padding:14px 0 0; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:10px;">
+            <a href="login.html" id="drawerAuthLink" style="font-size:14px; font-weight:700; color:var(--primary-blue); display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-user"></i> Sign In / Register</a>
+            <a href="packages.html" class="btn-book-trip" style="width:100%; text-align:center; justify-content:center; display:flex;">
                 <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
             </a>
         </div>
@@ -1493,11 +2109,11 @@ input, select { font-family: inherit; }
             <!-- Left Side: Heading, Description & Discover Now CTA -->
             <div>
                 <span class="hero-badge"><i class="fa-solid fa-compass"></i> EXPLORE BEAUTIFUL WORLD WITH US</span>
-                <h1>Discover Unforgettable Journeys Across <span class="highlight-text">The World</span></h1>
-                <p>Discover breathtaking landscapes, vibrant cultures and unforgettable adventures across the globe with TRAVELNEX's premium curated tour packages and seamless travel management.</p>
+                <h1>Your Complete Travel & <span class="highlight-text">Transportation Partner</span></h1>
+                <p>From everyday local rides to outstation journeys, airport transfers, group transportation and corporate travel – plan everything with TRAVELNEX.</p>
                 <div class="hero-actions">
-                    <a href="#hot-deals" class="btn-discover-hero">Discover Now <i class="fa-solid fa-arrow-right"></i></a>
-                    <a href="packages.html" class="btn-explore-outline"><i class="fa-solid fa-suitcase-rolling"></i> View All Packages</a>
+                    <a href="#mobility-services" class="btn-discover-hero">Explore Services <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="packages.html" class="btn-explore-outline"><i class="fa-solid fa-suitcase-rolling"></i> View Packages</a>
                 </div>
             </div>
 
@@ -1624,6 +2240,201 @@ input, select { font-family: inherit; }
     </div>
 </section>
 
+<!-- 4.1 COMPREHENSIVE TRANSPORTATION & TRAVEL SERVICES SECTION -->
+<section class="services-platform-section scroll-reveal" id="mobility-services">
+    <div class="container">
+        <div class="section-header-center">
+            <span class="section-tag">COMPREHENSIVE MOBILITY PLATFORM</span>
+            <h2 class="section-title">Our Transportation & Travel Services</h2>
+            <p class="section-subtitle">From on-demand local city cabs to 55-seater luxury coaches and corporate contracts, TRAVELNEX covers every journey with verified chauffeurs and transparent pricing.</p>
+        </div>
+
+        <div class="services-grid-platform">
+            <!-- 1. Local Taxi Services -->
+            <div class="service-platform-card">
+                <div class="service-card-top">
+                    <div class="service-card-icon"><i class="fa-solid fa-taxi"></i></div>
+                    <span class="service-card-badge">Instant Booking</span>
+                </div>
+                <h3 class="service-card-title">Local Taxi Services</h3>
+                <span class="service-card-rate-badge">₹12/km onwards • Instant Dispatch</span>
+                <p class="service-card-desc">City point-to-point transfers, daily office commute and flexible hourly packages with verified background-checked drivers.</p>
+                <div class="service-card-actions">
+                    <a href="local-taxi.html" class="btn-card-outline">View Details</a>
+                    <a href="local-taxi.html#bookForm" class="btn-card-primary">Book Now</a>
+                </div>
+            </div>
+
+            <!-- 2. Outstation Cabs -->
+            <div class="service-platform-card">
+                <div class="service-card-top">
+                    <div class="service-card-icon"><i class="fa-solid fa-car-side"></i></div>
+                    <span class="service-card-badge">One-Way / Round</span>
+                </div>
+                <h3 class="service-card-title">Outstation Cabs</h3>
+                <span class="service-card-rate-badge">₹14/km onwards • All Inclusive Fares</span>
+                <p class="service-card-desc">Intercity round trips and one-way drops across Maharashtra and India with toll-inclusive transparent rates.</p>
+                <div class="service-card-actions">
+                    <a href="outstation-cabs.html" class="btn-card-outline">View Details</a>
+                    <a href="outstation-cabs.html#bookForm" class="btn-card-primary">Book Now</a>
+                </div>
+            </div>
+
+            <!-- 3. Airport Pickup & Drop -->
+            <div class="service-platform-card">
+                <div class="service-card-top">
+                    <div class="service-card-icon"><i class="fa-solid fa-plane-departure"></i></div>
+                    <span class="service-card-badge">Flight Tracked</span>
+                </div>
+                <h3 class="service-card-title">Airport Pickup & Drop</h3>
+                <span class="service-card-rate-badge">From ₹899 Flat • Free 45m Waiting</span>
+                <p class="service-card-desc">Never miss a flight with guaranteed on-time airport transfers, flight arrival tracking, and free 45-minute waiting.</p>
+                <div class="service-card-actions">
+                    <a href="airport-transfer.html" class="btn-card-outline">View Details</a>
+                    <a href="airport-transfer.html#bookForm" class="btn-card-primary">Book Now</a>
+                </div>
+            </div>
+
+            <!-- 4. Mini Bus Booking -->
+            <div class="service-platform-card">
+                <div class="service-card-top">
+                    <div class="service-card-icon"><i class="fa-solid fa-van-shuttle"></i></div>
+                    <span class="service-card-badge">12–26 Seater</span>
+                </div>
+                <h3 class="service-card-title">Mini Bus Booking</h3>
+                <span class="service-card-rate-badge">From ₹24/km • Tempo & Urbania AC</span>
+                <p class="service-card-desc">Luxury AC Tempo Travellers and Urbania coaches perfect for family gatherings, pilgrimage tours, and weekend trips.</p>
+                <div class="service-card-actions">
+                    <a href="mini-bus.html" class="btn-card-outline">View Details</a>
+                    <a href="mini-bus.html#bookForm" class="btn-card-primary">Book Now</a>
+                </div>
+            </div>
+
+            <!-- 5. Luxury Bus Booking -->
+            <div class="service-platform-card">
+                <div class="service-card-top">
+                    <div class="service-card-icon"><i class="fa-solid fa-bus"></i></div>
+                    <span class="service-card-badge">32–55 Seater</span>
+                </div>
+                <h3 class="service-card-title">Luxury Bus Booking</h3>
+                <span class="service-card-rate-badge">From ₹42/km • Volvo & BharatBenz AC</span>
+                <p class="service-card-desc">32 to 55-seater air-conditioned Volvo and BharatBenz luxury coaches with reclining push-back seats and onboard amenities.</p>
+                <div class="service-card-actions">
+                    <a href="luxury-bus.html" class="btn-card-outline">View Details</a>
+                    <a href="luxury-bus.html#bookForm" class="btn-card-primary">Book Now</a>
+                </div>
+            </div>
+
+            <!-- 6. Group Transportation -->
+            <div class="service-platform-card">
+                <div class="service-card-top">
+                    <div class="service-card-icon"><i class="fa-solid fa-users"></i></div>
+                    <span class="service-card-badge">Weddings & Events</span>
+                </div>
+                <h3 class="service-card-title">Group Transportation</h3>
+                <span class="service-card-rate-badge">Custom Fleet • Dedicated Coordinator</span>
+                <p class="service-card-desc">Full-scale event transportation management for grand destination weddings, sports teams, and college excursions.</p>
+                <div class="service-card-actions">
+                    <a href="group-transportation.html" class="btn-card-outline">View Details</a>
+                    <a href="group-transportation.html#bookForm" class="btn-card-primary">Plan Group</a>
+                </div>
+            </div>
+
+            <!-- 7. Railway Ticket Booking -->
+            <div class="service-platform-card">
+                <div class="service-card-top">
+                    <div class="service-card-icon"><i class="fa-solid fa-train"></i></div>
+                    <span class="service-card-badge">IRCTC Assisted</span>
+                </div>
+                <h3 class="service-card-title">Railway Ticket Booking</h3>
+                <span class="service-card-rate-badge">Assisted Desk • PNR Tracking</span>
+                <p class="service-card-desc">IRCTC verified ticket inquiry, Tatkal booking assistance, confirmation status tracking, and group train reservation desk.</p>
+                <div class="service-card-actions">
+                    <a href="railway-booking.html" class="btn-card-outline">View Details</a>
+                    <a href="railway-booking.html#bookForm" class="btn-card-primary">Book Train</a>
+                </div>
+            </div>
+
+            <!-- 8. Maharashtra ST Bus Booking -->
+            <div class="service-platform-card">
+                <div class="service-card-top">
+                    <div class="service-card-icon"><i class="fa-solid fa-bus-simple"></i></div>
+                    <span class="service-card-badge">State Transport</span>
+                </div>
+                <h3 class="service-card-title">Maharashtra ST Bus Booking</h3>
+                <span class="service-card-rate-badge">Official Routes • Shivneri & Asiad</span>
+                <p class="service-card-desc">Official MSRTC booking support for Shivneri AC Volvo, Shivshahi sleeper, Asiad semi-luxury, and Lalpari ordinary routes.</p>
+                <div class="service-card-actions">
+                    <a href="st-bus-booking.html" class="btn-card-outline">View Details</a>
+                    <a href="st-bus-booking.html#bookForm" class="btn-card-primary">Book ST Bus</a>
+                </div>
+            </div>
+
+            <!-- 9. Tour Packages -->
+            <div class="service-platform-card">
+                <div class="service-card-top">
+                    <div class="service-card-icon"><i class="fa-solid fa-suitcase-rolling"></i></div>
+                    <span class="service-card-badge">All-Inclusive</span>
+                </div>
+                <h3 class="service-card-title">Tour & Holiday Packages</h3>
+                <span class="service-card-rate-badge">From ₹12,999 • Hotel + Chauffeur</span>
+                <p class="service-card-desc">Curated domestic and international vacation packages with luxury stays, airport transfers, guided sightseeing, and meals.</p>
+                <div class="service-card-actions">
+                    <a href="packages.html" class="btn-card-outline">View Details</a>
+                    <a href="packages.html" class="btn-card-primary">Book Package</a>
+                </div>
+            </div>
+
+            <!-- 10. Flight Booking Assistance -->
+            <div class="service-platform-card">
+                <div class="service-card-top">
+                    <div class="service-card-icon"><i class="fa-solid fa-plane-up"></i></div>
+                    <span class="service-card-badge">Airlines Desk</span>
+                </div>
+                <h3 class="service-card-title">Flights Discovery & Booking</h3>
+                <span class="service-card-rate-badge">Competitive Fares • Corporate Desk</span>
+                <p class="service-card-desc">Domestic and international flight search, competitive airline fares, corporate travel desk and multi-city route planning.</p>
+                <div class="service-card-actions">
+                    <a href="flights.html" class="btn-card-outline">View Details</a>
+                    <a href="flights.html" class="btn-card-primary">Search Flights</a>
+                </div>
+            </div>
+
+            <!-- 11. Cruise Journeys -->
+            <div class="service-platform-card">
+                <div class="service-card-top">
+                    <div class="service-card-icon"><i class="fa-solid fa-ship"></i></div>
+                    <span class="service-card-badge">Ocean & River</span>
+                </div>
+                <h3 class="service-card-title">Cruise Vacations</h3>
+                <span class="service-card-rate-badge">From ₹24,500/guest • All-Inclusive</span>
+                <p class="service-card-desc">All-inclusive ocean and river cruise itineraries with Cordelia Cruises, Royal Caribbean and Mediterranean cruise operators.</p>
+                <div class="service-card-actions">
+                    <a href="cruises.html" class="btn-card-outline">View Details</a>
+                    <a href="cruises.html" class="btn-card-primary">Book Cruise</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Corporate Transportation Highlight Banner -->
+        <div class="corporate-platform-banner scroll-reveal">
+            <div class="corporate-banner-text">
+                <span style="font-size:12px; font-weight:800; color:var(--accent-yellow); letter-spacing:1px; text-transform:uppercase; display:inline-block; margin-bottom:6px;"><i class="fa-solid fa-briefcase"></i> Dedicated Corporate Portal</span>
+                <h3>Corporate Employee Transportation & Fleet Contracts</h3>
+                <p>Empower your organisation with automated employee daily commute rosters, executive airport concierge, centralized monthly billing contracts, and compliant GST invoices.</p>
+            </div>
+            <div class="corporate-banner-actions">
+                <a href="../corporate/corporate.html" class="btn-corp-portal">
+                    <span>Enter Corporate Portal</span> <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="../corporate/corporate-login.html" class="btn-corp-login">
+                    <i class="fa-solid fa-lock"></i> Corporate Login
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- 5. HOT DEALS SECTION (Four Horizontal Package Cards) -->
 <section class="hot-deals-section" id="hot-deals">
     <div class="container">
@@ -1730,6 +2541,12 @@ input, select { font-family: inherit; }
                 </div>
             </div>
         </div>
+
+        <div style="text-align:center; margin-top:36px;">
+            <a href="packages.html" class="btn-discover-hero" style="background:var(--purple-btn-gradient); color:#ffffff; padding:0 28px; height:44px; font-size:14px; box-shadow:0 6px 18px rgba(7,55,127,0.25);">
+                <i class="fa-solid fa-suitcase-rolling"></i> View All Tour Packages <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
     </div>
 </section>
 
@@ -1809,6 +2626,12 @@ input, select { font-family: inherit; }
                 </div>
             </div>
         </div>
+
+        <div style="text-align:center; margin-top:36px;">
+            <a href="destinations.html" class="btn-discover-hero" style="padding:0 28px; height:44px; font-size:14px;">
+                <i class="fa-solid fa-earth-americas"></i> Explore All Destinations <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
     </div>
 </section>
 
@@ -1848,6 +2671,189 @@ input, select { font-family: inherit; }
                 <div class="why-icon-bubble"><i class="fa-solid fa-headset"></i></div>
                 <h3>24/7 Dedicated Support</h3>
                 <p>Round-the-clock trip concierge, live flight delay monitoring, and instant on-ground helpline assistance whenever you need us.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 7.1 HOW TRAVELNEX WORKS -->
+<section class="how-it-works-section scroll-reveal" id="how-it-works">
+    <div class="container">
+        <div class="section-header-center">
+            <span class="section-tag">SIMPLE &amp; SEAMLESS PROCESS</span>
+            <h2 class="section-title">How TRAVELNEX Works</h2>
+            <p class="section-subtitle">From instant search to smooth arrival, book and manage any travel or mobility service in four straightforward steps.</p>
+        </div>
+
+        <div class="steps-grid-four">
+            <!-- Step 1 -->
+            <div class="step-card">
+                <div class="step-number-badge">1</div>
+                <div class="step-icon-wrap"><i class="fa-solid fa-map-location-dot"></i></div>
+                <h3>Choose Your Service</h3>
+                <p>Select from local taxis, outstation cabs, airport drops, mini &amp; luxury buses, trains, flights or curated tour packages.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card">
+                <div class="step-number-badge">2</div>
+                <div class="step-icon-wrap"><i class="fa-solid fa-calendar-check"></i></div>
+                <h3>Enter Journey Details</h3>
+                <p>Provide your pickup address, destination, travel dates, passenger count, and preferred vehicle comfort tier.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card">
+                <div class="step-number-badge">3</div>
+                <div class="step-icon-wrap"><i class="fa-solid fa-receipt"></i></div>
+                <h3>Transparent Pricing</h3>
+                <p>Review upfront guaranteed fares with zero surge pricing, verified driver credentials, and instant digital booking confirmation.</p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card">
+                <div class="step-number-badge">4</div>
+                <div class="step-icon-wrap"><i class="fa-solid fa-shield-heart"></i></div>
+                <h3>Travel In Comfort</h3>
+                <p>Enjoy your journey with verified chauffeurs, 24/7 on-trip concierge, live tracking, and easy dashboard invoice downloads.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 7.2 CUSTOMER TESTIMONIALS -->
+<section class="testimonials-section scroll-reveal" id="testimonials">
+    <div class="container">
+        <div class="section-header-center">
+            <span class="section-tag">VERIFIED TRAVEL EXPERIENCES</span>
+            <h2 class="section-title">Loved By Over 50,000+ Happy Travelers</h2>
+            <p class="section-subtitle">See why families, corporate teams and solo travelers rely on TRAVELNEX across Maharashtra and nationwide.</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <!-- Review 1 -->
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-quote">"Booked an outstation Innova from Pune to Mahabaleshwar for a family trip. Chauffeur Ramesh was courteous, on time, and knew the ghat roads perfectly. The fare was completely transparent with no hidden toll drama."</p>
+                <div class="testimonial-user">
+                    <div class="user-avatar-circle">AP</div>
+                    <div class="user-info-text">
+                        <h4>Aarav Patel</h4>
+                        <span>Pune • Outstation Cab</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-quote">"Our company uses TRAVELNEX Corporate for daily employee pickup and airport transfers in Magarpatta. The centralized monthly billing, automated employee rosters, and GST invoices saved our admin team 20+ hours each month."</p>
+                <div class="testimonial-user">
+                    <div class="user-avatar-circle" style="background:linear-gradient(135deg, #0B2B63 0%, #14233F 100%);">VM</div>
+                    <div class="user-info-text">
+                        <h4>Vikram Malhotra</h4>
+                        <span>TechCorp Global • Corporate Mobility</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-quote">"We chartered a 26-seater Force Urbania for a destination wedding in Alibaug. The vehicle was spotlessly clean, chilled AC, pushback seats, and the driver was extremely helpful with elderly guests. 10/10 recommend TRAVELNEX!"</p>
+                <div class="testimonial-user">
+                    <div class="user-avatar-circle" style="background:linear-gradient(135deg, #F5B51B 0%, #DE9F0C 100%); color:#0B2B63;">SK</div>
+                    <div class="user-info-text">
+                        <h4>Snehal Kulkarni</h4>
+                        <span>Mumbai • Luxury Mini Bus Charter</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 7.3 FREQUENTLY ASKED QUESTIONS (FAQ) -->
+<section class="faq-section scroll-reveal" id="faq">
+    <div class="container">
+        <div class="section-header-center">
+            <span class="section-tag">COMMON QUESTIONS &amp; ANSWERS</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Find quick answers to common questions regarding bookings, vehicles, corporate billing, and cancellations.</p>
+        </div>
+
+        <div class="faq-accordion-box">
+            <!-- FAQ 1 -->
+            <div class="faq-item active">
+                <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                    <span>How do I book an outstation cab or local taxi with TRAVELNEX?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer-body">
+                    You can book online in less than 2 minutes via our website or Customer Dashboard. Simply select Local Taxi or Outstation Cabs, enter your pickup address, destination date and time, choose your vehicle tier (Sedan, Ertiga, Innova Crysta), and receive instant booking confirmation with driver assignment.
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-item">
+                <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                    <span>What vehicles are available for group transportation and buses?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer-body">
+                    We offer 12, 17, 20 and 26-seater luxury Force Travellers and Urbanias for medium groups, as well as 32, 45, and 55-seater air-conditioned Volvo, Scania, and BharatBenz coaches for large tours, school excursions, and weddings. All buses include pushback seats, individual AC vents, and large luggage bays.
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="faq-item">
+                <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                    <span>How does Railway and Maharashtra ST Bus booking assistance work?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer-body">
+                    TRAVELNEX operates dedicated concierge assistance desks for Indian Railways (IRCTC) and Maharashtra State Transport (MSRTC). Our travel specialists guide you with route availability, Tatkal timing, Shivneri Volvo reservations, and group train booking assistance with full ticket confirmation updates.
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="faq-item">
+                <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                    <span>How does Corporate Mobility and monthly cab contracts work?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer-body">
+                    Companies can sign up for the TRAVELNEX Corporate Portal to manage daily employee office commute rosters, executive airport concierge, and project site visits. Features include automated trip approvals, dedicated account managers, consolidated monthly invoicing, and full GST compliance.
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="faq-item">
+                <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                    <span>What is the cancellation and refund policy?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer-body">
+                    You can cancel your booking directly from the Customer Dashboard under "My Bookings" with a single click. For cabs and outstation trips cancelled up to 6 hours before pickup, a 100% full refund is issued instantly to your original payment method with zero cancellation fees.
+                </div>
+            </div>
+        </div>
+
+        <!-- Concierge Helpdesk Box -->
+        <div class="helpdesk-cta-box">
+            <div class="helpdesk-text">
+                <h3>Need Custom Itinerary or Instant Support?</h3>
+                <p>Our dedicated 24/7 travel desk is always on standby to assist you with special requests, custom fleets, and flight emergencies.</p>
+            </div>
+            <div class="helpdesk-buttons">
+                <a href="tel:+919876543210" class="btn-help-call"><i class="fa-solid fa-phone"></i> +91 98765 43210</a>
+                <a href="contact.html" class="btn-help-outline"><i class="fa-solid fa-headset"></i> Contact Support</a>
             </div>
         </div>
     </div>
@@ -2067,8 +3073,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (user) {
         const authBtn = document.getElementById('navbarAuthBtn');
         if (authBtn) {
-            authBtn.innerHTML = `<i class="fa-solid fa-circle-user"></i> ${user.name.split(' ')[0]}`;
+            authBtn.innerHTML = `<i class="fa-solid fa-circle-user"></i> <span>${user.name.split(' ')[0]}</span>`;
             authBtn.href = 'profile.html';
+        }
+        const topbarSignIn = document.getElementById('topbarSignIn');
+        if (topbarSignIn) {
+            topbarSignIn.innerHTML = `<i class="fa-solid fa-circle-user"></i> ${user.name.split(' ')[0]}`;
+            topbarSignIn.href = 'profile.html';
+        }
+        const drawerAuth = document.getElementById('drawerAuthLink');
+        if (drawerAuth) {
+            drawerAuth.innerHTML = `<i class="fa-solid fa-circle-user"></i> My Profile (${user.name.split(' ')[0]})`;
+            drawerAuth.href = 'profile.html';
         }
         const nameField = document.getElementById('dealCustName');
         const emailField = document.getElementById('dealCustEmail');
@@ -2076,6 +3092,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (nameField && user.name) nameField.value = user.name;
         if (emailField && user.email) emailField.value = user.email;
         if (phoneField && user.phone) phoneField.value = user.phone;
+    }
+
+    // Initialize Scroll Reveal Animations
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+        revealElements.forEach(el => el.classList.add('revealed'));
     }
 });
 
@@ -2169,6 +3201,16 @@ function handleNewsletter(e) {
         });
         Utils.showToast('Thank you for subscribing! A ₹1,000 voucher code has been sent to ' + email, 'success');
         input.value = '';
+    }
+}
+
+/* 8. FAQ Accordion Toggle */
+function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const wasActive = item.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+    if (!wasActive) {
+        item.classList.add('active');
     }
 }
 </script>
