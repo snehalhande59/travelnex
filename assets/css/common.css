@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    TRAVELNEX - Unified Design System & Common Styles
    Brand Identity: TicketPlan Inspired Deep Purple (#2E1065), Royal Purple (#6D28D9), Vibrant Purple (#7C3AED), Pink Accent (#EC4899), Soft Lavender (#F3E8FF)
    Typography: Outfit (Headings) & DM Sans (Body)
@@ -1544,19 +1544,19 @@ textarea.form-control {
 }
 
 /* ==========================================================================
-   EXACT TRAVELNEX NAVBAR (Royal Blue & Navy Background, White Text, Gold Accents)
-   Sticky 70px Height, Gold Active Underline, Dropdown Mega Menu, Responsive
+   EXACT TRAVELNEX WHITE NAVBAR & TWO-COLUMN SERVICES DROPDOWN (Strict Match)
+   Clean White Background, Dark Navy Text, Royal Blue Book Your Trip Button
    ========================================================================== */
 .site-navbar, .navbar {
-    height: 70px;
-    background: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
-    border-bottom: 1px solid rgba(245, 181, 27, 0.25);
+    height: 68px;
+    background: #ffffff;
+    border-bottom: 1px solid #E2E8F0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 20px rgba(7, 55, 127, 0.22);
+    box-shadow: 0 2px 14px rgba(11, 43, 99, 0.06);
     width: 100%;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.25s ease;
 }
 .site-navbar .site-navbar-container, .navbar .container {
     height: 100%;
@@ -1576,27 +1576,27 @@ textarea.form-control {
     gap: 10px;
     font-size: 22px;
     font-weight: 800;
-    color: #ffffff;
+    color: #07377F;
     letter-spacing: -0.5px;
     font-family: 'Outfit', sans-serif;
     text-decoration: none;
     flex-shrink: 0;
 }
 .brand-logo .logo-icon, .logo .logo-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #F5B51B 0%, #DE9F0C 100%);
-    color: #0B2B63;
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
+    color: #F5B51B;
     display: grid;
     place-items: center;
-    font-size: 17px;
+    font-size: 16px;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(245, 181, 27, 0.35);
+    box-shadow: 0 3px 10px rgba(7, 55, 127, 0.2);
     transition: transform 0.25s ease;
 }
 .brand-logo:hover .logo-icon, .logo:hover .logo-icon {
-    transform: scale(1.06) rotate(-3deg);
+    transform: scale(1.05) rotate(-3deg);
 }
 .brand-logo span, .logo span,
 .brand-logo strong, .logo strong {
@@ -1607,12 +1607,14 @@ textarea.form-control {
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 .site-nav-links, .nav-links {
     height: 100%;
     display: flex;
     align-items: center;
-    gap: clamp(8px, 1.2vw, 22px);
+    gap: clamp(10px, 1.4vw, 24px);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -1627,20 +1629,20 @@ textarea.form-control {
     height: 100%;
     display: inline-flex;
     align-items: center;
-    padding: 0 6px;
-    font-size: 13.5px;
+    padding: 0 4px;
+    font-size: 14px;
     font-weight: 600;
-    color: #FFFFFF;
+    color: #14233F;
     position: relative;
     text-decoration: none;
     white-space: nowrap;
     transition: color 0.2s ease;
 }
 .site-nav-links a:hover, .nav-links a:hover {
-    color: #F5B51B;
+    color: #e5a00d;
 }
 .site-nav-links a.active, .nav-links a.active {
-    color: #F5B51B;
+    color: #e5a00d !important;
     font-weight: 700;
 }
 .site-nav-links a.active::after, .nav-links a.active::after {
@@ -1650,12 +1652,11 @@ textarea.form-control {
     left: 2px;
     right: 2px;
     height: 3px;
-    background: #F5B51B;
+    background: #e5a00d;
     border-radius: 3px 3px 0 0;
-    box-shadow: 0 -2px 8px rgba(245, 181, 27, 0.5);
 }
 
-/* Services Dropdown (Desktop) */
+/* Services Dropdown (Desktop Two-Column Panel) */
 .nav-dropdown-item {
     height: 100%;
     position: relative;
@@ -1664,95 +1665,151 @@ textarea.form-control {
     cursor: pointer;
 }
 .nav-caret {
-    font-size: 10px;
-    margin-left: 4px;
+    font-size: 11px;
+    margin-left: 5px;
     transition: transform 0.25s ease, color 0.2s ease;
-    color: rgba(255, 255, 255, 0.8);
+    color: #64748B;
 }
 .nav-dropdown-item:hover .nav-caret,
 .nav-dropdown-item.active .nav-caret {
     transform: rotate(180deg);
-    color: #F5B51B;
+    color: #07377F;
 }
-.nav-dropdown-menu {
+.nav-dropdown-panel, .nav-dropdown-menu {
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 340px;
+    left: -40px;
+    width: 560px;
     background: #ffffff;
-    border: 1px solid rgba(7, 55, 127, 0.12);
-    border-top: 3px solid #F5B51B;
-    border-radius: 0 0 14px 14px;
-    box-shadow: 0 18px 45px rgba(11, 43, 99, 0.2);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(11, 43, 99, 0.12);
+    padding: 16px;
     opacity: 0;
     visibility: hidden;
     transform: translateY(8px);
-    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.24s;
+    transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
     z-index: 1050;
 }
+.nav-dropdown-item:hover .nav-dropdown-panel,
 .nav-dropdown-item:hover .nav-dropdown-menu,
+.nav-dropdown-item:focus-within .nav-dropdown-panel,
 .nav-dropdown-item:focus-within .nav-dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
-.nav-dropdown-link {
+.dropdown-two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+}
+.dropdown-service-item, .nav-dropdown-link {
     display: flex !important;
     align-items: center !important;
-    gap: 12px !important;
-    padding: 10px 12px !important;
-    border-radius: 10px !important;
-    transition: background 0.2s ease, transform 0.18s ease !important;
+    gap: 10px !important;
+    padding: 9px 12px !important;
+    border-radius: 8px !important;
     text-decoration: none !important;
-    white-space: normal !important;
+    transition: background 0.18s ease, transform 0.15s ease !important;
     color: #14233F !important;
     height: auto !important;
+    white-space: normal !important;
 }
-.nav-dropdown-link::after {
-    display: none !important;
-}
-.nav-dropdown-link:hover {
+.dropdown-service-item:hover, .nav-dropdown-link:hover {
     background: #EAF1FA !important;
+    transform: translateX(3px) !important;
     color: #07377F !important;
-    transform: translateX(4px);
 }
-.nav-dropdown-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 9px;
-    background: rgba(7, 55, 127, 0.08);
-    color: #07377F;
-    display: grid;
-    place-items: center;
-    font-size: 15px;
+.dropdown-service-icon {
+    font-size: 14px;
+    color: #22c55e;
     flex-shrink: 0;
-    transition: background 0.2s ease, color 0.2s ease;
 }
-.nav-dropdown-link:hover .nav-dropdown-icon {
-    background: #07377F;
-    color: #F5B51B;
-}
-.nav-dropdown-info {
-    display: flex;
-    flex-direction: column;
+.dropdown-service-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #14233F;
     line-height: 1.25;
 }
-.nav-dropdown-title {
-    font-size: 13.5px;
-    font-weight: 700;
-    color: #0B2B63;
+.dropdown-service-item:hover .dropdown-service-text {
+    color: #07377F;
 }
-.nav-dropdown-sub {
-    font-size: 11px;
+.dropdown-corporate-footer {
+    margin-top: 12px;
+    border-top: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
     color: #53647F;
-    margin-top: 2px;
+    background: #F8FAFC;
+    padding: 10px 14px;
+    border-radius: 8px;
+    gap: 10px;
+}
+.dropdown-corporate-footer a {
+    color: #07377F;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+.dropdown-corporate-footer a:hover {
+    text-decoration: underline;
+    color: #F5B51B;
 }
 
-/* Mobile Dropdown */
+/* Book Your Trip Button (Golden Yellow with Dark Navy Text & Shadow) */
+.btn-book-trip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #F5B51B !important;
+    color: #14233F !important;
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 9px 20px;
+    border-radius: 24px;
+    text-decoration: none;
+    transition: all 0.22s ease;
+    box-shadow: 0 4px 14px rgba(245, 181, 27, 0.35);
+    white-space: nowrap;
+    border: none;
+}
+.btn-book-trip:hover {
+    background: #DE9F0C !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(245, 181, 27, 0.45);
+    color: #07377F !important;
+}
+
+/* Sign In Button / Pill */
+.nav-auth-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #07377F !important;
+    font-size: 13px;
+    font-weight: 700;
+    background: #F8FAFC;
+    border: 1.5px solid #CBD5E1;
+    padding: 0 14px;
+    height: 38px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+.nav-auth-pill:hover {
+    background: #EAF1FA;
+    border-color: #07377F;
+    color: #07377F !important;
+}
+
+/* Mobile Dropdown & Accordion */
 .mobile-dropdown-parent {
     display: flex;
     flex-direction: column;
@@ -1762,6 +1819,7 @@ textarea.form-control {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    cursor: pointer;
 }
 .mobile-sub-menu {
     display: none;
@@ -1769,7 +1827,7 @@ textarea.form-control {
     gap: 2px;
     padding: 6px 0 6px 14px;
     margin-top: 4px;
-    border-left: 2px solid var(--border);
+    border-left: 2px solid #E2E8F0;
 }
 .mobile-sub-menu.show {
     display: flex;
@@ -1777,65 +1835,51 @@ textarea.form-control {
 .mobile-sub-menu a {
     font-size: 13px !important;
     padding: 8px 12px !important;
-    color: var(--text-muted) !important;
+    color: #53647F !important;
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;
 }
 .mobile-sub-menu a:hover {
-    color: var(--blue) !important;
-    background: var(--light) !important;
+    color: #07377F !important;
+    background: #EAF1FA !important;
 }
 
-.site-nav-actions {
+.site-nav-actions, .nav-actions {
     display: flex;
     align-items: center;
     gap: 12px;
     flex-shrink: 0;
 }
-.nav-auth-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: #ffffff !important;
-    font-size: 13px;
-    font-weight: 700;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 0 14px;
-    height: 38px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-.nav-auth-pill:hover {
-    background: rgba(245, 181, 27, 0.25);
-    color: var(--gold) !important;
-    border-color: var(--gold);
-}
-.site-nav-mobile-btn {
-    display: none;
-}
+
+/* Hamburger for Mobile */
 .nav-hamburger, .menu-toggle {
     display: none;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: #F8FAFC;
+    border: 1px solid #CBD5E1;
     font-size: 18px;
-    color: #FFFFFF;
+    color: #07377F;
     width: 40px;
     height: 40px;
     border-radius: 8px;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
     flex-shrink: 0;
 }
 .nav-hamburger:hover, .menu-toggle:hover {
-    background: rgba(245, 181, 27, 0.25);
-    color: #F5B51B;
-    border-color: #F5B51B;
+    background: #EAF1FA;
+    border-color: #07377F;
+}
+
+@media (max-width: 1024px) {
+    .nav-links, .site-nav-links, .d-none-mobile {
+        display: none !important;
+    }
+    .nav-hamburger, .menu-toggle {
+        display: flex !important;
+    }
 }
 
 /* Mobile Drawer */
@@ -2589,3 +2633,124 @@ textarea.form-control {
     }
 }
 
+
+/* ==========================================================================
+   POPULAR TRAVEL ROUTES SECTION
+   ========================================================================== */
+.popular-routes-section {
+    padding: 85px 0;
+    background: #ffffff;
+    border-top: 1px solid var(--border-light, #E2E8F0);
+}
+.routes-grid-three {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+}
+.route-card {
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 18px rgba(11, 43, 99, 0.05);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+}
+.route-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 34px rgba(7, 55, 127, 0.12);
+    border-color: #07377F;
+}
+.route-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #EAF1FA;
+    color: #07377F;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    width: fit-content;
+    margin-bottom: 12px;
+}
+.route-cities {
+    font-size: 17px;
+    font-weight: 800;
+    color: #0B2B63;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+.route-cities i {
+    color: #F5B51B;
+    font-size: 13px;
+}
+.route-stats {
+    display: flex;
+    gap: 14px;
+    font-size: 12px;
+    color: #53647F;
+    margin-bottom: 14px;
+}
+.route-stats span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.route-desc {
+    font-size: 13px;
+    color: #53647F;
+    line-height: 1.5;
+    margin-bottom: 18px;
+    flex: 1;
+}
+.route-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #E2E8F0;
+    padding-top: 14px;
+}
+.route-price {
+    font-size: 18px;
+    font-weight: 800;
+    color: #07377F;
+}
+.route-price small {
+    font-size: 11px;
+    font-weight: 600;
+    color: #53647F;
+    display: block;
+}
+.btn-route-book {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #07377F;
+    color: #ffffff !important;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.btn-route-book:hover {
+    background: #0B2B63;
+    box-shadow: 0 4px 12px rgba(7, 55, 127, 0.25);
+    color: #ffffff !important;
+}
+@media (max-width: 992px) {
+    .routes-grid-three {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .routes-grid-three {
+        grid-template-columns: 1fr;
+    }
+}

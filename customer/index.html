@@ -101,271 +101,8 @@ input, select { font-family: inherit; }
     color: var(--pink-accent);
 }
 
-/* 2. EXACT TRAVELNEX NAVBAR (Royal Blue & Navy Background, White Text, Gold Accents) */
-.navbar {
-    height: 70px;
-    background: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 20px rgba(7, 55, 127, 0.22);
-    border-bottom: 1px solid rgba(245, 181, 27, 0.25);
-    width: 100%;
-}
-.navbar .container {
-    height: 100%;
-    max-width: 1360px;
-    width: 100%;
-    padding: 0 clamp(16px, 2.5vw, 32px);
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    box-sizing: border-box;
-}
-.nav-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    gap: 16px;
-}
-.logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    color: #ffffff;
-    text-decoration: none;
-    flex-shrink: 0;
-}
-.logo-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #F5B51B 0%, #DE9F0C 100%);
-    color: #0B2B63;
-    display: grid;
-    place-items: center;
-    font-size: 17px;
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(245, 181, 27, 0.35);
-    transition: transform 0.25s ease;
-}
-.logo:hover .logo-icon {
-    transform: scale(1.06) rotate(-3deg);
-}
-.logo span {
-    color: var(--accent-yellow);
-}
-.nav-links {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: clamp(8px, 1.2vw, 22px);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.nav-links li {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-.nav-links a {
-    height: 100%;
-    display: inline-flex;
-    align-items: center;
-    padding: 0 6px;
-    font-size: 13.5px;
-    font-weight: 600;
-    color: #ffffff;
-    position: relative;
-    transition: color 0.2s ease;
-    text-decoration: none;
-    white-space: nowrap;
-}
-.nav-links a:hover {
-    color: var(--accent-yellow);
-}
-.nav-links a.active {
-    color: var(--accent-yellow);
-    font-weight: 700;
-}
-.nav-links a.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 2px;
-    right: 2px;
-    height: 3px;
-    background: var(--accent-yellow);
-    border-radius: 3px 3px 0 0;
-    box-shadow: 0 -2px 8px rgba(245, 181, 27, 0.5);
-}
+/* 2. Unified Navbar styles loaded from assets/css/common.css */
 
-/* Services Dropdown (Desktop) */
-.nav-dropdown-item {
-    height: 100%;
-    position: relative;
-}
-.nav-dropdown-toggle {
-    cursor: pointer;
-}
-.nav-caret {
-    font-size: 10px;
-    margin-left: 4px;
-    transition: transform 0.25s ease, color 0.2s ease;
-    color: rgba(255, 255, 255, 0.8);
-}
-.nav-dropdown-item:hover .nav-caret,
-.nav-dropdown-item.active .nav-caret {
-    transform: rotate(180deg);
-    color: var(--accent-yellow);
-}
-.nav-dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 340px;
-    background: #ffffff;
-    border: 1px solid rgba(7, 55, 127, 0.12);
-    border-top: 3px solid var(--accent-yellow);
-    border-radius: 0 0 14px 14px;
-    box-shadow: 0 18px 45px rgba(11, 43, 99, 0.2);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(8px);
-    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.24s;
-    z-index: 1050;
-}
-.nav-dropdown-item:hover .nav-dropdown-menu,
-.nav-dropdown-item:focus-within .nav-dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-.nav-dropdown-link {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    padding: 10px 12px !important;
-    border-radius: 10px !important;
-    transition: background 0.2s ease, transform 0.18s ease !important;
-    text-decoration: none !important;
-    white-space: normal !important;
-    color: var(--text-dark) !important;
-    height: auto !important;
-}
-.nav-dropdown-link::after {
-    display: none !important;
-}
-.nav-dropdown-link:hover {
-    background: var(--light-blue-bg) !important;
-    color: var(--primary-blue) !important;
-    transform: translateX(4px);
-}
-.nav-dropdown-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 9px;
-    background: rgba(7, 55, 127, 0.08);
-    color: var(--primary-blue);
-    display: grid;
-    place-items: center;
-    font-size: 15px;
-    flex-shrink: 0;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-.nav-dropdown-link:hover .nav-dropdown-icon {
-    background: var(--primary-blue);
-    color: var(--accent-yellow);
-}
-.nav-dropdown-info {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.25;
-}
-.nav-dropdown-title {
-    font-size: 13.5px;
-    font-weight: 700;
-    color: var(--dark-navy);
-}
-.nav-dropdown-sub {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 2px;
-}
-.nav-dropdown-link {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    padding: 9px 12px !important;
-    border-radius: 10px !important;
-    transition: background 0.18s ease, transform 0.15s ease !important;
-    text-decoration: none !important;
-    white-space: normal !important;
-    color: var(--text-dark) !important;
-}
-.nav-dropdown-link::after {
-    display: none !important;
-}
-.nav-dropdown-link:hover {
-    background: var(--light-blue-bg) !important;
-    color: var(--primary-blue) !important;
-    transform: translateX(3px);
-}
-.nav-dropdown-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    background: rgba(7, 55, 127, 0.08);
-    color: var(--primary-blue);
-    display: grid;
-    place-items: center;
-    font-size: 14px;
-    flex-shrink: 0;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-.nav-dropdown-link:hover .nav-dropdown-icon {
-    background: var(--primary-blue);
-    color: #ffffff;
-}
-.nav-dropdown-info {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.25;
-}
-.nav-dropdown-title {
-    font-size: 13.5px;
-    font-weight: 700;
-    color: var(--dark-purple);
-}
-.nav-dropdown-sub {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 1px;
-}
-
-/* Mobile Dropdown Accordion */
-.mobile-sub-menu {
-    display: none;
-    flex-direction: column;
-    gap: 2px;
-    padding: 6px 0 6px 14px;
-    margin-top: 4px;
-    border-left: 2px solid var(--border-color);
-}
 .mobile-sub-menu.show {
     display: flex;
 }
@@ -1947,82 +1684,74 @@ input, select { font-family: inherit; }
 </div>
 
 <!-- 2. EXACT CUSTOMER NAVBAR (Strict Reference Match) -->
+<!-- 2. EXACT TRAVELNEX NAVBAR (Clean White, Two-Column Services Dropdown, Royal Blue Button) -->
 <header class="navbar">
     <div class="container">
         <div class="nav-content">
-            <!-- TRAVELNEX Logo on left -->
+            <!-- Brand Logo -->
             <a href="index.html" class="logo">
                 <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
                 <div style="display:flex; flex-direction:column; line-height:1;">
-                    <span style="font-size:20px; font-weight:800; color:#ffffff; letter-spacing:-0.5px;">TRAVEL<span style="color:var(--accent-yellow);">NEX</span> <i class="fa-solid fa-paper-plane" style="font-size:11px; color:var(--accent-yellow); margin-left:2px;"></i></span>
-                    <span style="font-size:8.5px; font-weight:600; color:#EAF1FA; letter-spacing:0.4px;">Travel Beyond Limits</span>
+                    <span style="font-size:20px; font-weight:800; color:#07377F; letter-spacing:-0.5px;">TRAVEL<span style="color:#F5B51B;">NEX</span> <i class="fa-solid fa-paper-plane" style="font-size:11px; color:#F5B51B; margin-left:2px;"></i></span>
+                    <span style="font-size:8.5px; font-weight:600; color:#53647F; letter-spacing:0.4px;">Travel Beyond Limits</span>
                 </div>
             </a>
 
-            <!-- Exact Menu Items in exact order -->
+            <!-- Navigation Links -->
             <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li class="nav-dropdown-item">
                     <a href="javascript:void(0)" class="nav-dropdown-toggle">
                         <span>Services</span> <i class="fa-solid fa-chevron-down nav-caret"></i>
                     </a>
-                    <div class="nav-dropdown-menu">
-                        <a href="local-taxi.html" class="nav-dropdown-link">
-                            <span class="nav-dropdown-icon"><i class="fa-solid fa-taxi"></i></span>
-                            <div class="nav-dropdown-info">
-                                <span class="nav-dropdown-title">Local Taxi Services</span>
-                                <span class="nav-dropdown-sub">City point-to-point & hourly cabs</span>
+                    <div class="nav-dropdown-panel">
+                        <div class="dropdown-two-columns">
+                            <!-- Left Column -->
+                            <div class="dropdown-col">
+                                <a href="local-taxi.html" class="dropdown-service-item">
+                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
+                                    <span class="dropdown-service-text">Local Taxi Services</span>
+                                </a>
+                                <a href="airport-transfer.html" class="dropdown-service-item">
+                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
+                                    <span class="dropdown-service-text">Airport Pickup &amp; Drop</span>
+                                </a>
+                                <a href="luxury-bus.html" class="dropdown-service-item">
+                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
+                                    <span class="dropdown-service-text">Luxury Bus Booking</span>
+                                </a>
+                                <a href="railway-booking.html" class="dropdown-service-item">
+                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
+                                    <span class="dropdown-service-text">Railway Ticket Booking</span>
+                                </a>
                             </div>
-                        </a>
-                        <a href="outstation-cabs.html" class="nav-dropdown-link">
-                            <span class="nav-dropdown-icon"><i class="fa-solid fa-car-side"></i></span>
-                            <div class="nav-dropdown-info">
-                                <span class="nav-dropdown-title">Outstation Cabs</span>
-                                <span class="nav-dropdown-sub">One-way & round-trip intercity</span>
+
+                            <!-- Right Column -->
+                            <div class="dropdown-col">
+                                <a href="outstation-cabs.html" class="dropdown-service-item">
+                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
+                                    <span class="dropdown-service-text">Outstation Cabs</span>
+                                </a>
+                                <a href="mini-bus.html" class="dropdown-service-item">
+                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
+                                    <span class="dropdown-service-text">Mini Bus Booking</span>
+                                </a>
+                                <a href="group-transportation.html" class="dropdown-service-item">
+                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
+                                    <span class="dropdown-service-text">Group Transportation</span>
+                                </a>
+                                <a href="st-bus-booking.html" class="dropdown-service-item">
+                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
+                                    <span class="dropdown-service-text">Maharashtra ST Bus Booking</span>
+                                </a>
                             </div>
-                        </a>
-                        <a href="airport-transfer.html" class="nav-dropdown-link">
-                            <span class="nav-dropdown-icon"><i class="fa-solid fa-plane-departure"></i></span>
-                            <div class="nav-dropdown-info">
-                                <span class="nav-dropdown-title">Airport Pickup & Drop</span>
-                                <span class="nav-dropdown-sub">Reliable flight pickup transfers</span>
-                            </div>
-                        </a>
-                        <a href="mini-bus.html" class="nav-dropdown-link">
-                            <span class="nav-dropdown-icon"><i class="fa-solid fa-van-shuttle"></i></span>
-                            <div class="nav-dropdown-info">
-                                <span class="nav-dropdown-title">Mini Bus Booking</span>
-                                <span class="nav-dropdown-sub">12–26 seater Tempo Traveller</span>
-                            </div>
-                        </a>
-                        <a href="luxury-bus.html" class="nav-dropdown-link">
-                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus"></i></span>
-                            <div class="nav-dropdown-info">
-                                <span class="nav-dropdown-title">Luxury Bus Booking</span>
-                                <span class="nav-dropdown-sub">32–55 seater AC Volvo coaches</span>
-                            </div>
-                        </a>
-                        <a href="group-transportation.html" class="nav-dropdown-link">
-                            <span class="nav-dropdown-icon"><i class="fa-solid fa-users"></i></span>
-                            <div class="nav-dropdown-info">
-                                <span class="nav-dropdown-title">Group Transportation</span>
-                                <span class="nav-dropdown-sub">Corporate offsites & weddings</span>
-                            </div>
-                        </a>
-                        <a href="railway-booking.html" class="nav-dropdown-link">
-                            <span class="nav-dropdown-icon"><i class="fa-solid fa-train"></i></span>
-                            <div class="nav-dropdown-info">
-                                <span class="nav-dropdown-title">Railway Ticket Booking</span>
-                                <span class="nav-dropdown-sub">IRCTC verified booking inquiry</span>
-                            </div>
-                        </a>
-                        <a href="st-bus-booking.html" class="nav-dropdown-link">
-                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus-simple"></i></span>
-                            <div class="nav-dropdown-info">
-                                <span class="nav-dropdown-title">Maharashtra ST Bus Booking</span>
-                                <span class="nav-dropdown-sub">Shivneri, Shivshahi & Lalpari</span>
-                            </div>
-                        </a>
+                        </div>
+
+                        <!-- Dropdown Footer -->
+                        <div class="dropdown-corporate-footer">
+                            <span>Corporate Transportation à¤¸à¤¾à¤ à¥€ à¤¸à¥à¤µà¤¤à¤‚à¤¤à¥à¤° Portal à¤†à¤£à¤¿ Dashboard.</span>
+                            <a href="../corporate/corporate.html">Corporate Portal &rarr;</a>
+                        </div>
                     </div>
                 </li>
                 <li><a href="destinations.html">Destinations</a></li>
@@ -2032,13 +1761,13 @@ input, select { font-family: inherit; }
                 <li><a href="contact.html">Contact</a></li>
             </ul>
 
-            <!-- Right: Auth Pill + Gold Book Your Trip Button + Hamburger -->
+            <!-- Right Actions: Sign In + Royal Blue Book Your Trip + Mobile Hamburger -->
             <div class="nav-actions">
                 <a href="login.html" id="navbarAuthBtn" class="nav-auth-pill d-none-mobile">
                     <i class="fa-solid fa-circle-user"></i> <span>Sign In</span>
                 </a>
                 <a href="packages.html" class="btn-book-trip d-none-mobile">
-                    <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+                    <span>Book Your Trip</span> <i class="fa-solid fa-arrow-right"></i>
                 </a>
                 <button class="menu-toggle" onclick="toggleDrawer()" aria-label="Toggle Menu">
                     <i class="fa-solid fa-bars"></i>
@@ -2047,6 +1776,52 @@ input, select { font-family: inherit; }
         </div>
     </div>
 </header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-backdrop" id="drawerBackdrop" onclick="toggleDrawer()"></div>
+<div class="mobile-nav-drawer" id="mobileDrawer">
+    <div class="drawer-header" style="display:flex; justify-content:space-between; align-items:center; padding-bottom:14px; border-bottom:1px solid #E2E8F0; margin-bottom:14px;">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <span style="color:#07377F;">TRAVEL<span style="color:#F5B51B;">NEX</span></span>
+        </a>
+        <button class="drawer-close-btn" onclick="toggleDrawer()" style="background:none; border:none; font-size:24px; cursor:pointer; color:#64748B;">&times;</button>
+    </div>
+    <div class="drawer-body">
+        <ul class="drawer-menu" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;">
+            <li><a href="index.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Home</a></li>
+            <li class="mobile-dropdown-parent">
+                <div class="mobile-dropdown-toggle" onclick="toggleMobileSubMenu()" style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px; cursor:pointer;">
+                    <span>Services</span>
+                    <i class="fa-solid fa-chevron-down" id="mobileSubCaret" style="font-size:12px; transition:transform 0.2s;"></i>
+                </div>
+                <div class="mobile-sub-menu" id="mobileSubMenu">
+                    <a href="local-taxi.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Local Taxi Services</a>
+                    <a href="airport-transfer.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Airport Pickup &amp; Drop</a>
+                    <a href="luxury-bus.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Luxury Bus Booking</a>
+                    <a href="railway-booking.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Railway Ticket Booking</a>
+                    <a href="outstation-cabs.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Outstation Cabs</a>
+                    <a href="mini-bus.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Mini Bus Booking</a>
+                    <a href="group-transportation.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Group Transportation</a>
+                    <a href="st-bus-booking.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Maharashtra ST Bus Booking</a>
+                </div>
+            </li>
+            <li><a href="destinations.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Destinations</a></li>
+            <li><a href="packages.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Packages</a></li>
+            <li><a href="../corporate/corporate.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Corporate Portal</a></li>
+            <li><a href="about.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">About Us</a></li>
+            <li><a href="contact.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Contact</a></li>
+        </ul>
+        <div class="drawer-cta-wrap" style="padding:16px 0; display:flex; flex-direction:column; gap:10px; margin-top:14px; border-top:1px solid #E2E8F0;">
+            <a href="login.html" id="drawerAuthLink" class="nav-auth-pill" style="justify-content:center; width:100%;">
+                <i class="fa-solid fa-circle-user"></i> Sign In
+            </a>
+            <a href="packages.html" class="btn-book-trip" style="justify-content:center; width:100%;">
+                <span>Book Your Trip</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
 
 <!-- MOBILE DRAWER -->
 <div class="mobile-drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
@@ -2721,6 +2496,127 @@ input, select { font-family: inherit; }
     </div>
 </section>
 
+<!-- 7. POPULAR TRAVEL ROUTES SECTION -->
+<section class="popular-routes-section scroll-reveal" id="popular-routes">
+    <div class="container">
+        <div class="section-header-center">
+            <span class="section-tag">HIGHWAY &amp; INTERCITY TRIPS</span>
+            <h2 class="section-title">Popular Travel Routes</h2>
+            <p class="section-subtitle">Fixed transparent fares, verified highway chauffeurs, door-to-door pickup and zero hidden toll charges.</p>
+        </div>
+
+        <div class="routes-grid-three">
+            <!-- Route 1: Pune - Mumbai -->
+            <div class="route-card">
+                <div class="route-badge"><i class="fa-solid fa-bolt"></i> Most Popular Route</div>
+                <div class="route-cities">
+                    <span>Pune</span> <i class="fa-solid fa-arrow-right"></i> <span>Mumbai</span>
+                </div>
+                <div class="route-stats">
+                    <span><i class="fa-solid fa-road"></i> 150 km</span>
+                    <span><i class="fa-regular fa-clock"></i> 3.5 hrs</span>
+                    <span><i class="fa-solid fa-shield-check"></i> Toll Included</span>
+                </div>
+                <p class="route-desc">Expressway point-to-point drop from any location in Pune to Mumbai Airport, BKC, South Mumbai or Navi Mumbai.</p>
+                <div class="route-footer">
+                    <div class="route-price">â‚¹2,199 <small>Sedan / Dzire</small></div>
+                    <a href="outstation-cabs.html?from=Pune&to=Mumbai" class="btn-route-book">Book Cab <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Route 2: Mumbai - Goa -->
+            <div class="route-card">
+                <div class="route-badge"><i class="fa-solid fa-umbrella-beach"></i> Beach Gateway</div>
+                <div class="route-cities">
+                    <span>Mumbai</span> <i class="fa-solid fa-arrow-right"></i> <span>Goa</span>
+                </div>
+                <div class="route-stats">
+                    <span><i class="fa-solid fa-road"></i> 590 km</span>
+                    <span><i class="fa-regular fa-clock"></i> 10.5 hrs</span>
+                    <span><i class="fa-solid fa-bed"></i> Sleeper / Cab</span>
+                </div>
+                <p class="route-desc">Travel in luxury with overnight AC Volvo sleeper buses or private chauffeur-driven Innova Crysta through the Konkan scenic belt.</p>
+                <div class="route-footer">
+                    <div class="route-price">â‚¹8,499 <small>Private SUV</small></div>
+                    <a href="outstation-cabs.html?from=Mumbai&to=Goa" class="btn-route-book">Book Journey <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Route 3: Pune - Mahabaleshwar -->
+            <div class="route-card">
+                <div class="route-badge"><i class="fa-solid fa-mountain-sun"></i> Hill Station Tour</div>
+                <div class="route-cities">
+                    <span>Pune</span> <i class="fa-solid fa-arrow-right"></i> <span>Mahabaleshwar</span>
+                </div>
+                <div class="route-stats">
+                    <span><i class="fa-solid fa-road"></i> 125 km</span>
+                    <span><i class="fa-regular fa-clock"></i> 3 hrs</span>
+                    <span><i class="fa-solid fa-car"></i> Ghat Expert</span>
+                </div>
+                <p class="route-desc">Scenic weekend getaway with local sightseeing coverage including Panchgani, Venna Lake, and strawberry farms.</p>
+                <div class="route-footer">
+                    <div class="route-price">â‚¹2,899 <small>Round Trip Package</small></div>
+                    <a href="outstation-cabs.html?from=Pune&to=Mahabaleshwar" class="btn-route-book">Book Outstation <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Route 4: Pune - Shirdi / Nashik -->
+            <div class="route-card">
+                <div class="route-badge"><i class="fa-solid fa-om"></i> Pilgrimage Special</div>
+                <div class="route-cities">
+                    <span>Pune</span> <i class="fa-solid fa-arrow-right"></i> <span>Shirdi &amp; Nashik</span>
+                </div>
+                <div class="route-stats">
+                    <span><i class="fa-solid fa-road"></i> 205 km</span>
+                    <span><i class="fa-regular fa-clock"></i> 4.5 hrs</span>
+                    <span><i class="fa-solid fa-users"></i> Family Cab</span>
+                </div>
+                <p class="route-desc">Peaceful pilgrimage trip with doorstep pickup, temple waiting time, and optional extension to Trimbakeshwar Jyotirlinga.</p>
+                <div class="route-footer">
+                    <div class="route-price">â‚¹3,499 <small>Same-Day Return</small></div>
+                    <a href="outstation-cabs.html?from=Pune&to=Shirdi" class="btn-route-book">Book Pilgrimage <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Route 5: Mumbai - Lonavala / Khandala -->
+            <div class="route-card">
+                <div class="route-badge"><i class="fa-solid fa-cloud-sun"></i> Quick Escape</div>
+                <div class="route-cities">
+                    <span>Mumbai</span> <i class="fa-solid fa-arrow-right"></i> <span>Lonavala</span>
+                </div>
+                <div class="route-stats">
+                    <span><i class="fa-solid fa-road"></i> 85 km</span>
+                    <span><i class="fa-regular fa-clock"></i> 2 hrs</span>
+                    <span><i class="fa-solid fa-bolt"></i> Instant Ride</span>
+                </div>
+                <p class="route-desc">Instant booking for weekend trips to Tiger Point, Bhushi Dam, and Karla Caves with verified polite drivers.</p>
+                <div class="route-footer">
+                    <div class="route-price">â‚¹1,899 <small>Sedan / Hatchback</small></div>
+                    <a href="outstation-cabs.html?from=Mumbai&to=Lonavala" class="btn-route-book">Book Ride <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Route 6: Pune - Kolhapur / Solapur -->
+            <div class="route-card">
+                <div class="route-badge"><i class="fa-solid fa-landmark"></i> Heritage &amp; Business</div>
+                <div class="route-cities">
+                    <span>Pune</span> <i class="fa-solid fa-arrow-right"></i> <span>Kolhapur</span>
+                </div>
+                <div class="route-stats">
+                    <span><i class="fa-solid fa-road"></i> 235 km</span>
+                    <span><i class="fa-regular fa-clock"></i> 4.5 hrs</span>
+                    <span><i class="fa-solid fa-briefcase"></i> Corporate / Tour</span>
+                </div>
+                <p class="route-desc">Smooth highway travel on NH 48 for Mahalaxmi temple visits, industrial meetings, and family weddings.</p>
+                <div class="route-footer">
+                    <div class="route-price">â‚¹3,899 <small>Ertiga / Innova</small></div>
+                    <a href="outstation-cabs.html?from=Pune&to=Kolhapur" class="btn-route-book">Book Cab <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- 7.2 CUSTOMER TESTIMONIALS -->
 <section class="testimonials-section scroll-reveal" id="testimonials">
     <div class="container">
@@ -3215,5 +3111,6 @@ function toggleFaq(btn) {
 }
 </script>
 
+<script src="../assets/js/navbar.js"></script>
 </body>
 </html>

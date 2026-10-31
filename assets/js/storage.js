@@ -1095,7 +1095,19 @@ const StorageManager = {
     // BOOKINGS API
     // =========================================================================
     getBookings() {
-        return this.get(STORAGE_KEYS.BOOKINGS, []);
+        const raw = this.get(STORAGE_KEYS.BOOKINGS, []);
+        return raw.map(b => ({
+            ...b,
+            pickup: b.pickup || b.pickupLocation || 'Pickup Point',
+            destination: b.destination || b.dropLocation || 'Destination Point',
+            estimatedFare: Number(b.estimatedFare || b.amount) || 0,
+            bookingStatus: b.bookingStatus || b.status || 'Pending',
+            customerName: b.customerName || b.passengerName || 'Valued Traveler',
+            customerPhone: b.customerPhone || b.passengerPhone || '+91 98765 00000',
+            customerEmail: b.customerEmail || b.passengerEmail || '',
+            journeyDate: b.journeyDate || (b.pickupDateTime ? b.pickupDateTime.split('T')[0] : (b.createdAt ? b.createdAt.split('T')[0] : new Date().toISOString().split('T')[0])),
+            journeyTime: b.journeyTime || (b.pickupDateTime && b.pickupDateTime.includes('T') ? b.pickupDateTime.split('T')[1] : '10:00')
+        }));
     },
 
     getBookingById(id) {
@@ -1105,6 +1117,9 @@ const StorageManager = {
 
     createBooking(bookingData) {
         const bookings = this.getBookings();
+        const datePart = bookingData.journeyDate || (bookingData.pickupDateTime ? bookingData.pickupDateTime.split('T')[0] : new Date().toISOString().split('T')[0]);
+        const timePart = bookingData.journeyTime || (bookingData.pickupDateTime && bookingData.pickupDateTime.includes('T') ? bookingData.pickupDateTime.split('T')[1] : '10:00');
+
         const newBooking = {
             id: bookingData.id || this.generateId('TNX-BOOKING'),
             customerId: bookingData.customerId || null,
@@ -1113,27 +1128,26 @@ const StorageManager = {
             driverId: bookingData.driverId || null,
             vehicleId: bookingData.vehicleId || null,
             serviceType: bookingData.serviceType || 'Local Cab',
-            pickup: bookingData.pickup || '',
-            destination: bookingData.destination || '',
-            journeyDate: bookingData.journeyDate || '',
-            journeyTime: bookingData.journeyTime || '',
+            pickup: bookingData.pickup || bookingData.pickupLocation || 'Pickup Address',
+            destination: bookingData.destination || bookingData.dropLocation || 'Drop Address',
+            journeyDate: datePart,
+            journeyTime: timePart,
             returnDate: bookingData.returnDate || null,
             passengers: Number(bookingData.passengers) || 1,
             vehicleType: bookingData.vehicleType || 'Sedan',
-            estimatedFare: Number(bookingData.estimatedFare) || 0,
+            estimatedFare: Number(bookingData.estimatedFare || bookingData.amount) || 0,
             paymentStatus: bookingData.paymentStatus || 'Pending',
-            bookingStatus: bookingData.bookingStatus || 'Pending',
+            bookingStatus: bookingData.bookingStatus || bookingData.status || 'Pending',
             createdAt: new Date().toISOString(),
-            customerName: bookingData.customerName || '',
-            customerPhone: bookingData.customerPhone || '',
-            customerEmail: bookingData.customerEmail || '',
+            customerName: bookingData.customerName || bookingData.passengerName || 'Valued Traveler',
+            customerPhone: bookingData.customerPhone || bookingData.passengerPhone || '',
+            customerEmail: bookingData.customerEmail || bookingData.passengerEmail || '',
             notes: bookingData.notes || ''
         };
 
         bookings.unshift(newBooking);
         this.set(STORAGE_KEYS.BOOKINGS, bookings);
-        return newBooking;
-    },
+        return newBooking;,
 
     updateBookingStatus(id, newStatus, extraData = {}) {
         const bookings = this.getBookings();
