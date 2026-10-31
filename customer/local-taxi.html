@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/common.css?v=2.5">
 
 <style>
 :root {
@@ -215,74 +215,81 @@
 </div>
 
 <!-- 1. EXACT CUSTOMER NAVBAR (Strict Reference Match) -->
-<!-- 2. EXACT TRAVELNEX NAVBAR (Clean White, Two-Column Services Dropdown, Royal Blue Button) -->
-<header class="navbar">
-    <div class="container">
-        <div class="nav-content">
-            <!-- Brand Logo -->
-            <a href="index.html" class="logo">
-                <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
-                <div style="display:flex; flex-direction:column; line-height:1;">
-                    <span style="font-size:20px; font-weight:800; color:#07377F; letter-spacing:-0.5px;">TRAVEL<span style="color:#F5B51B;">NEX</span> <i class="fa-solid fa-paper-plane" style="font-size:11px; color:#F5B51B; margin-left:2px;"></i></span>
-                    <span style="font-size:8.5px; font-weight:600; color:#53647F; letter-spacing:0.4px;">Travel Beyond Limits</span>
-                </div>
-            </a>
+<header class="site-navbar">
+    <div class="container site-navbar-container">
+        <!-- Logo -->
+        <a href="index.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <div class="brand-text">
+                <span class="brand-name">TRAVEL<strong>NEX</strong> <i class="fa-solid fa-paper-plane" style="font-size:12px; color:var(--gold); margin-left:2px;"></i></span>
+                <span class="brand-tagline">Travel Beyond Limits</span>
+            </div>
+        </a>
 
-            <!-- Navigation Links -->
-            <ul class="nav-links">
+        <!-- Exact 8 Menu Items in exact order -->
+        <nav class="site-nav-menu">
+            <ul class="site-nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li class="nav-dropdown-item">
-                    <a href="javascript:void(0)" class="nav-dropdown-toggle">
+                    <a href="javascript:void(0)" class="nav-dropdown-toggle active">
                         <span>Services</span> <i class="fa-solid fa-chevron-down nav-caret"></i>
                     </a>
-                    <div class="nav-dropdown-panel">
-                        <div class="dropdown-two-columns">
-                            <!-- Left Column -->
-                            <div class="dropdown-col">
-                                <a href="local-taxi.html" class="dropdown-service-item">
-                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
-                                    <span class="dropdown-service-text">Local Taxi Services</span>
-                                </a>
-                                <a href="airport-transfer.html" class="dropdown-service-item">
-                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
-                                    <span class="dropdown-service-text">Airport Pickup &amp; Drop</span>
-                                </a>
-                                <a href="luxury-bus.html" class="dropdown-service-item">
-                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
-                                    <span class="dropdown-service-text">Luxury Bus Booking</span>
-                                </a>
-                                <a href="railway-booking.html" class="dropdown-service-item">
-                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
-                                    <span class="dropdown-service-text">Railway Ticket Booking</span>
-                                </a>
+                    <div class="nav-dropdown-menu">
+                        <a href="local-taxi.html" class="nav-dropdown-link" style="background:var(--light);">
+                            <span class="nav-dropdown-icon" style="background:var(--blue); color:#fff;"><i class="fa-solid fa-taxi"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Local Taxi Services</span>
+                                <span class="nav-dropdown-sub">City point-to-point & hourly cabs</span>
                             </div>
-
-                            <!-- Right Column -->
-                            <div class="dropdown-col">
-                                <a href="outstation-cabs.html" class="dropdown-service-item">
-                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
-                                    <span class="dropdown-service-text">Outstation Cabs</span>
-                                </a>
-                                <a href="mini-bus.html" class="dropdown-service-item">
-                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
-                                    <span class="dropdown-service-text">Mini Bus Booking</span>
-                                </a>
-                                <a href="group-transportation.html" class="dropdown-service-item">
-                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
-                                    <span class="dropdown-service-text">Group Transportation</span>
-                                </a>
-                                <a href="st-bus-booking.html" class="dropdown-service-item">
-                                    <i class="fa-solid fa-circle-check dropdown-service-icon"></i>
-                                    <span class="dropdown-service-text">Maharashtra ST Bus Booking</span>
-                                </a>
+                        </a>
+                        <a href="outstation-cabs.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-car-side"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Outstation Cabs</span>
+                                <span class="nav-dropdown-sub">One-way & round-trip intercity</span>
                             </div>
-                        </div>
-
-                        <!-- Dropdown Footer -->
-                        <div class="dropdown-corporate-footer">
-                            <span>Corporate Transportation à¤¸à¤¾à¤ à¥€ à¤¸à¥à¤µà¤¤à¤‚à¤¤à¥à¤° Portal à¤†à¤£à¤¿ Dashboard.</span>
-                            <a href="../corporate/corporate.html">Corporate Portal &rarr;</a>
-                        </div>
+                        </a>
+                        <a href="airport-transfer.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-plane-departure"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Airport Pickup & Drop</span>
+                                <span class="nav-dropdown-sub">Reliable flight pickup transfers</span>
+                            </div>
+                        </a>
+                        <a href="mini-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-van-shuttle"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Mini Bus Booking</span>
+                                <span class="nav-dropdown-sub">12–26 seater Tempo Traveller</span>
+                            </div>
+                        </a>
+                        <a href="luxury-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Luxury Bus Booking</span>
+                                <span class="nav-dropdown-sub">32–55 seater AC Volvo coaches</span>
+                            </div>
+                        </a>
+                        <a href="group-transportation.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-users"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Group Transportation</span>
+                                <span class="nav-dropdown-sub">Corporate offsites & weddings</span>
+                            </div>
+                        </a>
+                        <a href="railway-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-train"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Railway Ticket Booking</span>
+                                <span class="nav-dropdown-sub">IRCTC verified booking inquiry</span>
+                            </div>
+                        </a>
+                        <a href="st-bus-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus-simple"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Maharashtra ST Bus Booking</span>
+                                <span class="nav-dropdown-sub">Shivneri, Shivshahi & Lalpari</span>
+                            </div>
+                        </a>
                     </div>
                 </li>
                 <li><a href="destinations.html">Destinations</a></li>
@@ -291,71 +298,65 @@
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
+        </nav>
 
-            <!-- Right Actions: Sign In + Royal Blue Book Your Trip + Mobile Hamburger -->
-            <div class="nav-actions">
-                <a href="login.html" id="navbarAuthBtn" class="nav-auth-pill d-none-mobile">
-                    <i class="fa-solid fa-circle-user"></i> <span>Sign In</span>
-                </a>
-                <a href="packages.html" class="btn-book-trip d-none-mobile">
-                    <span>Book Your Trip</span> <i class="fa-solid fa-arrow-right"></i>
-                </a>
-                <button class="menu-toggle" onclick="toggleDrawer()" aria-label="Toggle Menu">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
+        <!-- Right Side: Gold Book Your Trip CTA -->
+        <div class="site-nav-actions">
+            <a href="packages.html" class="btn-book-trip d-none-mobile">
+                <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+            </a>
+            <button class="nav-hamburger" id="navToggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
     </div>
 </header>
 
 <!-- Mobile Navigation Drawer -->
-<div class="mobile-nav-backdrop" id="drawerBackdrop" onclick="toggleDrawer()"></div>
-<div class="mobile-nav-drawer" id="mobileDrawer">
-    <div class="drawer-header" style="display:flex; justify-content:space-between; align-items:center; padding-bottom:14px; border-bottom:1px solid #E2E8F0; margin-bottom:14px;">
-        <a href="index.html" class="logo">
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+        <a href="index.html" class="brand-logo">
             <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
-            <span style="color:#07377F;">TRAVEL<span style="color:#F5B51B;">NEX</span></span>
+            <div class="brand-text">
+                <span class="brand-name">TRAVEL<strong>NEX</strong></span>
+                <span class="brand-tagline">Travel Beyond Limits</span>
+            </div>
         </a>
-        <button class="drawer-close-btn" onclick="toggleDrawer()" style="background:none; border:none; font-size:24px; cursor:pointer; color:#64748B;">&times;</button>
+        <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close Navigation">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
     </div>
-    <div class="drawer-body">
-        <ul class="drawer-menu" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;">
-            <li><a href="index.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Home</a></li>
-            <li class="mobile-dropdown-parent">
-                <div class="mobile-dropdown-toggle" onclick="toggleMobileSubMenu()" style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px; cursor:pointer;">
-                    <span>Services</span>
-                    <i class="fa-solid fa-chevron-down" id="mobileSubCaret" style="font-size:12px; transition:transform 0.2s;"></i>
-                </div>
-                <div class="mobile-sub-menu" id="mobileSubMenu">
-                    <a href="local-taxi.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Local Taxi Services</a>
-                    <a href="airport-transfer.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Airport Pickup &amp; Drop</a>
-                    <a href="luxury-bus.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Luxury Bus Booking</a>
-                    <a href="railway-booking.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Railway Ticket Booking</a>
-                    <a href="outstation-cabs.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Outstation Cabs</a>
-                    <a href="mini-bus.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Mini Bus Booking</a>
-                    <a href="group-transportation.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Group Transportation</a>
-                    <a href="st-bus-booking.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Maharashtra ST Bus Booking</a>
-                </div>
-            </li>
-            <li><a href="destinations.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Destinations</a></li>
-            <li><a href="packages.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Packages</a></li>
-            <li><a href="../corporate/corporate.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Corporate Portal</a></li>
-            <li><a href="about.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">About Us</a></li>
-            <li><a href="contact.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Contact</a></li>
-        </ul>
-        <div class="drawer-cta-wrap" style="padding:16px 0; display:flex; flex-direction:column; gap:10px; margin-top:14px; border-top:1px solid #E2E8F0;">
-            <a href="login.html" id="drawerAuthLink" class="nav-auth-pill" style="justify-content:center; width:100%;">
-                <i class="fa-solid fa-circle-user"></i> Sign In
+    <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="mobile-dropdown-parent">
+            <a href="javascript:void(0)" class="mobile-dropdown-toggle" onclick="toggleMobileServices(this)">
+                <span>Services</span>
+                <i class="fa-solid fa-chevron-down"></i>
             </a>
-            <a href="packages.html" class="btn-book-trip" style="justify-content:center; width:100%;">
-                <span>Book Your Trip</span> <i class="fa-solid fa-arrow-right"></i>
-            </a>
-        </div>
+            <div class="mobile-sub-menu show" id="mobileServicesSub">
+                <a href="local-taxi.html" class="active"><i class="fa-solid fa-taxi"></i> Local Taxi Services</a>
+                <a href="outstation-cabs.html"><i class="fa-solid fa-car-side"></i> Outstation Cabs</a>
+                <a href="airport-transfer.html"><i class="fa-solid fa-plane-departure"></i> Airport Pickup & Drop</a>
+                <a href="mini-bus.html"><i class="fa-solid fa-van-shuttle"></i> Mini Bus Booking</a>
+                <a href="luxury-bus.html"><i class="fa-solid fa-bus"></i> Luxury Bus Booking</a>
+                <a href="group-transportation.html"><i class="fa-solid fa-users"></i> Group Transportation</a>
+                <a href="railway-booking.html"><i class="fa-solid fa-train"></i> Railway Ticket Booking</a>
+                <a href="st-bus-booking.html"><i class="fa-solid fa-bus-simple"></i> Maharashtra ST Bus Booking</a>
+            </div>
+        </li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="../corporate/corporate.html">Corporate</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="mobile-nav-footer">
+        <a href="packages.html" class="btn-book-trip" style="width:100%; justify-content:center;">
+            <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+        </a>
     </div>
 </div>
-
-<!-- Mobile Navigation Drawer -->
-
 
 <!-- PAGE HERO -->
 <section class="page-hero">
@@ -714,6 +715,6 @@ function toggleMobileServices(trigger) {
     }
 }
 </script>
-<script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/navbar.js?v=2.5"></script>
 </body>
 </html>

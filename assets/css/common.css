@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    TRAVELNEX - Unified Design System & Common Styles
    Brand Identity: TicketPlan Inspired Deep Purple (#2E1065), Royal Purple (#6D28D9), Vibrant Purple (#7C3AED), Pink Accent (#EC4899), Soft Lavender (#F3E8FF)
    Typography: Outfit (Headings) & DM Sans (Body)
@@ -1852,25 +1852,28 @@ textarea.form-control {
     flex-shrink: 0;
 }
 
-/* Hamburger for Mobile */
+/* Hamburger for Mobile - Always Highly Visible & Clickable */
 .nav-hamburger, .menu-toggle {
     display: none;
-    background: #F8FAFC;
-    border: 1px solid #CBD5E1;
-    font-size: 18px;
-    color: #07377F;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
+    background: #F8FAFC !important;
+    border: 1px solid #CBD5E1 !important;
+    font-size: 18px !important;
+    color: #07377F !important;
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 8px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 2px 6px rgba(11, 43, 99, 0.08) !important;
 }
 .nav-hamburger:hover, .menu-toggle:hover {
-    background: #EAF1FA;
-    border-color: #07377F;
+    background: #EAF1FA !important;
+    border-color: #07377F !important;
+    color: #07377F !important;
+    transform: translateY(-1px);
 }
 
 @media (max-width: 1024px) {
@@ -1878,102 +1881,119 @@ textarea.form-control {
         display: none !important;
     }
     .nav-hamburger, .menu-toggle {
-        display: flex !important;
+        display: inline-flex !important;
     }
 }
 
-/* Mobile Drawer */
-.mobile-nav-backdrop {
+/* Mobile Drawer & Backdrop - Universal Across All Pages */
+.mobile-nav-backdrop, .mobile-drawer-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(15, 7, 34, 0.5);
+    inset: 0;
+    background: rgba(11, 43, 99, 0.65);
     backdrop-filter: blur(4px);
-    z-index: 1200;
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1999;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-.mobile-nav-backdrop.show {
-    opacity: 1;
-    visibility: visible;
+.mobile-nav-backdrop.show, .mobile-nav-backdrop.active,
+.mobile-drawer-overlay.show, .mobile-drawer-overlay.active {
+    opacity: 1 !important;
+    visibility: visible !important;
 }
-.mobile-nav-drawer {
+
+.mobile-nav-drawer, .mobile-drawer {
     position: fixed;
     top: 0;
-    right: -320px;
-    width: 290px;
+    right: -360px;
+    width: 310px;
+    max-width: 86vw;
     height: 100%;
     background: #ffffff;
-    z-index: 1210;
-    box-shadow: -6px 0 25px rgba(0, 0, 0, 0.15);
-    transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2000;
+    box-shadow: -8px 0 32px rgba(11, 43, 99, 0.22);
+    transition: right 0.32s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     flex-direction: column;
-    padding: 24px 20px;
+    padding: 22px 18px;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
-.mobile-nav-drawer.open {
-    right: 0;
+.mobile-nav-drawer.open, .mobile-nav-drawer.active,
+.mobile-drawer.open, .mobile-drawer.active {
+    right: 0 !important;
 }
-.mobile-nav-header {
+
+.drawer-header, .mobile-nav-header, .drawer-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E2E8F0;
+    margin-bottom: 14px;
 }
-.mobile-nav-close {
-    font-size: 20px;
-    color: #6b5e7d;
+.drawer-close-btn, .mobile-nav-close {
+    font-size: 24px;
+    color: #64748B;
     cursor: pointer;
     background: none;
     border: none;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     display: grid;
     place-items: center;
     border-radius: 6px;
+    transition: all 0.2s ease;
 }
-.mobile-nav-close:hover {
-    background: var(--purple-light);
-    color: var(--danger);
+.drawer-close-btn:hover, .mobile-nav-close:hover {
+    background: #F1F5F9;
+    color: #07377F;
 }
-.mobile-nav-links {
+
+.drawer-menu, .mobile-nav-links, .drawer-links {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 4px;
     flex-grow: 1;
+    margin: 0;
+    padding: 0;
 }
-.mobile-nav-links a {
+.drawer-menu a, .mobile-nav-links a, .drawer-links > a {
     display: flex;
     align-items: center;
-    padding: 11px 14px;
+    gap: 10px;
+    padding: 10px 12px;
     font-size: 14px;
     font-weight: 600;
-    color: #374151;
+    color: #14233F;
     border-radius: 8px;
-    transition: var(--transition);
+    text-decoration: none;
+    transition: all 0.2s ease;
 }
-.mobile-nav-links a:hover {
-    background: var(--gold-light);
-    color: var(--gold);
+.drawer-menu a:hover, .mobile-nav-links a:hover, .drawer-links > a:hover {
+    background: #EAF1FA;
+    color: #07377F;
 }
-.mobile-nav-links a.active {
-    background: var(--gold-light);
-    color: var(--gold);
+.drawer-menu a.active, .mobile-nav-links a.active, .drawer-links > a.active {
+    background: #FEF8E7;
+    color: #DE9F0C !important;
     font-weight: 700;
-    border-left: 3px solid var(--gold);
 }
-.mobile-nav-footer {
+
+.drawer-cta-wrap, .mobile-nav-footer {
     padding-top: 16px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid #E2E8F0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
 }
-.mobile-nav-footer .btn-book-trip {
-    width: 100%;
+.drawer-cta-wrap .btn-book-trip, .mobile-nav-footer .btn-book-trip {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
 }
 
 @media (max-width: 1160px) {

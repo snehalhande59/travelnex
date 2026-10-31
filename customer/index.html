@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/common.css?v=2.5">
 
 <style>
 /* ==========================================================================
@@ -101,97 +101,7 @@ input, select { font-family: inherit; }
     color: var(--pink-accent);
 }
 
-/* 2. Unified Navbar styles loaded from assets/css/common.css */
-
-.mobile-sub-menu.show {
-    display: flex;
-}
-.mobile-sub-menu a {
-    font-size: 13px !important;
-    padding: 8px 12px !important;
-    color: var(--text-muted) !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-}
-.mobile-sub-menu a:hover {
-    color: var(--primary-blue) !important;
-    background: var(--light-blue-bg) !important;
-}
-
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
-}
-.nav-auth-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: #ffffff !important;
-    font-size: 13px;
-    font-weight: 700;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 0 14px;
-    height: 38px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-.nav-auth-pill:hover {
-    background: rgba(245, 181, 27, 0.25);
-    color: var(--accent-yellow) !important;
-    border-color: var(--accent-yellow);
-}
-.btn-book-trip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: var(--accent-yellow);
-    color: var(--dark-navy) !important;
-    font-size: 13px;
-    font-weight: 800;
-    height: 40px;
-    padding: 0 20px;
-    border-radius: 8px;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 14px rgba(245, 181, 27, 0.35);
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    text-decoration: none;
-    flex-shrink: 0;
-}
-.btn-book-trip:hover {
-    background: #e5a714;
-    color: var(--dark-navy) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 181, 27, 0.55);
-}
-.menu-toggle {
-    display: none;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    font-size: 18px;
-    color: #ffffff;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    flex-shrink: 0;
-}
-.menu-toggle:hover {
-    background: rgba(245, 181, 27, 0.25);
-    color: var(--accent-yellow);
-    border-color: var(--accent-yellow);
-}
+/* 2. Unified Navbar & Mobile Drawer styles are governed by assets/css/common.css */
 
 /* ==========================================================================
    OUR TRANSPORTATION & TRAVEL SERVICES SECTION
@@ -1196,108 +1106,6 @@ input, select { font-family: inherit; }
     color: var(--pink-accent);
 }
 
-/* MOBILE DRAWER */
-.mobile-drawer-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(16, 5, 35, 0.65);
-    backdrop-filter: blur(4px);
-    z-index: 1999;
-    opacity: 0;
-    visibility: hidden;
-    transition: var(--transition);
-}
-.mobile-drawer-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-.mobile-drawer {
-    position: fixed;
-    top: 0;
-    right: -340px;
-    width: 320px;
-    max-width: 86vw;
-    height: 100%;
-    background: #ffffff;
-    z-index: 2000;
-    padding: 24px 20px;
-    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.25);
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    transition: right 0.35s ease;
-}
-.mobile-drawer.active {
-    right: 0;
-}
-.drawer-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border-light);
-    margin-bottom: 20px;
-}
-.drawer-links {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-.drawer-links a {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--dark-purple);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.drawer-links a:hover {
-    color: var(--pink-accent);
-}
-
-/* MODAL */
-.modal-blueprint {
-    position: fixed;
-    inset: 0;
-    background: rgba(16, 5, 35, 0.7);
-    backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3000;
-    padding: 20px;
-    opacity: 0;
-    visibility: hidden;
-    transition: var(--transition);
-}
-.modal-blueprint.show {
-    opacity: 1;
-    visibility: visible;
-}
-.modal-box-blueprint {
-    background: #ffffff;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 480px;
-    padding: 32px;
-    position: relative;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
-}
-.modal-close-x {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: #f1f5f9;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    font-size: 18px;
-    color: #64748b;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-}
-
 /* RESPONSIVE BREAKPOINTS */
 @media (max-width: 1200px) {
     .deals-grid-four { grid-template-columns: repeat(2, 1fr); }
@@ -1305,11 +1113,7 @@ input, select { font-family: inherit; }
     .destinations-grid-blueprint { grid-template-columns: repeat(2, 1fr); }
     .footer-grid-blueprint { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 1160px) {
-    .nav-links, .nav-contact-pill { display: none !important; }
-    .menu-toggle { display: inline-flex !important; }
-    .btn-book-trip { height: 38px; padding: 0 16px; font-size: 12.5px; }
-}
+
 @media (max-width: 992px) {
     .hero-content { grid-template-columns: 1fr; }
     .hero-cards-wrapper { display: none; }
@@ -1332,8 +1136,7 @@ input, select { font-family: inherit; }
     .newsletter-subscribe-form { flex-direction: column; border-radius: 16px; padding: 12px; gap: 10px; }
     .btn-newsletter-submit { width: 100%; border-radius: 12px; }
 }
-@media (max-width: 540px) {
-    .navbar .container { padding: 0 16px; }
+
     .nav-actions .btn-book-trip { display: none !important; }
 }
 
@@ -1684,7 +1487,6 @@ input, select { font-family: inherit; }
 </div>
 
 <!-- 2. EXACT CUSTOMER NAVBAR (Strict Reference Match) -->
-<!-- 2. EXACT TRAVELNEX NAVBAR (Clean White, Two-Column Services Dropdown, Royal Blue Button) -->
 <header class="navbar">
     <div class="container">
         <div class="nav-content">
@@ -1699,7 +1501,7 @@ input, select { font-family: inherit; }
 
             <!-- Navigation Links -->
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
                 <li class="nav-dropdown-item">
                     <a href="javascript:void(0)" class="nav-dropdown-toggle">
                         <span>Services</span> <i class="fa-solid fa-chevron-down nav-caret"></i>
@@ -1761,13 +1563,13 @@ input, select { font-family: inherit; }
                 <li><a href="contact.html">Contact</a></li>
             </ul>
 
-            <!-- Right Actions: Sign In + Royal Blue Book Your Trip + Mobile Hamburger -->
+            <!-- Right Actions: Sign In + Golden Yellow Book Your Trip + Mobile Hamburger -->
             <div class="nav-actions">
                 <a href="login.html" id="navbarAuthBtn" class="nav-auth-pill d-none-mobile">
                     <i class="fa-solid fa-circle-user"></i> <span>Sign In</span>
                 </a>
                 <a href="packages.html" class="btn-book-trip d-none-mobile">
-                    <span>Book Your Trip</span> <i class="fa-solid fa-arrow-right"></i>
+                    <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
                 </a>
                 <button class="menu-toggle" onclick="toggleDrawer()" aria-label="Toggle Menu">
                     <i class="fa-solid fa-bars"></i>
@@ -1783,16 +1585,19 @@ input, select { font-family: inherit; }
     <div class="drawer-header" style="display:flex; justify-content:space-between; align-items:center; padding-bottom:14px; border-bottom:1px solid #E2E8F0; margin-bottom:14px;">
         <a href="index.html" class="logo">
             <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
-            <span style="color:#07377F;">TRAVEL<span style="color:#F5B51B;">NEX</span></span>
+            <div style="display:flex; flex-direction:column; line-height:1;">
+                <span style="font-size:18px; font-weight:800; color:#07377F;">TRAVEL<span style="color:#F5B51B;">NEX</span></span>
+                <span style="font-size:8px; font-weight:600; color:#53647F;">Travel Beyond Limits</span>
+            </div>
         </a>
         <button class="drawer-close-btn" onclick="toggleDrawer()" style="background:none; border:none; font-size:24px; cursor:pointer; color:#64748B;">&times;</button>
     </div>
     <div class="drawer-body">
         <ul class="drawer-menu" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;">
-            <li><a href="index.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Home</a></li>
+            <li><a href="index.html" class="active" style="display:block; padding:10px 12px; font-weight:700; color:#e5a00d; border-radius:8px; background:#FEF8E7;"><i class="fa-solid fa-house"></i> Home</a></li>
             <li class="mobile-dropdown-parent">
                 <div class="mobile-dropdown-toggle" onclick="toggleMobileSubMenu()" style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px; cursor:pointer;">
-                    <span>Services</span>
+                    <span><i class="fa-solid fa-taxi"></i> Services</span>
                     <i class="fa-solid fa-chevron-down" id="mobileSubCaret" style="font-size:12px; transition:transform 0.2s;"></i>
                 </div>
                 <div class="mobile-sub-menu" id="mobileSubMenu">
@@ -1806,63 +1611,18 @@ input, select { font-family: inherit; }
                     <a href="st-bus-booking.html"><i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Maharashtra ST Bus Booking</a>
                 </div>
             </li>
-            <li><a href="destinations.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Destinations</a></li>
-            <li><a href="packages.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Packages</a></li>
-            <li><a href="../corporate/corporate.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Corporate Portal</a></li>
-            <li><a href="about.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">About Us</a></li>
-            <li><a href="contact.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;">Contact</a></li>
+            <li><a href="destinations.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;"><i class="fa-solid fa-earth-americas"></i> Destinations</a></li>
+            <li><a href="packages.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;"><i class="fa-solid fa-suitcase"></i> Packages</a></li>
+            <li><a href="../corporate/corporate.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;"><i class="fa-solid fa-briefcase"></i> Corporate Portal</a></li>
+            <li><a href="about.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+            <li><a href="contact.html" style="display:block; padding:10px 12px; font-weight:600; color:#14233F; border-radius:8px;"><i class="fa-solid fa-envelope"></i> Contact</a></li>
         </ul>
         <div class="drawer-cta-wrap" style="padding:16px 0; display:flex; flex-direction:column; gap:10px; margin-top:14px; border-top:1px solid #E2E8F0;">
             <a href="login.html" id="drawerAuthLink" class="nav-auth-pill" style="justify-content:center; width:100%;">
                 <i class="fa-solid fa-circle-user"></i> Sign In
             </a>
-            <a href="packages.html" class="btn-book-trip" style="justify-content:center; width:100%;">
+            <a href="packages.html" class="btn-book-trip" style="justify-content:center; width:100%; text-align:center;">
                 <span>Book Your Trip</span> <i class="fa-solid fa-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- MOBILE DRAWER -->
-<div class="mobile-drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
-<div class="mobile-drawer" id="mobileDrawer">
-    <div class="drawer-head">
-        <a href="index.html" class="logo">
-            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
-            <div style="display:flex; flex-direction:column; line-height:1;">
-                <span style="font-size:18px; font-weight:800; color:var(--dark-navy);">TRAVEL<span style="color:var(--accent-yellow);">NEX</span></span>
-                <span style="font-size:8.5px; font-weight:600; color:var(--text-muted);">Travel Beyond Limits</span>
-            </div>
-        </a>
-        <button onclick="toggleDrawer()" style="background:none; border:none; font-size:22px; color:var(--dark-purple); cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="drawer-links">
-        <a href="index.html" style="color:var(--accent-yellow); font-weight:700;"><i class="fa-solid fa-house" style="color:var(--accent-yellow);"></i> Home</a>
-        <div style="display:flex; flex-direction:column;">
-            <a href="javascript:void(0)" onclick="toggleMobileIndexServices(this)" style="display:flex; justify-content:space-between; align-items:center;">
-                <span><i class="fa-solid fa-taxi" style="color:var(--primary-blue);"></i> Services</span>
-                <i class="fa-solid fa-chevron-down" style="font-size:11px;"></i>
-            </a>
-            <div class="mobile-sub-menu" id="mobileIndexSub">
-                <a href="local-taxi.html"><i class="fa-solid fa-taxi"></i> Local Taxi Services</a>
-                <a href="outstation-cabs.html"><i class="fa-solid fa-car-side"></i> Outstation Cabs</a>
-                <a href="airport-transfer.html"><i class="fa-solid fa-plane-departure"></i> Airport Pickup & Drop</a>
-                <a href="mini-bus.html"><i class="fa-solid fa-van-shuttle"></i> Mini Bus Booking</a>
-                <a href="luxury-bus.html"><i class="fa-solid fa-bus"></i> Luxury Bus Booking</a>
-                <a href="group-transportation.html"><i class="fa-solid fa-users"></i> Group Transportation</a>
-                <a href="railway-booking.html"><i class="fa-solid fa-train"></i> Railway Ticket Booking</a>
-                <a href="st-bus-booking.html"><i class="fa-solid fa-bus-simple"></i> Maharashtra ST Bus Booking</a>
-            </div>
-        </div>
-        <a href="destinations.html"><i class="fa-solid fa-earth-americas" style="color:var(--primary-blue);"></i> Destinations</a>
-        <a href="packages.html"><i class="fa-solid fa-suitcase" style="color:var(--primary-blue);"></i> Packages</a>
-        <a href="../corporate/corporate.html"><i class="fa-solid fa-briefcase" style="color:var(--primary-blue);"></i> Corporate</a>
-        <a href="about.html"><i class="fa-solid fa-circle-info" style="color:var(--primary-blue);"></i> About Us</a>
-        <a href="contact.html"><i class="fa-solid fa-envelope" style="color:var(--primary-blue);"></i> Contact</a>
-        <div style="padding:14px 0 0; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:10px;">
-            <a href="login.html" id="drawerAuthLink" style="font-size:14px; font-weight:700; color:var(--primary-blue); display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-user"></i> Sign In / Register</a>
-            <a href="packages.html" class="btn-book-trip" style="width:100%; text-align:center; justify-content:center; display:flex;">
-                <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
             </a>
         </div>
     </div>
@@ -2515,108 +2275,107 @@ input, select { font-family: inherit; }
                 <div class="route-stats">
                     <span><i class="fa-solid fa-road"></i> 150 km</span>
                     <span><i class="fa-regular fa-clock"></i> 3.5 hrs</span>
-                    <span><i class="fa-solid fa-shield-check"></i> Toll Included</span>
+                    <span><i class="fa-solid fa-shield-halved"></i> Toll Included</span>
                 </div>
                 <p class="route-desc">Expressway point-to-point drop from any location in Pune to Mumbai Airport, BKC, South Mumbai or Navi Mumbai.</p>
                 <div class="route-footer">
-                    <div class="route-price">â‚¹2,199 <small>Sedan / Dzire</small></div>
+                    <div class="route-price">&#8377;2,199 <small>Sedan / Dzire</small></div>
                     <a href="outstation-cabs.html?from=Pune&to=Mumbai" class="btn-route-book">Book Cab <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
 
             <!-- Route 2: Mumbai - Goa -->
             <div class="route-card">
-                <div class="route-badge"><i class="fa-solid fa-umbrella-beach"></i> Beach Gateway</div>
+                <div class="route-badge"><i class="fa-solid fa-umbrella-beach"></i> Beach Holiday</div>
                 <div class="route-cities">
                     <span>Mumbai</span> <i class="fa-solid fa-arrow-right"></i> <span>Goa</span>
                 </div>
                 <div class="route-stats">
-                    <span><i class="fa-solid fa-road"></i> 590 km</span>
+                    <span><i class="fa-solid fa-road"></i> 580 km</span>
                     <span><i class="fa-regular fa-clock"></i> 10.5 hrs</span>
-                    <span><i class="fa-solid fa-bed"></i> Sleeper / Cab</span>
+                    <span><i class="fa-solid fa-circle-check"></i> Highway Verified</span>
                 </div>
-                <p class="route-desc">Travel in luxury with overnight AC Volvo sleeper buses or private chauffeur-driven Innova Crysta through the Konkan scenic belt.</p>
+                <p class="route-desc">Scenic coastal highway journey with verified rest-stop halts, luggage assistance and top AC SUV comfort.</p>
                 <div class="route-footer">
-                    <div class="route-price">â‚¹8,499 <small>Private SUV</small></div>
-                    <a href="outstation-cabs.html?from=Mumbai&to=Goa" class="btn-route-book">Book Journey <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="route-price">&#8377;5,499 <small>Ertiga / SUV</small></div>
+                    <a href="outstation-cabs.html?from=Mumbai&to=Goa" class="btn-route-book">Book Cab <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
 
             <!-- Route 3: Pune - Mahabaleshwar -->
             <div class="route-card">
-                <div class="route-badge"><i class="fa-solid fa-mountain-sun"></i> Hill Station Tour</div>
+                <div class="route-badge"><i class="fa-solid fa-mountain"></i> Hill Station Special</div>
                 <div class="route-cities">
                     <span>Pune</span> <i class="fa-solid fa-arrow-right"></i> <span>Mahabaleshwar</span>
                 </div>
                 <div class="route-stats">
-                    <span><i class="fa-solid fa-road"></i> 125 km</span>
-                    <span><i class="fa-regular fa-clock"></i> 3 hrs</span>
-                    <span><i class="fa-solid fa-car"></i> Ghat Expert</span>
+                    <span><i class="fa-solid fa-road"></i> 120 km</span>
+                    <span><i class="fa-regular fa-clock"></i> 3.0 hrs</span>
+                    <span><i class="fa-solid fa-shield-halved"></i> Ghats Trained</span>
                 </div>
-                <p class="route-desc">Scenic weekend getaway with local sightseeing coverage including Panchgani, Venna Lake, and strawberry farms.</p>
+                <p class="route-desc">Pleasant hill station trip through Wai and Panchgani with experienced hill-driving chauffeurs.</p>
                 <div class="route-footer">
-                    <div class="route-price">â‚¹2,899 <small>Round Trip Package</small></div>
-                    <a href="outstation-cabs.html?from=Pune&to=Mahabaleshwar" class="btn-route-book">Book Outstation <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="route-price">&#8377;2,899 <small>Sedan / Dzire</small></div>
+                    <a href="outstation-cabs.html?from=Pune&to=Mahabaleshwar" class="btn-route-book">Book Cab <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
 
-            <!-- Route 4: Pune - Shirdi / Nashik -->
+            <!-- Route 4: Pune - Shirdi -->
             <div class="route-card">
-                <div class="route-badge"><i class="fa-solid fa-om"></i> Pilgrimage Special</div>
+                <div class="route-badge"><i class="fa-solid fa-hands-praying"></i> Pilgrimage Route</div>
                 <div class="route-cities">
-                    <span>Pune</span> <i class="fa-solid fa-arrow-right"></i> <span>Shirdi &amp; Nashik</span>
+                    <span>Pune</span> <i class="fa-solid fa-arrow-right"></i> <span>Shirdi</span>
                 </div>
                 <div class="route-stats">
-                    <span><i class="fa-solid fa-road"></i> 205 km</span>
+                    <span><i class="fa-solid fa-road"></i> 185 km</span>
                     <span><i class="fa-regular fa-clock"></i> 4.5 hrs</span>
-                    <span><i class="fa-solid fa-users"></i> Family Cab</span>
+                    <span><i class="fa-solid fa-circle-check"></i> Same Day Return</span>
                 </div>
-                <p class="route-desc">Peaceful pilgrimage trip with doorstep pickup, temple waiting time, and optional extension to Trimbakeshwar Jyotirlinga.</p>
+                <p class="route-desc">Spiritual journey with flexible temple darshan waiting, family-friendly vehicles and clean AC fleet.</p>
                 <div class="route-footer">
-                    <div class="route-price">â‚¹3,499 <small>Same-Day Return</small></div>
-                    <a href="outstation-cabs.html?from=Pune&to=Shirdi" class="btn-route-book">Book Pilgrimage <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="route-price">&#8377;3,299 <small>Sedan / Dzire</small></div>
+                    <a href="outstation-cabs.html?from=Pune&to=Shirdi" class="btn-route-book">Book Cab <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
 
-            <!-- Route 5: Mumbai - Lonavala / Khandala -->
+            <!-- Route 5: Mumbai - Lonavala -->
             <div class="route-card">
-                <div class="route-badge"><i class="fa-solid fa-cloud-sun"></i> Quick Escape</div>
+                <div class="route-badge"><i class="fa-solid fa-cloud-sun"></i> Weekend Getaway</div>
                 <div class="route-cities">
                     <span>Mumbai</span> <i class="fa-solid fa-arrow-right"></i> <span>Lonavala</span>
                 </div>
                 <div class="route-stats">
                     <span><i class="fa-solid fa-road"></i> 85 km</span>
-                    <span><i class="fa-regular fa-clock"></i> 2 hrs</span>
-                    <span><i class="fa-solid fa-bolt"></i> Instant Ride</span>
+                    <span><i class="fa-regular fa-clock"></i> 2.0 hrs</span>
+                    <span><i class="fa-solid fa-shield-halved"></i> FastTag Included</span>
                 </div>
-                <p class="route-desc">Instant booking for weekend trips to Tiger Point, Bhushi Dam, and Karla Caves with verified polite drivers.</p>
+                <p class="route-desc">Quick getaway drive along the expressway with door pickup anywhere in Mumbai, Thane or Navi Mumbai.</p>
                 <div class="route-footer">
-                    <div class="route-price">â‚¹1,899 <small>Sedan / Hatchback</small></div>
-                    <a href="outstation-cabs.html?from=Mumbai&to=Lonavala" class="btn-route-book">Book Ride <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="route-price">&#8377;1,999 <small>Sedan / Hatchback</small></div>
+                    <a href="outstation-cabs.html?from=Mumbai&to=Lonavala" class="btn-route-book">Book Cab <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
 
-            <!-- Route 6: Pune - Kolhapur / Solapur -->
+            <!-- Route 6: Pune - Kolhapur -->
             <div class="route-card">
-                <div class="route-badge"><i class="fa-solid fa-landmark"></i> Heritage &amp; Business</div>
+                <div class="route-badge"><i class="fa-solid fa-landmark"></i> Heritage Corridor</div>
                 <div class="route-cities">
                     <span>Pune</span> <i class="fa-solid fa-arrow-right"></i> <span>Kolhapur</span>
                 </div>
                 <div class="route-stats">
                     <span><i class="fa-solid fa-road"></i> 235 km</span>
                     <span><i class="fa-regular fa-clock"></i> 4.5 hrs</span>
-                    <span><i class="fa-solid fa-briefcase"></i> Corporate / Tour</span>
+                    <span><i class="fa-solid fa-circle-check"></i> NH48 Express</span>
                 </div>
-                <p class="route-desc">Smooth highway travel on NH 48 for Mahalaxmi temple visits, industrial meetings, and family weddings.</p>
+                <p class="route-desc">Direct highway transit connecting Pune IT hubs to Mahalaxmi Temple, Kolhapur city and industrial MIDCs.</p>
                 <div class="route-footer">
-                    <div class="route-price">â‚¹3,899 <small>Ertiga / Innova</small></div>
+                    <div class="route-price">&#8377;3,699 <small>Sedan / Ertiga</small></div>
                     <a href="outstation-cabs.html?from=Pune&to=Kolhapur" class="btn-route-book">Book Cab <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 <!-- 7.2 CUSTOMER TESTIMONIALS -->
 <section class="testimonials-section scroll-reveal" id="testimonials">
     <div class="container">
@@ -3111,6 +2870,6 @@ function toggleFaq(btn) {
 }
 </script>
 
-<script src="../assets/js/navbar.js"></script>
+<script src="../assets/js/navbar.js?v=2.5"></script>
 </body>
 </html>
