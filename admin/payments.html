@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Records & Transactions | TRAVELNEX Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="admin-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Super Admin</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Core Management</div>
+            <a href="admin-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard Overview</span>
+            </a>
+            <a href="bookings.html" class="sidebar-link">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Booking Management</span>
+            </a>
+            <a href="customers.html" class="sidebar-link">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Customer Accounts</span>
+            </a>
+            <a href="corporate-clients.html" class="sidebar-link">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Corporate Clients</span>
+            </a>
+
+            <div class="sidebar-section-title">Fleet & Operations</div>
+            <a href="drivers.html" class="sidebar-link">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Drivers Management</span>
+            </a>
+            <a href="vehicles.html" class="sidebar-link">
+                <i class="fa-solid fa-taxi"></i>
+                <span>Vehicles & Fleet</span>
+            </a>
+            <a href="services.html" class="sidebar-link">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Services & Rates</span>
+            </a>
+
+            <div class="sidebar-section-title">Financials & Reports</div>
+            <a href="payments.html" class="sidebar-link active">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Payment Records</span>
+                <span class="nav-count" id="badgePayments">0</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Invoices Management</span>
+            </a>
+            <a href="reports.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports & Analytics</span>
+            </a>
+            <a href="settings.html" class="sidebar-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>System Settings</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">A</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">Chief Admin</div>
+                <div class="sidebar-user-role">Super Administrator</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../admin/admin-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="admin-dashboard.html">Admin</a> &gt; Financials</div>
+                    <h1 class="page-title">Payment Ledgers & Settlement</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button type="button" class="btn btn-outline btn-sm" onclick="exportPaymentsCSV()">
+                    <i class="fa-solid fa-download"></i> Export CSV
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Received & Pending Transactions</div>
+                    <div class="table-filters">
+                        <div class="search-input-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="searchPay" placeholder="Search payment, ref, customer..." oninput="filterPayments()">
+                        </div>
+
+                        <select id="payStatusFilter" class="form-control" style="width: auto; height: 38px; font-size: 13px;" onchange="filterPayments()">
+                            <option value="ALL">All Statuses</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Refunded">Refunded</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Payment Ref</th>
+                                <th>Booking ID</th>
+                                <th>Payer / Customer</th>
+                                <th>Amount</th>
+                                <th>Payment Method</th>
+                                <th>Date & Time</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentsTableBody">
+                            <!-- Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const adminUser = Auth.requireRole('admin', 'admin-login.html');
+    let paymentsList = [];
+
+    function loadPayments() {
+        paymentsList = StorageManager.getPayments();
+        document.getElementById('badgePayments').textContent = paymentsList.length;
+        filterPayments();
+    }
+
+    function filterPayments() {
+        const q = document.getElementById('searchPay').value.trim().toLowerCase();
+        const status = document.getElementById('payStatusFilter').value;
+
+        const filtered = paymentsList.filter(p => {
+            const matchesQ = !q ||
+                p.id.toLowerCase().includes(q) ||
+                (p.bookingId && p.bookingId.toLowerCase().includes(q)) ||
+                (p.customerName && p.customerName.toLowerCase().includes(q)) ||
+                (p.transactionRef && p.transactionRef.toLowerCase().includes(q));
+
+            const matchesStatus = status === 'ALL' || p.status === status;
+            return matchesQ && matchesStatus;
+        });
+
+        renderPaymentsTable(filtered);
+    }
+
+    function renderPaymentsTable(list) {
+        const tbody = document.getElementById('paymentsTableBody');
+        tbody.innerHTML = '';
+
+        list.forEach(p => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>
+                    <strong>${Utils.escapeHTML(p.id)}</strong><br>
+                    <small style="color:var(--text-muted); font-size:11px;">Ref: ${Utils.escapeHTML(p.transactionRef || 'N/A')}</small>
+                </td>
+                <td><strong>${Utils.escapeHTML(p.bookingId || 'N/A')}</strong></td>
+                <td><div style="font-weight:600;">${Utils.escapeHTML(p.customerName)}</div></td>
+                <td><strong style="font-size:15px; color:var(--navy);">${Utils.formatCurrency(p.amount)}</strong></td>
+                <td>${Utils.escapeHTML(p.method || 'Online / Card')}</td>
+                <td>${Utils.formatDateTime(p.date)}</td>
+                <td>
+                    <span class="badge ${p.status === 'Paid' ? 'badge-paid' : (p.status === 'Refunded' ? 'badge-cancelled' : 'badge-unpaid')}">
+                        ${Utils.escapeHTML(p.status || 'Paid')}
+                    </span>
+                </td>
+                <td style="text-align: right;">
+                    <div class="table-actions" style="justify-content: flex-end;">
+                        ${p.status !== 'Paid' ? `
+                            <button class="btn btn-success btn-sm" onclick="markPaid('${p.id}')">
+                                <i class="fa-solid fa-check"></i> Mark Paid
+                            </button>
+                        ` : `
+                            <button class="action-btn" title="Refund" onclick="markRefunded('${p.id}')">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                        `}
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function markPaid(id) {
+        StorageManager.updatePaymentStatus(id, 'Paid');
+        Utils.showToast(`Payment ${id} marked as Paid.`, 'success');
+        loadPayments();
+    }
+
+    function markRefunded(id) {
+        Utils.confirm(`Mark payment ${id} as Refunded?`, () => {
+            StorageManager.updatePaymentStatus(id, 'Refunded');
+            Utils.showToast(`Payment ${id} marked as Refunded.`, 'info');
+            loadPayments();
+        });
+    }
+
+    function exportPaymentsCSV() {
+        if (paymentsList.length === 0) {
+            Utils.showToast('No payment records to export.', 'warning');
+            return;
+        }
+
+        const headers = ['Payment ID', 'Booking ID', 'Customer', 'Amount', 'Method', 'Status', 'Transaction Ref', 'Date'];
+        const rows = paymentsList.map(p => [
+            p.id,
+            p.bookingId,
+            p.customerName,
+            p.amount,
+            p.method,
+            p.status,
+            p.transactionRef,
+            p.date
+        ]);
+
+        StorageManager.exportToCSV('travelnex_payments_journal', headers, rows);
+        Utils.showToast('Payments CSV exported successfully!', 'success');
+    }
+
+    document.addEventListener('DOMContentLoaded', loadPayments);
+</script>
+</body>
+</html>

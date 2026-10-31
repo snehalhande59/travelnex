@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Console & Trips | TRAVELNEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <!-- Driver Sidebar -->
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="driver-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon" style="background:var(--orange);"><i class="fa-solid fa-id-card"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge" style="background:rgba(255,118,40,0.25); color:var(--orange);">Driver</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Driver App</div>
+            <a href="driver-dashboard.html" class="sidebar-link active">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Driver Dashboard</span>
+            </a>
+            <a href="assigned-trips.html" class="sidebar-link">
+                <i class="fa-solid fa-car-side"></i>
+                <span>Assigned Trips</span>
+                <span class="nav-count" id="badgeAssigned">0</span>
+            </a>
+            <a href="trip-history.html" class="sidebar-link">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Trip History & Earnings</span>
+            </a>
+            <a href="driver-profile.html" class="sidebar-link">
+                <i class="fa-solid fa-user-gear"></i>
+                <span>Driver Profile</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar" style="background:var(--orange);">D</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name" id="driverNavName">Ramesh Pawar</div>
+                <div class="sidebar-user-role" id="driverNavVehicle">MH 12 AB 4501</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../driver/driver-login.html')" title="Logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb">Driver Console &gt; Dashboard</div>
+                    <h1 class="page-title" id="welcomeDriverTitle">Chauffeur Duty Desk</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-size:12px; color:var(--text-muted); font-weight:600;">Duty Status:</span>
+                    <select id="dutyStatusSelect" class="form-control" style="width: auto; height: 36px; font-size: 13px; font-weight:700;" onchange="updateDutyStatus()">
+                        <option value="Available">🟢 Available for Duty</option>
+                        <option value="On Trip">🟣 On Trip</option>
+                        <option value="Off Duty">⚪ Off Duty</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <!-- 5 Driver Key Metrics Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i class="fa-solid fa-car-side"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Assigned / Active</div>
+                        <div class="stat-value" id="statAssigned">0</div>
+                        <div class="stat-subtext">Confirmed or in progress</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Completed Trips</div>
+                        <div class="stat-value" id="statCompleted">0</div>
+                        <div class="stat-subtext">Successfully dropped</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fa-solid fa-route"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Total Assigned Trips</div>
+                        <div class="stat-value" id="statTotal">0</div>
+                        <div class="stat-subtext">Lifetime assigned</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red"><i class="fa-solid fa-ban"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Cancelled Trips</div>
+                        <div class="stat-value" id="statCancelled">0</div>
+                        <div class="stat-subtext">Customer/Admin cancelled</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assigned Fleet Car Banner -->
+            <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius-md); padding:18px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:28px;">
+                <div style="display:flex; align-items:center; gap:16px;">
+                    <div style="width:50px; height:50px; border-radius:10px; background:var(--orange-light); color:var(--orange); display:grid; place-items:center; font-size:22px;">
+                        <i class="fa-solid fa-taxi"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Assigned Vehicle</div>
+                        <h3 style="font-size:18px; color:var(--navy);" id="bannerVehicleName">Maruti Suzuki Dzire Prime</h3>
+                        <p style="font-size:13px; color:var(--blue); font-weight:600;" id="bannerVehiclePlate">MH 12 AB 4501 • Category: Sedan</p>
+                    </div>
+                </div>
+
+                <div>
+                    <a href="assigned-trips.html" class="btn btn-orange btn-sm">
+                        <i class="fa-solid fa-route"></i> Open Trip Navigator
+                    </a>
+                </div>
+            </div>
+
+            <!-- Live Active & Assigned Trips -->
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">My Assigned Trips</div>
+                    <a href="assigned-trips.html" class="btn btn-outline btn-sm">View All Assigned &rarr;</a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Passenger</th>
+                                <th>Pickup & Destination</th>
+                                <th>Schedule Date & Time</th>
+                                <th>Service</th>
+                                <th>Fare</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Trip Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="driverTripsTableBody">
+                            <!-- Injected -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="emptyDriverTrips" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon"><i class="fa-solid fa-check"></i></div>
+                    <h3>No Active Assigned Trips</h3>
+                    <p>You have no pending assignments right now. New trips assigned by operations will appear here.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const user = Auth.requireRole('driver', 'driver-login.html');
+    const driverId = (user && user.driverId) ? user.driverId : 'DRV-101';
+
+    let myTrips = [];
+
+    function loadDriverDashboard() {
+        const driver = StorageManager.getDriverById(driverId) || {
+            name: user.name || 'Ramesh Pawar',
+            availabilityStatus: 'Available',
+            assignedVehicleId: 'VEH-101'
+        };
+
+        const vehicle = driver.assignedVehicleId ? StorageManager.getVehicleById(driver.assignedVehicleId) : null;
+
+        document.getElementById('welcomeDriverTitle').textContent = `Welcome, ${driver.name}`;
+        document.getElementById('driverNavName').textContent = driver.name;
+        document.getElementById('dutyStatusSelect').value = driver.availabilityStatus || 'Available';
+
+        if (vehicle) {
+            document.getElementById('bannerVehicleName').textContent = vehicle.name;
+            document.getElementById('bannerVehiclePlate').textContent = `${vehicle.regNumber} • Category: ${vehicle.type}`;
+            document.getElementById('driverNavVehicle').textContent = vehicle.regNumber;
+        }
+
+        // Fetch bookings assigned specifically to this driver
+        const allBookings = StorageManager.getBookings();
+        myTrips = allBookings.filter(b => b.driverId === driverId);
+
+        const assignedCount = myTrips.filter(b => ['Confirmed', 'In Progress'].includes(b.bookingStatus)).length;
+        const completedCount = myTrips.filter(b => b.bookingStatus === 'Completed').length;
+        const cancelledCount = myTrips.filter(b => ['Cancelled', 'Rejected'].includes(b.bookingStatus)).length;
+
+        document.getElementById('statAssigned').textContent = assignedCount;
+        document.getElementById('badgeAssigned').textContent = assignedCount;
+        document.getElementById('statCompleted').textContent = completedCount;
+        document.getElementById('statTotal').textContent = myTrips.length;
+        document.getElementById('statCancelled').textContent = cancelledCount;
+
+        renderTripsTable();
+    }
+
+    function renderTripsTable() {
+        const tbody = document.getElementById('driverTripsTableBody');
+        const empty = document.getElementById('emptyDriverTrips');
+        tbody.innerHTML = '';
+
+        if (myTrips.length === 0) {
+            empty.style.display = 'block';
+            return;
+        }
+
+        empty.style.display = 'none';
+
+        myTrips.forEach(b => {
+            const tr = document.createElement('tr');
+            const isConfirmed = b.bookingStatus === 'Confirmed';
+            const isInProgress = b.bookingStatus === 'In Progress';
+
+            let actionBtnHTML = '';
+            if (isConfirmed) {
+                actionBtnHTML = `
+                    <button class="btn btn-primary btn-sm" onclick="startTrip('${b.id}')">
+                        <i class="fa-solid fa-play"></i> Start Trip
+                    </button>
+                `;
+            } else if (isInProgress) {
+                actionBtnHTML = `
+                    <button class="btn btn-success btn-sm" onclick="completeTrip('${b.id}')">
+                        <i class="fa-solid fa-check"></i> Complete Trip
+                    </button>
+                `;
+            } else {
+                actionBtnHTML = `
+                    <a href="trip-details.html?id=${b.id}" class="action-btn" title="View Details">
+                        <i class="fa-solid fa-eye"></i>
+                    </a>
+                `;
+            }
+
+            tr.innerHTML = `
+                <td>
+                    <strong>${Utils.escapeHTML(b.id)}</strong><br>
+                    <small style="color:var(--text-muted); font-size:11px;">${Utils.formatDate(b.createdAt)}</small>
+                </td>
+                <td>
+                    <div style="font-weight:700; color:var(--navy);">${Utils.escapeHTML(b.customerName)}</div>
+                    <div><a href="tel:${b.customerPhone}" style="color:var(--blue); font-size:12px; font-weight:600;"><i class="fa-solid fa-phone"></i> ${Utils.escapeHTML(b.customerPhone)}</a></div>
+                </td>
+                <td>
+                    <div style="font-size:13px; font-weight:600;"><i class="fa-solid fa-location-dot" style="color:var(--orange);"></i> ${Utils.escapeHTML(b.pickup)}</div>
+                    <div style="font-size:13px; font-weight:600; margin-top:2px;"><i class="fa-solid fa-flag-checkered" style="color:var(--blue);"></i> ${Utils.escapeHTML(b.destination)}</div>
+                </td>
+                <td>
+                    <div>${Utils.formatDate(b.journeyDate)}</div>
+                    <small style="color:var(--text-muted);">${Utils.escapeHTML(b.journeyTime || '--:--')}</small>
+                </td>
+                <td><span style="font-weight:600; color:var(--blue); font-size:12px;">${Utils.escapeHTML(b.serviceType)}</span></td>
+                <td><strong>${Utils.formatCurrency(b.estimatedFare)}</strong></td>
+                <td>${Utils.getStatusBadge(b.bookingStatus)}</td>
+                <td style="text-align: right;">
+                    <div style="display:flex; justify-content:flex-end; gap:8px;">
+                        <a href="trip-details.html?id=${b.id}" class="action-btn" title="Trip Details">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </a>
+                        ${actionBtnHTML}
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function startTrip(id) {
+        Utils.confirm(`Start trip for booking ${id}? Customer and Admin will be notified in real-time.`, () => {
+            StorageManager.updateBookingStatus(id, 'In Progress');
+            Utils.showToast(`Trip ${id} started! Status is now "In Progress".`, 'info');
+            loadDriverDashboard();
+        });
+    }
+
+    function completeTrip(id) {
+        Utils.confirm(`Mark trip ${id} as completed? Tax invoice will automatically be generated.`, () => {
+            StorageManager.updateBookingStatus(id, 'Completed', {
+                completedAt: new Date().toISOString()
+            });
+            Utils.showToast(`Trip ${id} completed successfully!`, 'success');
+            loadDriverDashboard();
+        });
+    }
+
+    function updateDutyStatus() {
+        const next = document.getElementById('dutyStatusSelect').value;
+        StorageManager.updateDriverAvailability(driverId, next);
+        Utils.showToast(`Duty status set to ${next}.`, 'info');
+    }
+
+    // Sync listener for cross-portal dispatch
+    window.addEventListener('travelnex_storage_changed', (e) => {
+        if (['travelnex_bookings', 'travelnex_drivers'].includes(e.detail.key)) {
+            loadDriverDashboard();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', loadDriverDashboard);
+</script>
+</body>
+</html>

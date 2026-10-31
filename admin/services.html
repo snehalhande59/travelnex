@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services & Rate Settings | TRAVELNEX Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="admin-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Super Admin</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Core Management</div>
+            <a href="admin-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard Overview</span>
+            </a>
+            <a href="bookings.html" class="sidebar-link">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Booking Management</span>
+            </a>
+            <a href="customers.html" class="sidebar-link">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Customer Accounts</span>
+            </a>
+            <a href="corporate-clients.html" class="sidebar-link">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Corporate Clients</span>
+            </a>
+
+            <div class="sidebar-section-title">Fleet & Operations</div>
+            <a href="drivers.html" class="sidebar-link">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Drivers Management</span>
+            </a>
+            <a href="vehicles.html" class="sidebar-link">
+                <i class="fa-solid fa-taxi"></i>
+                <span>Vehicles & Fleet</span>
+            </a>
+            <a href="services.html" class="sidebar-link active">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Services & Rates</span>
+            </a>
+
+            <div class="sidebar-section-title">Financials & Reports</div>
+            <a href="payments.html" class="sidebar-link">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Payment Records</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Invoices Management</span>
+            </a>
+            <a href="reports.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports & Analytics</span>
+            </a>
+            <a href="settings.html" class="sidebar-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>System Settings</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">A</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">Chief Admin</div>
+                <div class="sidebar-user-role">Super Administrator</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../admin/admin-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="admin-dashboard.html">Admin</a> &gt; Configuration</div>
+                    <h1 class="page-title">Service Catalogs & Fare Formulas</h1>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Mobility Services Directory</div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Description</th>
+                                <th>Base Fare</th>
+                                <th>Per Km Rate</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="servicesTableBody">
+                            <!-- Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Edit Service Modal -->
+<div class="modal-overlay" id="serviceModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="serviceModalTitle">Edit Service</h3>
+            <button type="button" class="modal-close-btn" onclick="closeServiceModal()">&times;</button>
+        </div>
+        <form id="serviceForm">
+            <div class="modal-body">
+                <input type="hidden" id="serviceId">
+                <div class="form-group">
+                    <label for="serviceName">Service Name</label>
+                    <input type="text" id="serviceName" class="form-control" required readonly style="background:#f1f5f9;">
+                </div>
+                <div class="form-group">
+                    <label for="serviceDesc">Customer Description</label>
+                    <textarea id="serviceDesc" class="form-control" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="serviceBase">Base Starting Fare (₹)</label>
+                        <input type="number" id="serviceBase" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceRate">Rate / Km (₹)</label>
+                        <input type="number" id="serviceRate" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="serviceStatus">Service Availability</label>
+                    <select id="serviceStatus" class="form-control">
+                        <option value="Active">Active (Available on Customer Portal)</option>
+                        <option value="Disabled">Disabled</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeServiceModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Rate Settings</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const adminUser = Auth.requireRole('admin', 'admin-login.html');
+    let services = [];
+
+    function loadServices() {
+        services = StorageManager.getServices();
+        renderTable();
+    }
+
+    function renderTable() {
+        const tbody = document.getElementById('servicesTableBody');
+        tbody.innerHTML = '';
+
+        services.forEach(s => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>
+                    <div style="font-weight:700; color:var(--navy); font-size:15px;">
+                        <i class="fa-solid ${s.icon || 'fa-car'}" style="color:var(--blue); margin-right:8px;"></i>
+                        ${Utils.escapeHTML(s.name)}
+                    </div>
+                </td>
+                <td>
+                    <div style="font-size:12.5px; color:var(--text); max-width:450px;">
+                        ${Utils.escapeHTML(s.description)}
+                    </div>
+                </td>
+                <td><strong>${Utils.formatCurrency(s.baseFare)}</strong></td>
+                <td><strong>₹${s.perKmRate} / km</strong></td>
+                <td>
+                    <span class="badge ${s.status === 'Active' ? 'badge-completed' : 'badge-inactive'}">
+                        ${Utils.escapeHTML(s.status || 'Active')}
+                    </span>
+                </td>
+                <td style="text-align: right;">
+                    <button class="action-btn edit" title="Edit Service" onclick="openEditModal('${s.id}')">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function openEditModal(id) {
+        const s = services.find(x => x.id === id);
+        if (!s) return;
+
+        document.getElementById('serviceId').value = s.id;
+        document.getElementById('serviceName').value = s.name;
+        document.getElementById('serviceDesc').value = s.description;
+        document.getElementById('serviceBase').value = s.baseFare;
+        document.getElementById('serviceRate').value = s.perKmRate;
+        document.getElementById('serviceStatus').value = s.status || 'Active';
+
+        document.getElementById('serviceModal').classList.add('active');
+    }
+
+    function closeServiceModal() {
+        document.getElementById('serviceModal').classList.remove('active');
+    }
+
+    document.getElementById('serviceForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const id = document.getElementById('serviceId').value;
+        StorageManager.saveService({
+            id: id,
+            description: document.getElementById('serviceDesc').value.trim(),
+            baseFare: Number(document.getElementById('serviceBase').value) || 0,
+            perKmRate: Number(document.getElementById('serviceRate').value) || 0,
+            status: document.getElementById('serviceStatus').value
+        });
+
+        closeServiceModal();
+        Utils.showToast('Service rates saved successfully!', 'success');
+        loadServices();
+    });
+
+    document.addEventListener('DOMContentLoaded', loadServices);
+</script>
+</body>
+</html>

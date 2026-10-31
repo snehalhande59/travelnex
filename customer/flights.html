@@ -1,0 +1,912 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flight Booking & Lowest Airfares | TRAVELNEX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/common.css">
+
+<style>
+:root {
+    --gold: #F5B51B;
+    --gold-hover: #DE9F0C;
+    --gold-light: #FEF8E7;
+    --primary: #07377F;
+    --navy: #0B2B63;
+    --navy-dark: #061C40;
+    --pink: #F5B51B;
+    --text-dark: #14233F;
+}
+
+/* Page Hero */
+.flights-hero {
+    background: linear-gradient(135deg, rgba(7, 55, 127, 0.92) 0%, rgba(11, 43, 99, 0.88) 60%, rgba(245, 181, 27, 0.5) 100%),
+                url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&auto=format&fit=crop&q=80') center/cover no-repeat;
+    color: #ffffff;
+    padding: 55px 0 75px;
+    text-align: center;
+}
+.flights-hero .hero-pill {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 5px 14px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+}
+.flights-hero h1 {
+    font-size: clamp(28px, 3.5vw, 34px);
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 10px;
+    line-height: 1.25;
+}
+.flights-hero p {
+    font-size: 13.5px;
+    color: #e9d5ff;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Flight Search Box */
+.flight-search-box {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin-top: -36px;
+    box-shadow: 0 12px 32px rgba(46, 16, 101, 0.08);
+    border: 1px solid #edf0f5;
+    position: relative;
+    z-index: 10;
+}
+.trip-type-selector {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: center;
+}
+.trip-type-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4b3d60;
+    cursor: pointer;
+}
+.trip-type-label input {
+    accent-color: var(--gold);
+    cursor: pointer;
+}
+
+.flight-search-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1.2fr 1fr 1fr 0.9fr auto;
+    gap: 12px;
+    align-items: flex-end;
+}
+.field-box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.field-box label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #6b5e7d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.field-box select,
+.field-box input {
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #1e1338;
+    background: #ffffff;
+    outline: none;
+    transition: var(--transition);
+}
+.field-box select:focus,
+.field-box input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(200, 147, 39, 0.15);
+}
+
+/* Flight Results Section */
+.flights-section {
+    padding: 44px 0 65px;
+}
+.flights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 22px;
+}
+.flight-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #edf0f5;
+    padding: 20px 24px;
+    box-shadow: 0 6px 20px rgba(46, 16, 101, 0.04);
+    display: grid;
+    grid-template-columns: 1.4fr 2.2fr 1.1fr 1.1fr;
+    gap: 20px;
+    align-items: center;
+    transition: var(--transition);
+}
+.flight-card:hover {
+    box-shadow: 0 12px 30px rgba(46, 16, 101, 0.1);
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+}
+.airline-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.airline-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #f1f5f9;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    color: var(--navy);
+    border: 1px solid #e2e8f0;
+}
+.airline-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+}
+.airline-number {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.flight-times-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    gap: 12px;
+}
+.time-col {
+    text-align: left;
+}
+.time-col.arr {
+    text-align: right;
+}
+.time-val {
+    font-size: 19px;
+    font-weight: 800;
+    color: #0f172a;
+    font-family: 'Outfit', sans-serif;
+}
+.city-val {
+    font-size: 12.5px;
+    color: #64748b;
+    font-weight: 500;
+}
+.duration-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-grow: 1;
+    padding: 0 16px;
+}
+.dur-text {
+    font-size: 11.5px;
+    color: #64748b;
+    font-weight: 600;
+}
+.flight-line {
+    width: 100%;
+    height: 2px;
+    background: #cbd5e1;
+    position: relative;
+}
+.flight-line::after {
+    content: '\f072';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 0 6px;
+    font-size: 11px;
+    color: var(--gold);
+}
+.stops-badge {
+    font-size: 11px;
+    color: #10b981;
+    font-weight: 600;
+}
+
+.flight-features {
+    font-size: 11.5px;
+    color: #64748b;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.flight-features span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.flight-price-col {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+.flight-price-val {
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--navy);
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 7, 34, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.modal-overlay.active {
+    display: flex;
+}
+.modal-box {
+    background: #ffffff;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 560px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: modalPop 0.25s ease-out;
+}
+@keyframes modalPop {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+.modal-header {
+    background: var(--navy);
+    color: #ffffff;
+    padding: 16px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-header h3 {
+    color: #ffffff;
+    font-size: 17px;
+    margin: 0;
+}
+.modal-close-btn {
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+.modal-body {
+    padding: 22px;
+    max-height: 82vh;
+    overflow-y: auto;
+}
+
+@media (max-width: 992px) {
+    .flight-search-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .flight-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .flight-times-wrap {
+        padding: 12px 0;
+        border-top: 1px dashed #e2e8f0;
+        border-bottom: 1px dashed #e2e8f0;
+    }
+    .flight-price-col {
+        align-items: stretch;
+        text-align: left;
+    }
+}
+@media (max-width: 600px) {
+    .flight-search-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- 1. EXACT CUSTOMER NAVBAR (Strict Reference Match) -->
+<header class="site-navbar">
+    <div class="container site-navbar-container">
+        <!-- Logo on the left -->
+        <a href="index.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <span>TRAVEL<strong>NEX</strong></span>
+        </a>
+
+        <!-- Exact 8 Menu Items in exact order -->
+        <nav class="site-nav-menu">
+            <ul class="site-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="nav-dropdown-item">
+                    <a href="javascript:void(0)" class="nav-dropdown-toggle">
+                        <span>Services</span> <i class="fa-solid fa-chevron-down nav-caret"></i>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <a href="local-taxi.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-taxi"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Local Taxi Services</span>
+                                <span class="nav-dropdown-sub">City point-to-point & hourly cabs</span>
+                            </div>
+                        </a>
+                        <a href="outstation-cabs.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-car-side"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Outstation Cabs</span>
+                                <span class="nav-dropdown-sub">One-way & round-trip intercity</span>
+                            </div>
+                        </a>
+                        <a href="airport-transfer.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-plane-departure"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Airport Pickup & Drop</span>
+                                <span class="nav-dropdown-sub">Reliable flight pickup transfers</span>
+                            </div>
+                        </a>
+                        <a href="mini-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-van-shuttle"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Mini Bus Booking</span>
+                                <span class="nav-dropdown-sub">12–26 seater Tempo Traveller</span>
+                            </div>
+                        </a>
+                        <a href="luxury-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Luxury Bus Booking</span>
+                                <span class="nav-dropdown-sub">32–55 seater AC Volvo coaches</span>
+                            </div>
+                        </a>
+                        <a href="group-transportation.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-users"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Group Transportation</span>
+                                <span class="nav-dropdown-sub">Corporate offsites & weddings</span>
+                            </div>
+                        </a>
+                        <a href="railway-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-train"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Railway Ticket Booking</span>
+                                <span class="nav-dropdown-sub">IRCTC verified booking inquiry</span>
+                            </div>
+                        </a>
+                        <a href="st-bus-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus-simple"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Maharashtra ST Bus Booking</span>
+                                <span class="nav-dropdown-sub">Shivneri, Shivshahi & Lalpari</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="packages.html">Tour Packages</a></li>
+                <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Right Side: Gold Book Your Trip Button -->
+        <div class="site-nav-actions">
+            <a href="packages.html" class="btn-book-trip d-none-mobile">
+                <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+            </a>
+            <button class="nav-hamburger" id="navToggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+        <a href="index.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <div class="brand-text">
+                <span class="brand-name">TRAVEL<strong>NEX</strong></span>
+                <span class="brand-tagline">Travel Beyond Limits</span>
+            </div>
+        </a>
+        <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close Navigation">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="mobile-dropdown-parent">
+            <a href="javascript:void(0)" class="mobile-dropdown-toggle" onclick="toggleMobileServices(this)">
+                <span>Services</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <div class="mobile-sub-menu show" id="mobileServicesSub">
+                <a href="local-taxi.html"><i class="fa-solid fa-taxi"></i> Local Taxi Services</a>
+                <a href="outstation-cabs.html"><i class="fa-solid fa-car-side"></i> Outstation Cabs</a>
+                <a href="airport-transfer.html"><i class="fa-solid fa-plane-departure"></i> Airport Pickup & Drop</a>
+                <a href="mini-bus.html"><i class="fa-solid fa-van-shuttle"></i> Mini Bus Booking</a>
+                <a href="luxury-bus.html"><i class="fa-solid fa-bus"></i> Luxury Bus Booking</a>
+                <a href="group-transportation.html"><i class="fa-solid fa-users"></i> Group Transportation</a>
+                <a href="railway-booking.html"><i class="fa-solid fa-train"></i> Railway Ticket Booking</a>
+                <a href="st-bus-booking.html"><i class="fa-solid fa-bus-simple"></i> Maharashtra ST Bus Booking</a>
+            </div>
+        </li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="packages.html">Tour Packages</a></li>
+        <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="mobile-nav-footer">
+        <a href="packages.html" class="btn-book-trip" style="width:100%; justify-content:center;">
+            <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+        </a>
+    </div>
+</div>
+
+<!-- 2. HERO SECTION -->
+<section class="flights-hero">
+    <div class="container">
+        <div class="hero-pill"><i class="fa-solid fa-plane-departure"></i> Real-Time Global Airfare Engine</div>
+        <h1>Book Flights with Confidence</h1>
+        <p>Compare and book domestic and international flights at guaranteed lowest fares. Fast confirmations, zero hidden fees, and seamless ticket management.</p>
+    </div>
+</section>
+
+<!-- 3. FLIGHT SEARCH BAR -->
+<div class="container">
+    <div class="flight-search-box">
+        <div class="trip-type-selector">
+            <label class="trip-type-label">
+                <input type="radio" name="tripType" value="one-way" checked onchange="toggleTripType()"> One-Way
+            </label>
+            <label class="trip-type-label">
+                <input type="radio" name="tripType" value="round-trip" onchange="toggleTripType()"> Round-Trip
+            </label>
+        </div>
+
+        <div class="flight-search-grid">
+            <div class="field-box">
+                <label><i class="fa-solid fa-plane-departure"></i> Flying From</label>
+                <select id="searchFrom" onchange="runFlightFilter()">
+                    <option value="">All Departure Cities</option>
+                    <option value="Mumbai" selected>Mumbai (BOM)</option>
+                    <option value="New Delhi">New Delhi (DEL)</option>
+                    <option value="Bengaluru">Bengaluru (BLR)</option>
+                </select>
+            </div>
+            <div class="field-box">
+                <label><i class="fa-solid fa-plane-arrival"></i> Flying To</label>
+                <select id="searchTo" onchange="runFlightFilter()">
+                    <option value="">All Destinations</option>
+                    <option value="New Delhi">New Delhi (DEL)</option>
+                    <option value="Goa">Goa (GOI)</option>
+                    <option value="Bengaluru">Bengaluru (BLR)</option>
+                    <option value="Dubai">Dubai (DXB)</option>
+                    <option value="Singapore">Singapore (SIN)</option>
+                    <option value="Maldives">Maldives / Male (MLE)</option>
+                    <option value="London">London (LHR)</option>
+                    <option value="Varanasi">Varanasi (VNS)</option>
+                </select>
+            </div>
+            <div class="field-box">
+                <label><i class="fa-solid fa-calendar"></i> Departure</label>
+                <input type="date" id="searchDate" value="2026-11-15">
+            </div>
+            <div class="field-box" id="returnDateBox" style="opacity: 0.5;">
+                <label><i class="fa-solid fa-calendar-check"></i> Return</label>
+                <input type="date" id="searchReturnDate" disabled>
+            </div>
+            <div class="field-box">
+                <label><i class="fa-solid fa-chair"></i> Class</label>
+                <select id="searchClass" onchange="runFlightFilter()">
+                    <option value="economy">Economy</option>
+                    <option value="business">Business</option>
+                </select>
+            </div>
+            <div class="field-box">
+                <label>&nbsp;</label>
+                <button type="button" class="btn btn-gold" onclick="runFlightFilter()" style="width: 100%;">
+                    <i class="fa-solid fa-magnifying-glass"></i> Search
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 4. FLIGHT RESULTS -->
+<section class="flights-section">
+    <div class="container">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+                <h2 style="font-size:24px; font-weight:700; color:var(--navy); margin-bottom:4px;">Available Flights</h2>
+                <p style="font-size:13px; color:#6b5e7d;" id="flightsCountText">Showing matching scheduled flights</p>
+            </div>
+            <button type="button" class="btn" style="border:1px solid #cbd5e1; color:#475569;" onclick="resetFlightFilters()">
+                <i class="fa-solid fa-rotate-left"></i> Reset Search
+            </button>
+        </div>
+
+        <div class="flights-list" id="flightsListContainer">
+            <!-- Dynamically populated from StorageManager -->
+        </div>
+    </div>
+</section>
+
+<!-- 5. FLIGHT BOOKING MODAL -->
+<div class="modal-overlay" id="flightBookingModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="modalFlightHeader">Complete Flight Reservation</h3>
+            <button class="modal-close-btn" onclick="closeFlightModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="flightBookingForm" onsubmit="handleFlightBooking(event)">
+                <input type="hidden" id="bookFlightId">
+                <input type="hidden" id="bookFlightFare">
+
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px; margin-bottom:16px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span style="font-weight:700; color:var(--navy);" id="modalSummaryRoute">Mumbai (BOM) &rarr; New Delhi (DEL)</span>
+                        <span style="font-size:12px; background:var(--gold-light); color:var(--gold); font-weight:700; padding:2px 8px; border-radius:4px;" id="modalSummaryAirline">IndiGo 6E-2045</span>
+                    </div>
+                    <div style="font-size:12px; color:#64748b;" id="modalSummaryTime">06:15 &ndash; 08:30 (2h 15m Non-stop)</div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 100px 1fr; gap:10px; margin-bottom:12px;">
+                    <div class="field-box">
+                        <label>Title</label>
+                        <select id="passengerTitle">
+                            <option value="Mr">Mr.</option>
+                            <option value="Ms">Ms.</option>
+                            <option value="Mrs">Mrs.</option>
+                            <option value="Dr">Dr.</option>
+                        </select>
+                    </div>
+                    <div class="field-box">
+                        <label>Passenger Full Name (as on ID)</label>
+                        <input type="text" id="passengerName" placeholder="e.g. Rahul Sharma" required>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:12px;">
+                    <div class="field-box">
+                        <label>Email for E-Ticket</label>
+                        <input type="email" id="passengerEmail" placeholder="rahul@example.com" required>
+                    </div>
+                    <div class="field-box">
+                        <label>Mobile Number</label>
+                        <input type="tel" id="passengerPhone" placeholder="+91 98765 43210" required>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:14px;">
+                    <div class="field-box">
+                        <label>Travellers</label>
+                        <select id="flightPassengerCount" onchange="recalculateFlightTotal()">
+                            <option value="1" selected>1 Adult</option>
+                            <option value="2">2 Adults</option>
+                            <option value="3">3 Adults</option>
+                        </select>
+                    </div>
+                    <div class="field-box">
+                        <label>Govt ID / Passport (Optional)</label>
+                        <input type="text" id="passengerGovtId" placeholder="Aadhaar / Passport No.">
+                    </div>
+                </div>
+
+                <div style="background:#fef7e6; border:1px solid #f9df9e; border-radius:8px; padding:12px 16px; margin:14px 0;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:13px; color:#78350f; font-weight:600;">Total Payable (Taxes Included):</span>
+                        <span style="font-size:20px; font-weight:800; color:#78350f; font-family:'Outfit';" id="flightModalTotal">₹0</span>
+                    </div>
+                    <span style="font-size:11px; color:#92400e; display:block; margin-top:2px;">Instant e-ticket generation and SMS confirmation.</span>
+                </div>
+
+                <div style="display:flex; gap:10px; margin-top:16px;">
+                    <button type="button" class="btn" style="background:#e2e8f0; color:#334155; flex:1;" onclick="closeFlightModal()">Cancel</button>
+                    <button type="submit" class="btn btn-gold" style="flex:2;">Confirm & Issue E-Ticket</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 6. STANDARD FOOTER -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="brand-logo" style="color:#ffffff;">
+                    <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+                    <span style="color:#ffffff;">TRAVEL<strong style="color:var(--pink);">NEX</strong></span>
+                </a>
+                <p>TRAVELNEX is India's leading comprehensive tours, mobility, cruises and travel management platform designed for memorable adventures.</p>
+                <div class="footer-socials">
+                    <a href="javascript:void(0)"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="javascript:void(0)"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="javascript:void(0)"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="javascript:void(0)"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Navigation</h3>
+                <a href="index.html">Home</a>
+                <a href="destinations.html">Destinations</a>
+                <a href="packages.html">Vacation Packages</a>
+                <a href="cruises.html">Cruises</a>
+                <a href="flights.html">Flights</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h3>Travel Services</h3>
+                <a href="cab-booking.html">Local & Airport Cabs</a>
+                <a href="outstation-booking.html">Outstation Rides</a>
+                <a href="bus-booking.html">Luxury Buses</a>
+                <a href="train-booking.html">Train Reservations</a>
+                <a href="../corporate/corporate.html">Corporate Travel</a>
+            </div>
+            <div class="footer-col">
+                <h3>Contact & Support</h3>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>+91 98220 12345 / 1800-209-7788</div>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>support@travelnex.com</div>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>TRAVELNEX House, Senapati Bapat Road, Pune 411016</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 TRAVELNEX Technologies Pvt. Ltd. All Rights Reserved.</span>
+            <div>
+                <a href="javascript:void(0)">Privacy Policy</a>
+                <a href="javascript:void(0)">Terms of Service</a>
+                <a href="javascript:void(0)">Support FAQ</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+
+<script>
+let allFlights = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+    allFlights = StorageManager.getFlights();
+    runFlightFilter();
+
+    // Auto-fill logged in user
+    const user = AuthManager.getCurrentUser();
+    if (user) {
+        document.getElementById('passengerName').value = user.name || '';
+        document.getElementById('passengerEmail').value = user.email || '';
+        document.getElementById('passengerPhone').value = user.phone || '';
+    }
+});
+
+function toggleTripType() {
+    const isRoundTrip = document.querySelector('input[name="tripType"]:checked').value === 'round-trip';
+    const returnBox = document.getElementById('returnDateBox');
+    const returnInput = document.getElementById('searchReturnDate');
+
+    if (isRoundTrip) {
+        returnBox.style.opacity = '1';
+        returnInput.disabled = false;
+        returnInput.value = '2026-11-20';
+    } else {
+        returnBox.style.opacity = '0.5';
+        returnInput.disabled = true;
+        returnInput.value = '';
+    }
+}
+
+function runFlightFilter() {
+    const fromVal = document.getElementById('searchFrom').value;
+    const toVal = document.getElementById('searchTo').value;
+    const cabinClass = document.getElementById('searchClass').value;
+
+    let filtered = StorageManager.searchFlights(fromVal, toVal);
+    renderFlights(filtered, cabinClass);
+}
+
+function resetFlightFilters() {
+    document.getElementById('searchFrom').value = '';
+    document.getElementById('searchTo').value = '';
+    document.getElementById('searchClass').value = 'economy';
+    renderFlights(allFlights, 'economy');
+}
+
+function renderFlights(flights, cabinClass = 'economy') {
+    const container = document.getElementById('flightsListContainer');
+    const countEl = document.getElementById('flightsCountText');
+    if (!container) return;
+
+    countEl.textContent = `Showing ${flights.length} available flights`;
+
+    if (flights.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 48px; background: #fff; border-radius: 12px; border: 1px solid #edf0f5;">
+                <i class="fa-solid fa-plane-slash" style="font-size: 38px; color: #cbd5e1; margin-bottom: 12px;"></i>
+                <h3 style="font-size: 18px; color: var(--navy); margin-bottom: 6px;">No flights found on this route</h3>
+                <p style="font-size: 13px; color: #6b5e7d; margin-bottom: 16px;">Try selecting a different city pair or clearing your filters.</p>
+                <button class="btn btn-gold" onclick="resetFlightFilters()">View All Flights</button>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = flights.map(f => {
+        const fare = cabinClass === 'business' ? f.businessPrice : f.economyPrice;
+        return `
+            <div class="flight-card">
+                <div class="airline-info">
+                    <div class="airline-icon"><i class="fa-solid fa-plane"></i></div>
+                    <div>
+                        <div class="airline-name">${f.airline}</div>
+                        <div class="airline-number">${f.flightNumber} &bull; ${cabinClass === 'business' ? 'Business Class' : 'Economy'}</div>
+                    </div>
+                </div>
+
+                <div class="flight-times-wrap">
+                    <div class="time-col">
+                        <div class="time-val">${f.depTime}</div>
+                        <div class="city-val">${f.from} (${f.fromCode})</div>
+                    </div>
+                    <div class="duration-col">
+                        <span class="dur-text">${f.duration}</span>
+                        <div class="flight-line"></div>
+                        <span class="stops-badge">${f.stops}</span>
+                    </div>
+                    <div class="time-col arr">
+                        <div class="time-val">${f.arrTime}</div>
+                        <div class="city-val">${f.to} (${f.toCode})</div>
+                    </div>
+                </div>
+
+                <div class="flight-features">
+                    <span><i class="fa-solid fa-suitcase" style="color:var(--gold);"></i> ${f.baggage}</span>
+                    <span><i class="fa-solid fa-check" style="color:#10b981;"></i> ${f.refundable ? 'Refundable' : 'Non-Refundable'}</span>
+                    <span style="color:#dc2626;"><i class="fa-solid fa-user-group"></i> ${f.seatsLeft} seats left</span>
+                </div>
+
+                <div class="flight-price-col">
+                    <div class="flight-price-val">₹${fare.toLocaleString('en-IN')}</div>
+                    <button type="button" class="btn btn-gold" style="width:100%;" onclick="openFlightBooking('${f.id}', '${cabinClass}', ${fare})">
+                        Book Now
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// Modal Logic
+function openFlightBooking(flightId, cabinClass, fare) {
+    const flight = StorageManager.getFlightById(flightId);
+    if (!flight) return;
+
+    document.getElementById('bookFlightId').value = flight.id;
+    document.getElementById('bookFlightFare').value = fare;
+
+    document.getElementById('modalSummaryRoute').innerHTML = `${flight.from} (${flight.fromCode}) &rarr; ${flight.to} (${flight.toCode})`;
+    document.getElementById('modalSummaryAirline').textContent = `${flight.airline} ${flight.flightNumber} (${cabinClass.toUpperCase()})`;
+    document.getElementById('modalSummaryTime').textContent = `${flight.depTime} – ${flight.arrTime} (${flight.duration} ${flight.stops})`;
+
+    recalculateFlightTotal();
+    document.getElementById('flightBookingModal').classList.add('active');
+}
+
+function closeFlightModal() {
+    document.getElementById('flightBookingModal').classList.remove('active');
+}
+
+function recalculateFlightTotal() {
+    const unitFare = parseInt(document.getElementById('bookFlightFare').value || 0, 10);
+    const count = parseInt(document.getElementById('flightPassengerCount').value || 1, 10);
+    const total = unitFare * count;
+    document.getElementById('flightModalTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+}
+
+function handleFlightBooking(e) {
+    e.preventDefault();
+    const flightId = document.getElementById('bookFlightId').value;
+    const flight = StorageManager.getFlightById(flightId);
+    if (!flight) return;
+
+    const unitFare = parseInt(document.getElementById('bookFlightFare').value || 0, 10);
+    const count = parseInt(document.getElementById('flightPassengerCount').value || 1, 10);
+    const totalAmount = unitFare * count;
+
+    const title = document.getElementById('passengerTitle').value;
+    const name = document.getElementById('passengerName').value;
+    const email = document.getElementById('passengerEmail').value;
+    const phone = document.getElementById('passengerPhone').value;
+    const date = document.getElementById('searchDate').value || '2026-11-15';
+
+    const bookingPayload = {
+        serviceType: 'Flight Ticket',
+        pickup: `${flight.from} (${flight.fromCode}) - ${flight.fromAirport}`,
+        destination: `${flight.to} (${flight.toCode}) - ${flight.toAirport}`,
+        date: date,
+        time: `${flight.depTime} Departure`,
+        totalFare: totalAmount,
+        status: 'Confirmed',
+        customerName: `${title}. ${name}`,
+        customerEmail: email,
+        customerPhone: phone,
+        notes: `Flight: ${flight.airline} ${flight.flightNumber} | Travellers: ${count} | Baggage: ${flight.baggage}`,
+        vehicleType: `${flight.airline} Aircraft`
+    };
+
+    const newBooking = StorageManager.createBooking(bookingPayload);
+    closeFlightModal();
+    Utils.showToast(`Flight ticket booked successfully! E-Ticket Ref: ${newBooking.id}`, 'success');
+
+    setTimeout(() => {
+        window.location.href = `my-bookings.html?bookingId=${newBooking.id}`;
+    }, 1200);
+}
+</script>
+
+</body>
+</html>

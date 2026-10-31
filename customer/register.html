@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Registration | TRAVELNEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(7, 55, 127, 0.96) 0%, rgba(11, 43, 99, 0.92) 50%, rgba(6, 28, 64, 0.96) 100%),
+                        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1800') center/cover no-repeat;
+            padding: 30px 20px;
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 490px;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            box-shadow: 0 25px 60px rgba(6, 28, 64, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 25px;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 20px;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+        }
+        .auth-logo .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            background: var(--primary);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+        }
+        .auth-logo span { color: var(--gold); }
+
+        .otp-group-box {
+            background: #EAF1FA;
+            border: 1px solid #D5E1F0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .otp-input-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 8px;
+        }
+        .otp-input-field {
+            flex: 1;
+            height: 44px;
+            font-size: 18px;
+            letter-spacing: 6px;
+            text-align: center;
+            font-weight: 800;
+            font-family: 'Outfit', monospace;
+            border: 1.5px solid #07377F;
+            border-radius: 8px;
+            background: #ffffff;
+            outline: none;
+        }
+        .btn-otp-action {
+            height: 44px;
+            padding: 0 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+        }
+        .otp-status-notice {
+            font-size: 11.5px;
+            color: #53647F;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-page">
+    <div class="auth-card">
+        <a href="index.html" class="auth-logo">
+            <div class="icon"><i class="fa-solid fa-route"></i></div>
+            TRAVEL<span>NEX</span>
+        </a>
+
+        <h2 style="font-size: 22px; text-align: center; margin-bottom: 6px; color:var(--navy); font-weight:800;">Create Customer Account</h2>
+        <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 22px;">
+            Join TRAVELNEX to book holidays, flights, cruises, cabs and manage trips
+        </p>
+
+        <form id="registerForm">
+            <div class="form-group" style="margin-bottom:14px;">
+                <label for="name" style="font-weight:700; color:var(--navy); font-size:13px; display:block; margin-bottom:5px;">Full Name *</label>
+                <input type="text" id="name" class="form-control" placeholder="Priya Sharma" required style="height:44px; border-radius:10px;">
+            </div>
+
+            <div class="form-group" style="margin-bottom:14px;">
+                <label for="email" style="font-weight:700; color:var(--navy); font-size:13px; display:block; margin-bottom:5px;">Email Address *</label>
+                <input type="email" id="email" class="form-control" placeholder="priya@example.com" required style="height:44px; border-radius:10px;">
+            </div>
+
+            <!-- Mobile Number with Send OTP Button -->
+            <div class="form-group" style="margin-bottom:14px;">
+                <label for="phone" style="font-weight:700; color:var(--navy); font-size:13px; display:block; margin-bottom:5px;">
+                    Mobile Number (for Real-time SMS Updates) *
+                </label>
+                <div style="display:flex; gap:8px;">
+                    <span style="height:44px; padding:0 14px; background:#EAF1FA; border:1px solid #D5E1F0; border-radius:10px; display:grid; place-items:center; font-weight:700; color:var(--navy); font-size:13.5px;">+91</span>
+                    <input type="tel" id="phone" pattern="[6-9][0-9]{9}" class="form-control" placeholder="9822011223" required style="height:44px; border-radius:10px; flex:1;">
+                    <button type="button" id="btnSendOtp" class="btn-otp-action" style="background:var(--primary); color:#ffffff;" onclick="handleSendOtp()">
+                        <i class="fa-solid fa-paper-plane"></i> Send OTP
+                    </button>
+                </div>
+            </div>
+
+            <!-- OTP Verification Container (Appears after clicking Send OTP) -->
+            <div class="otp-group-box" id="otpBox">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <label style="font-size:12px; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:0.5px;">
+                        <i class="fa-solid fa-shield-halved" style="color:var(--gold);"></i> Enter 6-Digit OTP Code
+                    </label>
+                    <span id="otpTimerText" style="font-size:11.5px; font-weight:700; color:var(--primary);"></span>
+                </div>
+                <div class="otp-input-row">
+                    <input type="text" id="otpInput" maxlength="6" class="otp-input-field" placeholder="------" autocomplete="one-time-code">
+                    <button type="button" id="btnVerifyOtp" class="btn-otp-action" style="background:var(--gold); color:var(--navy); font-weight:800;" onclick="handleVerifyOtpOnly()">
+                        Verify OTP
+                    </button>
+                </div>
+                <div class="otp-status-notice" id="otpNotice">
+                    A real verification OTP will be delivered to your registered mobile number.
+                </div>
+            </div>
+
+            <div class="form-row" style="margin-top:14px; margin-bottom:18px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div class="form-group">
+                    <label for="password" style="font-weight:700; color:var(--navy); font-size:13px; display:block; margin-bottom:5px;">Password *</label>
+                    <input type="password" id="password" class="form-control" placeholder="At least 6 chars" minlength="6" required style="height:44px; border-radius:10px;">
+                </div>
+                <div class="form-group">
+                    <label for="city" style="font-weight:700; color:var(--navy); font-size:13px; display:block; margin-bottom:5px;">Your City</label>
+                    <input type="text" id="city" class="form-control" placeholder="e.g. Pune / Mumbai" style="height:44px; border-radius:10px;">
+                </div>
+            </div>
+
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 18px;">
+                By signing up, you agree to TRAVELNEX <a href="about.html" style="color:var(--primary); font-weight:700;">Terms of Service</a> & <a href="about.html" style="color:var(--primary); font-weight:700;">Privacy Policy</a>.
+            </div>
+
+            <button type="submit" id="btnSubmitRegister" class="btn" style="width: 100%; height: 46px; background:var(--gold); color:var(--navy); font-weight:800; border:none; border-radius:10px; font-size:14px; box-shadow:0 4px 14px rgba(245, 181, 27, 0.3);">
+                Complete Registration <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px; font-size: 13.5px; color: var(--text-muted);">
+            Already have an account? <a href="login.html" style="color: var(--primary); font-weight: 700;">Sign In</a>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+
+<script>
+    let isPhoneVerified = false;
+    let cooldownTimerInterval = null;
+
+    async function handleSendOtp() {
+        const phone = document.getElementById('phone').value.trim();
+        const validPhone = Auth.OTP.validatePhone(phone);
+        if (!validPhone) {
+            Utils.showToast('Please enter a valid 10-digit Indian mobile number (e.g. 9822011223).', 'warning');
+            return;
+        }
+
+        const btnSend = document.getElementById('btnSendOtp');
+        btnSend.disabled = true;
+        btnSend.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+        const result = await Auth.OTP.sendOtp(phone);
+
+        if (!result.success) {
+            Utils.showToast(result.message, 'warning');
+            btnSend.disabled = false;
+            btnSend.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send OTP';
+            return;
+        }
+
+        // Show OTP box
+        document.getElementById('otpBox').style.display = 'block';
+        document.getElementById('otpInput').focus();
+
+        if (result.isLiveBackend) {
+            Utils.showToast('OTP code sent successfully to +91 ' + result.phone, 'success');
+            document.getElementById('otpNotice').innerHTML = `<span style="color:#10b981; font-weight:700;"><i class="fa-solid fa-circle-check"></i> OTP dispatched via live SMS Provider.</span> Please enter the 6-digit code received on your phone.`;
+        } else {
+            // Frontend simulation mode notification
+            Utils.showToast(`[SMS Simulation Mode] Your OTP is: ${result.devOtp}`, 'info');
+            document.getElementById('otpNotice').innerHTML = `<strong>Note:</strong> SMS gateway backend not currently configured. For local demonstration, your secure random OTP is <strong style="color:var(--primary); font-size:13px; font-family:monospace; background:#fff; padding:2px 6px; border-radius:4px; border:1px solid #D5E1F0;">${result.devOtp}</strong> (expires in 5 mins).`;
+        }
+
+        startCooldown(result.cooldownSeconds || 60);
+    }
+
+    function startCooldown(seconds) {
+        const btnSend = document.getElementById('btnSendOtp');
+        const timerText = document.getElementById('otpTimerText');
+        let remaining = seconds;
+
+        clearInterval(cooldownTimerInterval);
+        btnSend.disabled = true;
+
+        cooldownTimerInterval = setInterval(() => {
+            remaining--;
+            if (timerText) timerText.textContent = `Resend in ${remaining}s`;
+            btnSend.textContent = `Wait (${remaining}s)`;
+
+            if (remaining <= 0) {
+                clearInterval(cooldownTimerInterval);
+                btnSend.disabled = false;
+                btnSend.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Resend OTP';
+                if (timerText) timerText.textContent = '';
+            }
+        }, 1000);
+    }
+
+    async function handleVerifyOtpOnly() {
+        const phone = document.getElementById('phone').value.trim();
+        const otpVal = document.getElementById('otpInput').value.trim();
+
+        if (!otpVal) {
+            Utils.showToast('Please enter the 6-digit OTP code.', 'warning');
+            return;
+        }
+
+        const res = await Auth.OTP.verifyOtp(phone, otpVal);
+        if (res.success) {
+            isPhoneVerified = true;
+            Utils.showToast('Phone number verified successfully!', 'success');
+            document.getElementById('otpNotice').innerHTML = `<span style="color:#10b981; font-weight:800;"><i class="fa-solid fa-circle-check"></i> Verified Phone: +91 ${phone}</span>`;
+            document.getElementById('btnVerifyOtp').innerHTML = '<i class="fa-solid fa-check"></i> Verified';
+            document.getElementById('btnVerifyOtp').disabled = true;
+            document.getElementById('btnVerifyOtp').style.background = '#10b981';
+            document.getElementById('btnVerifyOtp').style.color = '#ffffff';
+            document.getElementById('otpInput').disabled = true;
+            document.getElementById('phone').readOnly = true;
+            document.getElementById('btnSendOtp').style.display = 'none';
+        } else {
+            Utils.showToast(res.message, 'danger');
+        }
+    }
+
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const pwd = document.getElementById('password').value;
+        const city = document.getElementById('city').value.trim() || 'Pune';
+
+        // Check if phone was verified
+        if (!isPhoneVerified) {
+            const otpVal = document.getElementById('otpInput').value.trim();
+            if (!otpVal) {
+                Utils.showToast('Please verify your phone number with OTP first.', 'warning');
+                document.getElementById('phone').focus();
+                return;
+            }
+            const verifyRes = await Auth.OTP.verifyOtp(phone, otpVal);
+            if (!verifyRes.success) {
+                Utils.showToast(verifyRes.message, 'danger');
+                return;
+            }
+            isPhoneVerified = true;
+        }
+
+        const existing = StorageManager.getCustomerByEmail(email);
+        if (existing) {
+            Utils.showToast('Account with this email already exists! Please login.', 'warning');
+            return;
+        }
+
+        const newCustomer = StorageManager.saveCustomer({
+            name: name,
+            email: email,
+            phone: phone,
+            phoneVerified: true,
+            city: city,
+            password: pwd,
+            role: 'customer'
+        });
+
+        Auth.setCurrentUser(newCustomer);
+        Utils.showToast(`Account created! Welcome to TRAVELNEX, ${name}.`, 'success');
+        setTimeout(() => {
+            window.location.href = 'my-bookings.html';
+        }, 1000);
+    });
+</script>
+</body>
+</html>

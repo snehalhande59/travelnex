@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver & Chauffeur Login | TRAVELNEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(27, 7, 66, 0.96) 0%, rgba(67, 20, 135, 0.92) 50%, rgba(124, 58, 237, 0.88) 100%),
+                        url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1800') center/cover no-repeat;
+            padding: 24px;
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 440px;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 38px 32px;
+            box-shadow: var(--shadow-lg);
+        }
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+        .auth-logo .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            background: var(--orange);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: 19px;
+        }
+        .auth-logo span { color: var(--orange); }
+        .demo-chip {
+            background: var(--orange-light);
+            border: 1px dashed var(--orange);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .demo-chip:hover {
+            background: #ffe5d6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-page">
+    <div class="auth-card">
+        <a href="../customer/index.html" class="auth-logo">
+            <div class="icon"><i class="fa-solid fa-id-card"></i></div>
+            TRAVEL<span>NEX</span> <small style="font-size:11px; background:var(--orange-light); color:var(--orange); padding:2px 6px; border-radius:4px; margin-left:6px;">DRIVER</small>
+        </a>
+
+        <h2 style="font-size: 22px; text-align: center; margin-bottom: 6px;">Driver & Chauffeur Login</h2>
+        <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">
+            Sign in to view assigned trips, passenger contacts and trip controls
+        </p>
+
+        <!-- Clickable Demo Autofill -->
+        <div class="demo-chip" onclick="fillDriverDemo()">
+            <div style="font-weight: 700; color: var(--orange); margin-bottom: 2px;">
+                <i class="fa-solid fa-bolt"></i> Click to autofill Demo Driver Account:
+            </div>
+            <div>Email: <strong>driver@travelnex.com</strong></div>
+            <div>Password: <strong>Driver@123</strong></div>
+            <div style="margin-top:2px; font-size:11px; color:var(--text-muted);">Assigned Chauffeur: Ramesh Pawar (DRV-101)</div>
+        </div>
+
+        <form id="driverLoginForm">
+            <div class="form-group">
+                <label for="email">Driver Email Address</label>
+                <input type="email" id="email" class="form-control" placeholder="driver@travelnex.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-orange" style="width: 100%; height: 46px; margin-top: 8px;">
+                Sign In to Driver App <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </form>
+
+        <div style="border-top: 1px solid var(--border); margin-top: 24px; padding-top: 16px; text-align: center;">
+            <div style="display: flex; justify-content: center; gap: 14px; font-size: 12px; font-weight: 600;">
+                <a href="../customer/login.html" style="color: var(--blue);">Customer Login</a>
+                <span>•</span>
+                <a href="../corporate/corporate-login.html" style="color: var(--blue);">Corporate Portal</a>
+                <span>•</span>
+                <a href="../admin/admin-login.html" style="color: var(--blue);">Admin Console</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    function fillDriverDemo() {
+        document.getElementById('email').value = 'driver@travelnex.com';
+        document.getElementById('password').value = 'Driver@123';
+        Utils.showToast('Driver demo credentials filled!', 'info');
+    }
+
+    const current = Auth.getCurrentUser();
+    if (current && current.role === 'driver') {
+        window.location.href = 'driver-dashboard.html';
+    }
+
+    document.getElementById('driverLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const pass = document.getElementById('password').value;
+
+        const res = Auth.login(email, pass, 'driver');
+        if (res.success) {
+            Utils.showToast('Welcome, ' + res.user.name, 'success');
+            setTimeout(() => {
+                window.location.href = 'driver-dashboard.html';
+            }, 800);
+        } else {
+            Utils.showToast(res.message, 'error');
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Settings & Configuration | TRAVELNEX Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="admin-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Super Admin</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Core Management</div>
+            <a href="admin-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard Overview</span>
+            </a>
+            <a href="bookings.html" class="sidebar-link">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Booking Management</span>
+            </a>
+            <a href="customers.html" class="sidebar-link">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Customer Accounts</span>
+            </a>
+            <a href="corporate-clients.html" class="sidebar-link">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Corporate Clients</span>
+            </a>
+
+            <div class="sidebar-section-title">Fleet & Operations</div>
+            <a href="drivers.html" class="sidebar-link">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Drivers Management</span>
+            </a>
+            <a href="vehicles.html" class="sidebar-link">
+                <i class="fa-solid fa-taxi"></i>
+                <span>Vehicles & Fleet</span>
+            </a>
+            <a href="services.html" class="sidebar-link">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Services & Rates</span>
+            </a>
+
+            <div class="sidebar-section-title">Financials & Reports</div>
+            <a href="payments.html" class="sidebar-link">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Payment Records</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Invoices Management</span>
+            </a>
+            <a href="reports.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports & Analytics</span>
+            </a>
+            <a href="settings.html" class="sidebar-link active">
+                <i class="fa-solid fa-gear"></i>
+                <span>System Settings</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">A</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">Chief Admin</div>
+                <div class="sidebar-user-role">Super Administrator</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../admin/admin-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="admin-dashboard.html">Admin</a> &gt; Configuration</div>
+                    <h1 class="page-title">Global Settings & Platform Parameters</h1>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px;">
+                <!-- Main Settings Form -->
+                <div style="display:flex; flex-direction:column; gap:24px;">
+                    <!-- Company Profile -->
+                    <div class="table-card" style="padding:24px;">
+                        <h3 style="font-size:18px; color:var(--navy); margin-bottom:16px;">
+                            <i class="fa-solid fa-building" style="color:var(--blue);"></i> Enterprise Entity Details
+                        </h3>
+                        <form id="settingsCompanyForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="setCompName">Company Legal Name</label>
+                                    <input type="text" id="setCompName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="setGstin">GSTIN Identification</label>
+                                    <input type="text" id="setGstin" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="setPhone">Customer Support Hotline</label>
+                                    <input type="text" id="setPhone" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="setEmail">Official Support Email</label>
+                                    <input type="email" id="setEmail" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="setAddress">Headquarters Registered Address</label>
+                                <textarea id="setAddress" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa-solid fa-floppy-disk"></i> Save Entity Settings
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Fare & Tax Settings -->
+                    <div class="table-card" style="padding:24px;">
+                        <h3 style="font-size:18px; color:var(--navy); margin-bottom:16px;">
+                            <i class="fa-solid fa-calculator" style="color:var(--orange);"></i> Default Distance Rates & GST Tax
+                        </h3>
+                        <form id="settingsFareForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="setTax">GST Tax Rate (%)</label>
+                                    <input type="number" id="setTax" class="form-control" value="18" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="setCurrency">Platform Currency Symbol</label>
+                                    <input type="text" id="setCurrency" class="form-control" value="₹" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="setRateSedan">Sedan Base Rate (₹/km)</label>
+                                    <input type="number" id="setRateSedan" class="form-control" value="14" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="setRateSUV">SUV Base Rate (₹/km)</label>
+                                    <input type="number" id="setRateSUV" class="form-control" value="21" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="setRateLuxury">Luxury Base Rate (₹/km)</label>
+                                    <input type="number" id="setRateLuxury" class="form-control" value="42" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="setRateBus">Bus Rental Rate (₹/km)</label>
+                                    <input type="number" id="setRateBus" class="form-control" value="55" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa-solid fa-floppy-disk"></i> Update Rates
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Side: Danger Zone & Reset Demo Data -->
+                <div style="display:flex; flex-direction:column; gap:24px;">
+                    <!-- Demo Reset Card -->
+                    <div class="table-card" style="padding:24px; border:2px solid #fed7aa; background:#fffaf5;">
+                        <div style="width:48px; height:48px; border-radius:50%; background:#ffedd5; color:var(--orange); display:grid; place-items:center; font-size:22px; margin-bottom:12px;">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </div>
+                        <h3 style="font-size:18px; color:var(--navy); margin-bottom:6px;">Demo Architecture Reset</h3>
+                        <p style="font-size:13px; color:var(--text-muted); line-height:1.5; margin-bottom:16px;">
+                            Reset all shared LocalStorage databases back to fresh demo seed records. Will purge user test bookings and recreate default demo accounts.
+                        </p>
+                        <button type="button" class="btn btn-orange" style="width:100%;" onclick="triggerResetDemoData()">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Reset Demo Data
+                        </button>
+                    </div>
+
+                    <!-- Admin Account Profile -->
+                    <div class="table-card" style="padding:24px;">
+                        <h3 style="font-size:18px; color:var(--navy); margin-bottom:14px;">
+                            <i class="fa-solid fa-user-shield" style="color:var(--navy);"></i> Admin Account
+                        </h3>
+                        <div style="font-size:13px; margin-bottom:8px;">
+                            Email: <strong>admin@travelnex.com</strong>
+                        </div>
+                        <div style="font-size:13px; margin-bottom:14px;">
+                            Access Level: <span class="badge badge-completed">Full Super Admin</span>
+                        </div>
+                        <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">
+                            To test other roles, log out and enter credentials for Customer, Corporate, or Driver portals.
+                        </p>
+                        <button type="button" class="btn btn-outline" style="width:100%;" onclick="Auth.logout('../admin/admin-login.html')">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out Administrator
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const adminUser = Auth.requireRole('admin', 'admin-login.html');
+
+    function populateSettings() {
+        const s = StorageManager.getSettings();
+        document.getElementById('setCompName').value = s.companyName || '';
+        document.getElementById('setGstin').value = s.gstin || '';
+        document.getElementById('setPhone').value = s.supportPhone || '';
+        document.getElementById('setEmail').value = s.supportEmail || '';
+        document.getElementById('setAddress').value = s.officeAddress || '';
+
+        document.getElementById('setTax').value = s.taxRatePercent || 18;
+        document.getElementById('setCurrency').value = s.currency || '₹';
+        document.getElementById('setRateSedan').value = s.farePerKmSedan || 14;
+        document.getElementById('setRateSUV').value = s.farePerKmSUV || 21;
+        document.getElementById('setRateLuxury').value = s.farePerKmLuxury || 42;
+        document.getElementById('setRateBus').value = s.farePerKmBus || 55;
+    }
+
+    document.getElementById('settingsCompanyForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        StorageManager.saveSettings({
+            companyName: document.getElementById('setCompName').value.trim(),
+            gstin: document.getElementById('setGstin').value.trim(),
+            supportPhone: document.getElementById('setPhone').value.trim(),
+            supportEmail: document.getElementById('setEmail').value.trim(),
+            officeAddress: document.getElementById('setAddress').value.trim()
+        });
+        Utils.showToast('Enterprise settings updated successfully!', 'success');
+    });
+
+    document.getElementById('settingsFareForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        StorageManager.saveSettings({
+            taxRatePercent: Number(document.getElementById('setTax').value) || 18,
+            currency: document.getElementById('setCurrency').value.trim(),
+            farePerKmSedan: Number(document.getElementById('setRateSedan').value) || 14,
+            farePerKmSUV: Number(document.getElementById('setRateSUV').value) || 21,
+            farePerKmLuxury: Number(document.getElementById('setRateLuxury').value) || 42,
+            farePerKmBus: Number(document.getElementById('setRateBus').value) || 55
+        });
+        Utils.showToast('Fare formulas and tax rates saved!', 'success');
+    });
+
+    function triggerResetDemoData() {
+        Utils.confirm('Reset ALL shared LocalStorage databases to fresh seed records? This cannot be undone.', () => {
+            StorageManager.resetDemoData();
+            Utils.showToast('Platform demo data reset to default seed state!', 'success');
+            setTimeout(() => {
+                window.location.href = 'admin-dashboard.html';
+            }, 1000);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', populateSettings);
+</script>
+</body>
+</html>

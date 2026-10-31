@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Travel Management & Solutions | TRAVELNEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .corp-hero {
+            background: linear-gradient(135deg, rgba(7, 55, 127, 0.96) 0%, rgba(11, 43, 99, 0.92) 50%, rgba(6, 28, 64, 0.96) 100%),
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1800') center/cover no-repeat;
+            color: #fff;
+            padding: 70px 0 90px;
+        }
+        .solution-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            transition: var(--transition);
+        }
+        .solution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--blue);
+        }
+        .solution-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: var(--radius-sm);
+            background: var(--blue-light);
+            color: var(--blue);
+            display: grid;
+            place-items: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar" style="height:80px; background:#fff; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100;">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; height:100%;">
+        <a href="../customer/index.html" class="logo" style="display:flex; align-items:center; gap:10px; font-size:24px; font-weight:800; color:var(--navy);">
+            <div style="width:40px; height:40px; border-radius:10px; background:var(--blue); color:#fff; display:grid; place-items:center; font-size:19px;">
+                <i class="fa-solid fa-route"></i>
+            </div>
+            TRAVEL<span>NEX</span> <span style="font-size:12px; font-weight:700; color:var(--orange); background:var(--orange-light); padding:2px 8px; border-radius:4px; margin-left:6px;">BUSINESS</span>
+        </a>
+
+        <div style="display:flex; align-items:center; gap:16px;">
+            <a href="../customer/index.html" class="btn btn-outline btn-sm">Customer Website</a>
+            <a href="corporate-login.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-briefcase"></i> Corporate Login</a>
+            <a href="#enquiry" class="btn btn-orange btn-sm">Get Custom Quote</a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="corp-hero">
+    <div class="container" style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap:40px; align-items:center;">
+        <div>
+            <span style="background:rgba(255,255,255,0.15); padding:6px 14px; border-radius:30px; font-size:12px; font-weight:700; text-transform:uppercase;">
+                Enterprise Mobility & Travel Management
+            </span>
+            <h1 style="font-size: clamp(28px, 3.5vw, 34px); color:#fff; line-height:1.2; margin:14px 0 16px; font-weight:800;">
+                Intelligent Corporate Travel & Employee Commute Solutions
+            </h1>
+            <p style="color:#dbe4f5; font-size:14px; margin-bottom:24px; max-width:540px; line-height:1.6;">
+                Streamline employee pickup-drop, client airport transfers, executive rentals and consolidated GST billing with TRAVELNEX Corporate Suite.
+            </p>
+            <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                <a href="corporate-login.html" class="btn btn-gold" style="height:42px; padding:0 24px; font-size:14px;">Access Corporate Dashboard</a>
+                <a href="#enquiry" class="btn btn-outline" style="color:#fff; border-color:#fff; height:42px; padding:0 20px;">Request Corporate Demo</a>
+            </div>
+        </div>
+
+        <div style="background:#fff; border-radius:var(--radius-lg); padding:32px; color:var(--text); box-shadow:var(--shadow-lg);">
+            <h3 style="font-size:20px; color:var(--navy); margin-bottom:6px;">Corporate Sign-In</h3>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:18px;">
+                Manage employees, trip rosters and consolidated invoices.
+            </p>
+            <div style="background:#f1f5f9; padding:12px; border-radius:8px; font-size:12px; margin-bottom:16px;">
+                Demo Client Account: <strong>corporate@travelnex.com</strong> / <strong>Corp@123</strong>
+            </div>
+            <a href="corporate-login.html" class="btn btn-primary" style="width:100%; height:46px;">
+                Enter Corporate Portal <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Solutions Grid -->
+<section style="padding:80px 0; background:var(--light);">
+    <div class="container">
+        <div style="text-align:center; max-width:650px; margin:0 auto 50px;">
+            <span style="color:var(--orange); font-weight:800; font-size:12px; letter-spacing:1px; text-transform:uppercase;">Tailored for Enterprises</span>
+            <h2 style="font-size:32px; margin:8px 0 12px; color:var(--navy);">Complete Business Transportation Stack</h2>
+            <p style="color:var(--text-muted); font-size:14px;">Designed for tech hubs, financial institutions, and MNCs requiring 100% compliance, SLA guarantees and verified background-checked drivers.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+            <div class="solution-card">
+                <div class="solution-icon"><i class="fa-solid fa-people-roof"></i></div>
+                <h3 style="font-size:18px; margin-bottom:8px; color:var(--navy);">Daily Employee Commute</h3>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+                    Fixed route pickups and drop-offs for shift workers and office teams with GPS roster scheduling and safety panic buttons.
+                </p>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-icon"><i class="fa-solid fa-plane-circle-check"></i></div>
+                <h3 style="font-size:18px; margin-bottom:8px; color:var(--navy);">Executive Airport & Intercity</h3>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+                    Premium sedans and SUVs for CXOs, visiting clients, and leadership delegations with flight delay tracking.
+                </p>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <h3 style="font-size:18px; margin-bottom:8px; color:var(--navy);">Centralized Monthly Billing</h3>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+                    Zero employee out-of-pocket expenses. Single consolidated monthly tax invoice with cost-center & department tags.
+                </p>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-icon"><i class="fa-solid fa-users-gear"></i></div>
+                <h3 style="font-size:18px; margin-bottom:8px; color:var(--navy);">Employee Self-Booking</h3>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+                    Corporate administrators can add employees, set monthly ride limits, and review trips in real-time.
+                </p>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                <h3 style="font-size:18px; margin-bottom:8px; color:var(--navy);">Monthly Dedicated Cab Contracts</h3>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+                    Dedicated chauffeured vehicles leased on monthly retainer contracts for executives and daily office operations.
+                </p>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-icon"><i class="fa-solid fa-route"></i></div>
+                <h3 style="font-size:18px; margin-bottom:8px; color:var(--navy);">Employee Route &amp; Shift Management</h3>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+                    Optimized cluster routing, shift-wise roster dispatch, and automated pickup notifications for zero employee delays.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Corporate Enquiry Form -->
+<section id="enquiry" style="padding:80px 0; background:#fff;">
+    <div class="container" style="max-width:800px;">
+        <div style="text-align:center; margin-bottom:40px;">
+            <span style="color:var(--orange); font-weight:800; font-size:12px; letter-spacing:1px; text-transform:uppercase;">Get in Touch</span>
+            <h2 style="font-size:32px; margin:8px 0 10px; color:var(--navy);">Request a Corporate Partnership Proposal</h2>
+            <p style="color:var(--text-muted); font-size:14px;">Fill out the form below to receive a customized rate card and corporate demo.</p>
+        </div>
+
+        <form id="corpEnquiryForm" style="border:1px solid var(--border); padding:32px; border-radius:var(--radius-lg); background:#fafbfe;">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="companyName">Company / Organization Name</label>
+                    <input type="text" id="companyName" class="form-control" placeholder="e.g. Infosys / Wipro Ltd" required>
+                </div>
+                <div class="form-group">
+                    <label for="gstin">Company GSTIN</label>
+                    <input type="text" id="gstin" class="form-control" placeholder="27AAACT1234F1Z1" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="contactPerson">Authorized Contact Person</label>
+                    <input type="text" id="contactPerson" class="form-control" placeholder="Rajesh Sharma" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" pattern="[0-9]{10}" class="form-control" placeholder="9822011222" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Official Corporate Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="r.sharma@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="employeeCount">Active Employee Fleet Count</label>
+                    <select id="employeeCount" class="form-control">
+                        <option>10 - 50 Employees</option>
+                        <option selected>50 - 200 Employees</option>
+                        <option>200 - 500 Employees</option>
+                        <option>500+ Employees (Custom Enterprise)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="requirements">Specific Transportation Requirements</label>
+                <textarea id="requirements" class="form-control" placeholder="Describe pickup locations, shift timings, or vehicle requirements..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg" style="width:100%; margin-top:8px;">
+                Submit Corporate Enquiry <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer style="background:var(--navy-dark); color:#cbd5e1; padding:45px 0 25px; font-size:13px;">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+        <div style="display:flex; align-items:center; gap:10px; font-size:20px; font-weight:800; color:#fff;">
+            <div style="width:34px; height:34px; border-radius:8px; background:var(--blue); color:#fff; display:grid; place-items:center; font-size:16px;">
+                <i class="fa-solid fa-route"></i>
+            </div>
+            TRAVEL<span>NEX</span> Business
+        </div>
+        <div>
+            © 2026 TRAVELNEX Mobility Solutions Pvt Ltd. Corporate Division.
+        </div>
+        <div style="display:flex; gap:16px;">
+            <a href="corporate-login.html" style="color:var(--orange);">Corporate Login</a>
+            <a href="../admin/admin-login.html" style="color:#cbd5e1;">Admin Login</a>
+            <a href="../driver/driver-login.html" style="color:#cbd5e1;">Driver Portal</a>
+        </div>
+    </div>
+</footer>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    document.getElementById('corpEnquiryForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const comp = document.getElementById('companyName').value.trim();
+        const contact = document.getElementById('contactPerson').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const gstin = document.getElementById('gstin').value.trim();
+
+        // Create corporate client request in LocalStorage
+        const client = StorageManager.saveCorporateClient({
+            companyName: comp,
+            contactPerson: contact,
+            email: email,
+            phone: phone,
+            gstin: gstin,
+            status: 'Pending',
+            notes: document.getElementById('requirements').value
+        });
+
+        Utils.showToast(`Corporate enquiry submitted! Reference ID: ${client.id}. Our corporate desk will contact you.`, 'success');
+        this.reset();
+    });
+</script>
+</body>
+</html>

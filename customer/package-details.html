@@ -1,0 +1,554 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tour Package Details | TRAVELNEX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/common.css">
+
+<style>
+:root {
+    --primary-purple: #07377F;
+    --dark-purple: #0B2B63;
+    --deep-purple-bg: #061C40;
+    --lavender-soft: #EAF1FA;
+    --pink-accent: #F5B51B;
+    --purple-gradient: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
+    --card-shadow: 0 10px 30px rgba(11, 43, 99, 0.08);
+}
+.pkg-hero {
+    position: relative;
+    height: 440px;
+    background: #1c093e;
+    overflow: hidden;
+}
+.pkg-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.65);
+}
+.pkg-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(30,9,62,0.3) 0%, rgba(30,9,62,0.95) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 50px;
+}
+.pkg-hero-content {
+    color: #ffffff;
+    width: 100%;
+}
+.pkg-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 40px;
+    margin-top: 40px;
+    margin-bottom: 80px;
+}
+.pkg-booking-sticky {
+    position: sticky;
+    top: 100px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border);
+}
+.itinerary-step {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 24px;
+    position: relative;
+}
+.step-dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--purple-gradient);
+    color: #ffffff;
+    font-weight: 800;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(109,40,217,0.3);
+}
+.step-body {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px 24px;
+    border: 1px solid var(--border);
+    flex: 1;
+}
+.step-body h4 { font-size: 16px; color: var(--dark-purple); margin-bottom: 6px; }
+.step-body p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+
+.check-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+}
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--text-dark);
+}
+.check-item i { color: #10b981; }
+
+@media(max-width: 950px) {
+    .pkg-layout { grid-template-columns: 1fr; }
+    .pkg-booking-sticky { position: static; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar" style="background:var(--dark-purple); color:#e9d5ff; padding:8px 0; font-size:12.5px;">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+        <div><span><i class="fa-solid fa-phone" style="color:var(--pink-accent);"></i> +91 98765 43210</span> &nbsp; | &nbsp; <span><i class="fa-solid fa-envelope" style="color:var(--pink-accent);"></i> support@travelnex.com</span></div>
+        <div><span><i class="fa-solid fa-shield-halved" style="color:var(--pink-accent);"></i> Guaranteed Departure with Private Chauffeur</span></div>
+    </div>
+</div>
+
+<!-- NAVBAR -->
+<!-- 1. EXACT CUSTOMER NAVBAR (Strict Reference Match) -->
+<header class="site-navbar">
+    <div class="container site-navbar-container">
+        <!-- Logo on the left -->
+        <a href="index.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <span>TRAVEL<strong>NEX</strong></span>
+        </a>
+
+        <!-- Exact 8 Menu Items in exact order -->
+        <nav class="site-nav-menu">
+            <ul class="site-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="nav-dropdown-item">
+                    <a href="javascript:void(0)" class="nav-dropdown-toggle">
+                        <span>Services</span> <i class="fa-solid fa-chevron-down nav-caret"></i>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <a href="local-taxi.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-taxi"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Local Taxi Services</span>
+                                <span class="nav-dropdown-sub">City point-to-point & hourly cabs</span>
+                            </div>
+                        </a>
+                        <a href="outstation-cabs.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-car-side"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Outstation Cabs</span>
+                                <span class="nav-dropdown-sub">One-way & round-trip intercity</span>
+                            </div>
+                        </a>
+                        <a href="airport-transfer.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-plane-departure"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Airport Pickup & Drop</span>
+                                <span class="nav-dropdown-sub">Reliable flight pickup transfers</span>
+                            </div>
+                        </a>
+                        <a href="mini-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-van-shuttle"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Mini Bus Booking</span>
+                                <span class="nav-dropdown-sub">12–26 seater Tempo Traveller</span>
+                            </div>
+                        </a>
+                        <a href="luxury-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Luxury Bus Booking</span>
+                                <span class="nav-dropdown-sub">32–55 seater AC Volvo coaches</span>
+                            </div>
+                        </a>
+                        <a href="group-transportation.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-users"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Group Transportation</span>
+                                <span class="nav-dropdown-sub">Corporate offsites & weddings</span>
+                            </div>
+                        </a>
+                        <a href="railway-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-train"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Railway Ticket Booking</span>
+                                <span class="nav-dropdown-sub">IRCTC verified booking inquiry</span>
+                            </div>
+                        </a>
+                        <a href="st-bus-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus-simple"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Maharashtra ST Bus Booking</span>
+                                <span class="nav-dropdown-sub">Shivneri, Shivshahi & Lalpari</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="packages.html">Tour Packages</a></li>
+                <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Right Side: Gold Book Your Trip Button -->
+        <div class="site-nav-actions">
+            <a href="packages.html" class="btn-book-trip d-none-mobile">
+                <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+            </a>
+            <button class="nav-hamburger" id="navToggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+        <a href="index.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <div class="brand-text">
+                <span class="brand-name">TRAVEL<strong>NEX</strong></span>
+                <span class="brand-tagline">Travel Beyond Limits</span>
+            </div>
+        </a>
+        <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close Navigation">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="mobile-dropdown-parent">
+            <a href="javascript:void(0)" class="mobile-dropdown-toggle" onclick="toggleMobileServices(this)">
+                <span>Services</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <div class="mobile-sub-menu show" id="mobileServicesSub">
+                <a href="local-taxi.html"><i class="fa-solid fa-taxi"></i> Local Taxi Services</a>
+                <a href="outstation-cabs.html"><i class="fa-solid fa-car-side"></i> Outstation Cabs</a>
+                <a href="airport-transfer.html"><i class="fa-solid fa-plane-departure"></i> Airport Pickup & Drop</a>
+                <a href="mini-bus.html"><i class="fa-solid fa-van-shuttle"></i> Mini Bus Booking</a>
+                <a href="luxury-bus.html"><i class="fa-solid fa-bus"></i> Luxury Bus Booking</a>
+                <a href="group-transportation.html"><i class="fa-solid fa-users"></i> Group Transportation</a>
+                <a href="railway-booking.html"><i class="fa-solid fa-train"></i> Railway Ticket Booking</a>
+                <a href="st-bus-booking.html"><i class="fa-solid fa-bus-simple"></i> Maharashtra ST Bus Booking</a>
+            </div>
+        </li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="packages.html">Tour Packages</a></li>
+        <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="mobile-nav-footer">
+        <a href="packages.html" class="btn-book-trip" style="width:100%; justify-content:center;">
+            <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+        </a>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="pkg-hero">
+    <img id="pkgHeroImg" src="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=1920&auto=format&fit=crop&q=80" alt="Package Destination">
+    <div class="pkg-hero-overlay">
+        <div class="container pkg-hero-content">
+            <div style="display:flex; gap:10px; margin-bottom:12px;">
+                <span style="background:var(--pink-accent); color:#fff; font-size:11px; font-weight:800; padding:4px 14px; border-radius:20px;" id="pkgDiscount">30% OFF</span>
+                <span style="background:rgba(255,255,255,0.25); color:#fff; font-size:11px; font-weight:700; padding:4px 14px; border-radius:20px;" id="pkgCategory">International Tour</span>
+            </div>
+            <h1 id="pkgTitle" style="font-size:clamp(28px, 3.5vw, 44px); color:#fff; margin-bottom:10px;">Swiss Alpine Panorama & Glacier Tour</h1>
+            <div style="display:flex; gap:22px; flex-wrap:wrap; font-size:14px; color:#e9d5ff;">
+                <span><i class="fa-solid fa-location-dot" style="color:var(--pink-accent);"></i> <span id="pkgDestination">Interlaken & Zurich, Switzerland</span></span>
+                <span><i class="fa-solid fa-clock" style="color:var(--pink-accent);"></i> <span id="pkgDuration">6 Days / 5 Nights</span></span>
+                <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> <span id="pkgRating">4.9 (412 Reviews)</span></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="container">
+    <div class="pkg-layout">
+        <!-- LEFT COLUMN: ITINERARY & DETAILS -->
+        <div>
+            <!-- Overview -->
+            <div style="background:#ffffff; border-radius:18px; padding:30px; border:1px solid var(--border); margin-bottom:30px;">
+                <h3 style="font-size:20px; color:var(--dark-purple); margin-bottom:12px;">Tour Overview</h3>
+                <p id="pkgDesc" style="color:var(--text-muted); font-size:14.5px; line-height:1.7;">
+                    Experience majestic snow-capped peaks, crystal alpine lakes and scenic Swiss trains with our signature private tour package. Includes handpicked luxury accommodations, breakfast, private transfers and guided sightseeing excursions.
+                </p>
+                <div style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border); display:flex; gap:24px; flex-wrap:wrap;">
+                    <div><span style="font-size:11px; color:#94a3b8; text-transform:uppercase; font-weight:800;">Accommodation</span><div style="font-weight:700; color:var(--dark-purple); font-size:14px;" id="pkgHotel">5-Star Alpine Chalet</div></div>
+                    <div><span style="font-size:11px; color:#94a3b8; text-transform:uppercase; font-weight:800;">Transport</span><div style="font-weight:700; color:var(--dark-purple); font-size:14px;">Private Chauffeur & Swiss Pass</div></div>
+                    <div><span style="font-size:11px; color:#94a3b8; text-transform:uppercase; font-weight:800;">Meals</span><div style="font-weight:700; color:var(--dark-purple); font-size:14px;">Breakfast & Welcome Dinner</div></div>
+                </div>
+            </div>
+
+            <!-- Day-by-Day Itinerary -->
+            <h3 style="font-size:22px; color:var(--dark-purple); margin-bottom:20px;">Day-by-Day Itinerary</h3>
+            <div id="itineraryContainer">
+                <div class="itinerary-step">
+                    <div class="step-dot">01</div>
+                    <div class="step-body">
+                        <h4>Day 1: Arrival & VIP Chauffeur Welcome</h4>
+                        <p>Arrive at the destination airport where your private chauffeur awaits at arrivals. Enjoy a smooth ride to your luxury resort. Relax, take in panoramic views and join a curated evening welcome dinner.</p>
+                    </div>
+                </div>
+                <div class="itinerary-step">
+                    <div class="step-dot">02</div>
+                    <div class="step-body">
+                        <h4>Day 2: Iconic Landmarks & Guided Heritage Excursion</h4>
+                        <p>After a gourmet breakfast, embark on a private guided tour exploring world-renowned architectural wonders, scenic waterfronts, and cultural highlights with skip-the-line VIP passes.</p>
+                    </div>
+                </div>
+                <div class="itinerary-step">
+                    <div class="step-dot">03</div>
+                    <div class="step-body">
+                        <h4>Day 3: Scenic Panorama & Mountain/Island Cruise</h4>
+                        <p>Experience breathtaking views with a private boat cruise or alpine cable car journey. Savor traditional local lunch and capture stunning photography at scenic viewpoints.</p>
+                    </div>
+                </div>
+                <div class="itinerary-step">
+                    <div class="step-dot">04</div>
+                    <div class="step-body">
+                        <h4>Day 4: Leisure Day & Wellness Spa Experience</h4>
+                        <p>Unwind at your leisure. Enjoy the resort infinity pool, indulge in an authentic signature spa wellness therapy, or explore local artisan markets at your own pace.</p>
+                    </div>
+                </div>
+                <div class="itinerary-step">
+                    <div class="step-dot">05</div>
+                    <div class="step-body">
+                        <h4>Day 5: Adventure Excursion & Sunset Dinner</h4>
+                        <p>Partake in thrilling sightseeing activities tailored to the region. Conclude your evening with an exclusive candlelit sunset dinner overlooking the horizon.</p>
+                    </div>
+                </div>
+                <div class="itinerary-step">
+                    <div class="step-dot">06</div>
+                    <div class="step-body">
+                        <h4>Day 6: Souvenir Shopping & Departure Transfer</h4>
+                        <p>Enjoy a leisurely final breakfast. Your chauffeur will assist with luggage and provide a seamless transfer back to the airport for your return flight.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inclusions & Exclusions -->
+            <div style="background:#ffffff; border-radius:18px; padding:30px; border:1px solid var(--border); margin-top:30px;">
+                <h3 style="font-size:20px; color:var(--dark-purple); margin-bottom:14px;">Package Inclusions</h3>
+                <div class="check-list">
+                    <div class="check-item"><i class="fa-solid fa-circle-check"></i> 5-Star / 4-Star Resort Accommodation</div>
+                    <div class="check-item"><i class="fa-solid fa-circle-check"></i> Daily Buffet Breakfast Included</div>
+                    <div class="check-item"><i class="fa-solid fa-circle-check"></i> Dedicated Private Chauffeur & Fuel</div>
+                    <div class="check-item"><i class="fa-solid fa-circle-check"></i> Airport Pick-up & Drop-off Transfers</div>
+                    <div class="check-item"><i class="fa-solid fa-circle-check"></i> All Sightseeing Entrance & VIP Passes</div>
+                    <div class="check-item"><i class="fa-solid fa-circle-check"></i> 24/7 Concierge Hotline & Emergency SOS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: STICKY BOOKING FORM -->
+        <div>
+            <div class="pkg-booking-sticky" id="book">
+                <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--border);">
+                    <div>
+                        <span style="font-size:12px; color:#94a3b8; text-decoration:line-through;" id="sideOldPrice">₹42,000</span>
+                        <div style="font-size:28px; font-weight:800; color:var(--dark-purple); line-height:1;" id="sidePrice">₹31,500</div>
+                        <span style="font-size:11px; color:var(--text-muted);">per person (All Inclusive)</span>
+                    </div>
+                    <span style="background:var(--lavender-soft); color:var(--primary-purple); font-size:12px; font-weight:800; padding:4px 12px; border-radius:20px;">Instant Book</span>
+                </div>
+
+                <form id="sideBookingForm" style="display:flex; flex-direction:column; gap:14px;">
+                    <div>
+                        <label style="font-size:11.5px; font-weight:800; color:var(--primary-purple); text-transform:uppercase; display:block; margin-bottom:6px;">Select Travel Date</label>
+                        <input type="date" id="bookDate" required style="width:100%; height:46px; border-radius:10px; border:1px solid var(--border); padding:0 12px; font-size:13px; background:#faf8fe;">
+                    </div>
+                    <div>
+                        <label style="font-size:11.5px; font-weight:800; color:var(--primary-purple); text-transform:uppercase; display:block; margin-bottom:6px;">Total Guests</label>
+                        <select id="bookGuests" style="width:100%; height:46px; border-radius:10px; border:1px solid var(--border); padding:0 12px; font-size:13px; background:#faf8fe;" onchange="recalculatePrice()">
+                            <option value="1">1 Person (Solo Traveler)</option>
+                            <option value="2" selected>2 Persons (Couple / Friends)</option>
+                            <option value="4">4 Persons (Family Suite)</option>
+                            <option value="6">6 Persons (Private Villa)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size:11.5px; font-weight:800; color:var(--primary-purple); text-transform:uppercase; display:block; margin-bottom:6px;">Lead Passenger Name</label>
+                        <input type="text" id="bookName" required placeholder="Full Name" style="width:100%; height:46px; border-radius:10px; border:1px solid var(--border); padding:0 12px; font-size:13px;">
+                    </div>
+                    <div>
+                        <label style="font-size:11.5px; font-weight:800; color:var(--primary-purple); text-transform:uppercase; display:block; margin-bottom:6px;">Contact Email</label>
+                        <input type="email" id="bookEmail" required placeholder="name@example.com" style="width:100%; height:46px; border-radius:10px; border:1px solid var(--border); padding:0 12px; font-size:13px;">
+                    </div>
+                    <div>
+                        <label style="font-size:11.5px; font-weight:800; color:var(--primary-purple); text-transform:uppercase; display:block; margin-bottom:6px;">Mobile Number</label>
+                        <input type="tel" id="bookPhone" required pattern="[0-9]{10}" maxlength="10" placeholder="10-digit number" style="width:100%; height:46px; border-radius:10px; border:1px solid var(--border); padding:0 12px; font-size:13px;">
+                    </div>
+
+                    <div style="background:#faf8fe; border-radius:10px; padding:12px; font-size:12.5px; margin-top:4px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                            <span style="color:#64748b;">Estimated Total:</span>
+                            <strong style="color:var(--dark-purple); font-size:16px;" id="sideTotalFare">₹63,000</strong>
+                        </div>
+                        <span style="color:#10b981; font-size:11px; font-weight:700;"><i class="fa-solid fa-circle-check"></i> Free Cancellation up to 7 days prior</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="background:var(--purple-gradient); height:50px; border-radius:30px; font-weight:800; font-size:14px; margin-top:8px;">
+                        Book This Package Now
+                    </button>
+                </form>
+
+                <div style="text-align:center; font-size:11.5px; color:#94a3b8; margin-top:14px;">
+                    <i class="fa-solid fa-lock"></i> 256-Bit SSL Encrypted & Certified
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:var(--deep-purple-bg); color:#e9d5ff; padding:65px 0 25px;">
+    <div class="container" style="display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:40px; margin-bottom:40px;">
+        <div>
+            <a href="index.html" class="logo" style="color:#fff; font-size:24px; font-weight:800;">TRAVEL<span style="color:var(--pink-accent);">NEX</span></a>
+            <p style="font-size:13px; color:#c4b5fd; margin-top:14px; line-height:1.6;">Premier tours & travel management platform with transparent pricing and verified hospitality.</p>
+        </div>
+        <div>
+            <h4 style="color:#fff; margin-bottom:16px;">Quick Links</h4>
+            <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+                <a href="index.html" style="color:#c4b5fd;">Home</a>
+                <a href="packages.html" style="color:#c4b5fd;">All Packages</a>
+                <a href="domestic-tours.html" style="color:#c4b5fd;">Domestic Tours</a>
+                <a href="destinations.html" style="color:#c4b5fd;">Top Destinations</a>
+            </div>
+        </div>
+        <div>
+            <h4 style="color:#fff; margin-bottom:16px;">Services</h4>
+            <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+                <a href="cab-booking.html" style="color:#c4b5fd;">Local Cabs</a>
+                <a href="outstation-booking.html" style="color:#c4b5fd;">Outstation</a>
+                <a href="airport-booking.html" style="color:#c4b5fd;">Airport Ride</a>
+                <a href="bus-booking.html" style="color:#c4b5fd;">Bus Rentals</a>
+            </div>
+        </div>
+        <div>
+            <h4 style="color:#fff; margin-bottom:16px;">Contact</h4>
+            <div style="font-size:13px; color:#c4b5fd; line-height:1.7;">
+                <div><i class="fa-solid fa-phone" style="color:var(--pink-accent);"></i> +91 98765 43210</div>
+                <div><i class="fa-solid fa-envelope" style="color:var(--pink-accent);"></i> support@travelnex.com</div>
+                <div><i class="fa-solid fa-location-dot" style="color:var(--pink-accent);"></i> Pune, Maharashtra, India</div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:20px; text-align:center; font-size:12px; color:#a78bfa;">
+        © 2026 TRAVELNEX Technologies Pvt. Ltd. All Rights Reserved.
+    </div>
+</footer>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+
+<script>
+let activePackage = null;
+
+function loadPackageDetails() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id') || 'PKG-SWISS';
+    
+    activePackage = StorageManager.getPackageById(id);
+    if (!activePackage) {
+        activePackage = StorageManager.getPackages()[0];
+    }
+
+    // Populate Hero & Details
+    document.getElementById('pkgHeroImg').src = activePackage.image;
+    document.getElementById('pkgTitle').textContent = activePackage.title;
+    document.getElementById('pkgDestination').textContent = activePackage.destination;
+    document.getElementById('pkgDuration').textContent = activePackage.duration;
+    document.getElementById('pkgRating').textContent = `${activePackage.rating} (${activePackage.reviewsCount} Reviews)`;
+    document.getElementById('pkgDiscount').textContent = activePackage.discount;
+    document.getElementById('pkgCategory').textContent = activePackage.category.toUpperCase() + ' TOUR';
+    document.getElementById('pkgDesc').textContent = activePackage.description;
+    document.getElementById('pkgHotel').textContent = activePackage.hotel;
+
+    // Populate Sidebar
+    document.getElementById('sidePrice').textContent = Utils.formatCurrency(activePackage.price);
+    document.getElementById('sideOldPrice').textContent = Utils.formatCurrency(activePackage.oldPrice);
+
+    // Initial Date
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('bookDate').min = today;
+    document.getElementById('bookDate').value = today;
+
+    // Autofill logged in user
+    const user = AuthManager.getCurrentUser();
+    if (user) {
+        document.getElementById('bookName').value = user.name || '';
+        document.getElementById('bookEmail').value = user.email || '';
+    }
+
+    recalculatePrice();
+}
+
+function recalculatePrice() {
+    if (!activePackage) return;
+    const guests = Number(document.getElementById('bookGuests').value);
+    const total = activePackage.price * guests;
+    document.getElementById('sideTotalFare').textContent = Utils.formatCurrency(total);
+}
+
+// Booking Form Submit
+document.getElementById('sideBookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!activePackage) return;
+
+    const guests = Number(document.getElementById('bookGuests').value);
+    const total = activePackage.price * guests;
+    const user = AuthManager.getCurrentUser();
+    const customerId = user ? user.id : 'CUST-' + Math.floor(1000 + Math.random() * 9000);
+
+    const booking = {
+        customerId: customerId,
+        customerName: document.getElementById('bookName').value.trim(),
+        customerEmail: document.getElementById('bookEmail').value.trim(),
+        customerPhone: document.getElementById('bookPhone').value.trim(),
+        serviceType: 'Tour Package',
+        service: 'Tour Package',
+        destination: activePackage.destination,
+        pickup: 'Home City / Airport',
+        journeyDate: document.getElementById('bookDate').value,
+        journeyTime: '09:00',
+        passengers: guests,
+        vehicleType: 'Tour Package Chauffeur',
+        estimatedFare: total,
+        fare: total,
+        amount: total,
+        notes: `Booked: ${activePackage.title} (${activePackage.duration}) for ${guests} guests.`,
+        status: 'Pending',
+        bookingStatus: 'Pending',
+        createdAt: new Date().toISOString()
+    };
+
+    const res = StorageManager.createBooking(booking);
+    alert(`🎉 Reservation ${res.id} Confirmed!\n\nPackage: ${activePackage.title}\nTotal: ₹${total.toLocaleString('en-IN')}\n\nRedirecting to your booking tracking console.`);
+    window.location.href = `booking-details.html?id=${res.id}`;
+});
+
+document.addEventListener('DOMContentLoaded', loadPackageDetails);
+</script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Invoices & Billing | TRAVELNEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="corporate-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Corporate</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Navigation</div>
+            <a href="corporate-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Overview</span>
+            </a>
+            <a href="employees.html" class="sidebar-link">
+                <i class="fa-solid fa-users"></i>
+                <span>Employees</span>
+            </a>
+            <a href="corporate-bookings.html" class="sidebar-link">
+                <i class="fa-solid fa-car-side"></i>
+                <span>Corporate Bookings</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link active">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+                <span>Monthly Invoices</span>
+                <span class="nav-count" id="badgeInv">0</span>
+            </a>
+            <a href="reports.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Expense Reports</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">C</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">TechCorp Global</div>
+                <div class="sidebar-user-role">Corporate Client</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../corporate/corporate-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="corporate-dashboard.html">Corporate</a> &gt; Financials</div>
+                    <h1 class="page-title">Monthly Tax Invoices & Statements</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button type="button" class="btn btn-outline btn-sm" onclick="exportInvoicesCSV()">
+                    <i class="fa-solid fa-download"></i> Export Invoices CSV
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <!-- Billing Summary Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fa-solid fa-receipt"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Total Invoiced</div>
+                        <div class="stat-value" id="statTotalBilled">₹0</div>
+                        <div class="stat-subtext">Cumulative GST billed</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Settled / Paid</div>
+                        <div class="stat-value" id="statPaidBilled">₹0</div>
+                        <div class="stat-subtext">Processed account clearing</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i class="fa-solid fa-clock"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Pending Due</div>
+                        <div class="stat-value" id="statDueBilled">₹0</div>
+                        <div class="stat-subtext">Under 30-day credit period</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Invoices Table -->
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Tax Invoices List</div>
+                    <div class="table-filters">
+                        <div class="search-input-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="searchInv" placeholder="Search invoice or booking ID..." oninput="filterInvoices()">
+                        </div>
+
+                        <select id="statusInvFilter" class="form-control" style="width: auto; height: 38px; font-size: 13px;" onchange="filterInvoices()">
+                            <option value="ALL">All Payment Statuses</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Invoice No</th>
+                                <th>Booking ID</th>
+                                <th>Employee / Traveler</th>
+                                <th>Service Type</th>
+                                <th>Base Amount</th>
+                                <th>GST (18%)</th>
+                                <th>Total Payable</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoicesTableBody">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="emptyInvoices" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                    <h3>No Invoices Found</h3>
+                    <p>Invoices are generated upon trip completion or dispatch.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const user = Auth.requireRole('corporate', 'corporate-login.html');
+    const corpId = (user && user.corporateId) ? user.corporateId : 'CORP-101';
+
+    let corpInvoices = [];
+
+    function loadInvoices() {
+        // Collect all invoices belonging to corporate bookings
+        const allInvoices = StorageManager.getInvoices();
+        const allBookings = StorageManager.getBookings();
+
+        // Also ensure completed bookings have invoices generated
+        allBookings.forEach(b => {
+            if (b.corporateId === corpId && b.bookingStatus === 'Completed') {
+                StorageManager.generateInvoiceForBooking(b.id);
+            }
+        });
+
+        const refreshedInvoices = StorageManager.getInvoices();
+        corpInvoices = refreshedInvoices.filter(inv => {
+            if (inv.corporateId === corpId) return true;
+            const b = allBookings.find(bk => bk.id === inv.bookingId);
+            return b && b.corporateId === corpId;
+        });
+
+        document.getElementById('badgeInv').textContent = corpInvoices.length;
+
+        // Calculate Totals
+        const total = corpInvoices.reduce((acc, i) => acc + (Number(i.totalAmount) || 0), 0);
+        const paid = corpInvoices.filter(i => i.status === 'Paid').reduce((acc, i) => acc + (Number(i.totalAmount) || 0), 0);
+        const due = total - paid;
+
+        document.getElementById('statTotalBilled').textContent = Utils.formatCurrency(total);
+        document.getElementById('statPaidBilled').textContent = Utils.formatCurrency(paid);
+        document.getElementById('statDueBilled').textContent = Utils.formatCurrency(due);
+
+        filterInvoices();
+    }
+
+    function filterInvoices() {
+        const query = document.getElementById('searchInv').value.trim().toLowerCase();
+        const status = document.getElementById('statusInvFilter').value;
+
+        const filtered = corpInvoices.filter(inv => {
+            const matchesQuery = !query ||
+                inv.id.toLowerCase().includes(query) ||
+                (inv.bookingId && inv.bookingId.toLowerCase().includes(query)) ||
+                (inv.customerName && inv.customerName.toLowerCase().includes(query));
+
+            const matchesStatus = status === 'ALL' || inv.status === status;
+
+            return matchesQuery && matchesStatus;
+        });
+
+        renderInvoicesTable(filtered);
+    }
+
+    function renderInvoicesTable(invoices) {
+        const tbody = document.getElementById('invoicesTableBody');
+        const empty = document.getElementById('emptyInvoices');
+        tbody.innerHTML = '';
+
+        if (!invoices || invoices.length === 0) {
+            empty.style.display = 'block';
+            return;
+        }
+
+        empty.style.display = 'none';
+
+        invoices.forEach(inv => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>
+                    <strong style="color:var(--navy);">${Utils.escapeHTML(inv.id)}</strong><br>
+                    <small style="color:var(--text-muted); font-size:11px;">Issued: ${Utils.formatDate(inv.issuedDate)}</small>
+                </td>
+                <td>
+                    <strong>${Utils.escapeHTML(inv.bookingId)}</strong>
+                </td>
+                <td>
+                    <div style="font-weight:600;">${Utils.escapeHTML(inv.customerName)}</div>
+                    <small style="color:var(--text-muted); font-size:11px;">Due: ${Utils.formatDate(inv.dueDate)}</small>
+                </td>
+                <td>${Utils.escapeHTML(inv.serviceType || 'Travel')}</td>
+                <td>${Utils.formatCurrency(inv.baseFare)}</td>
+                <td>${Utils.formatCurrency(inv.taxes)}</td>
+                <td><strong>${Utils.formatCurrency(inv.totalAmount)}</strong></td>
+                <td>
+                    <span class="badge ${inv.status === 'Paid' ? 'badge-paid' : 'badge-unpaid'}">
+                        ${Utils.escapeHTML(inv.status)}
+                    </span>
+                </td>
+                <td style="text-align: right;">
+                    <button class="btn btn-primary btn-sm" onclick="Utils.showInvoiceModal('${inv.bookingId}')">
+                        <i class="fa-solid fa-print"></i> View / Print
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function exportInvoicesCSV() {
+        if (corpInvoices.length === 0) {
+            Utils.showToast('No invoices to export.', 'warning');
+            return;
+        }
+
+        const headers = ['Invoice ID', 'Booking ID', 'Traveler', 'Service', 'Base Fare', 'GST (18%)', 'Total Amount', 'Status', 'Issued Date', 'Due Date'];
+        const rows = corpInvoices.map(i => [
+            i.id,
+            i.bookingId,
+            i.customerName,
+            i.serviceType || 'Travel',
+            i.baseFare,
+            i.taxes,
+            i.totalAmount,
+            i.status,
+            i.issuedDate,
+            i.dueDate
+        ]);
+
+        StorageManager.exportToCSV('corporate_invoices_' + corpId, headers, rows);
+        Utils.showToast('Invoices CSV exported successfully!', 'success');
+    }
+
+    document.addEventListener('DOMContentLoaded', loadInvoices);
+</script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Bookings | TRAVELNEX Business</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="corporate-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Corporate</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Navigation</div>
+            <a href="corporate-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Overview</span>
+            </a>
+            <a href="employees.html" class="sidebar-link">
+                <i class="fa-solid fa-users"></i>
+                <span>Employees</span>
+            </a>
+            <a href="corporate-bookings.html" class="sidebar-link active">
+                <i class="fa-solid fa-car-side"></i>
+                <span>Corporate Bookings</span>
+                <span class="nav-count" id="badgeTrips">0</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+                <span>Monthly Invoices</span>
+            </a>
+            <a href="reports.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Expense Reports</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">C</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">TechCorp Global</div>
+                <div class="sidebar-user-role">Corporate Client</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../corporate/corporate-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="corporate-dashboard.html">Corporate</a> &gt; Rides & Travel</div>
+                    <h1 class="page-title">Corporate Bookings Management</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button type="button" class="btn btn-orange btn-sm" onclick="openNewBookingModal()">
+                    <i class="fa-solid fa-plus"></i> New Employee Booking
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <!-- Table Card -->
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Employee Travel History & Live Trips</div>
+                    <div class="table-filters">
+                        <div class="search-input-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="searchTrip" placeholder="Search ID, traveler, route..." oninput="filterCorpBookings()">
+                        </div>
+
+                        <select id="empFilter" class="form-control" style="width: auto; height: 38px; font-size: 13px;" onchange="filterCorpBookings()">
+                            <option value="ALL">All Employees</option>
+                            <!-- Populated dynamically -->
+                        </select>
+
+                        <select id="statusFilter" class="form-control" style="width: auto; height: 38px; font-size: 13px;" onchange="filterCorpBookings()">
+                            <option value="ALL">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Employee Traveler</th>
+                                <th>Service & Route</th>
+                                <th>Schedule</th>
+                                <th>Vehicle</th>
+                                <th>Estimated Fare</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpBookingsTableBody">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="emptyCorpBookings" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon"><i class="fa-solid fa-car"></i></div>
+                    <h3>No Matching Bookings</h3>
+                    <p>There are no corporate trips matching your search filter criteria.</p>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="openNewBookingModal()">Book Trip Now</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Create New Booking Modal -->
+<div class="modal-overlay" id="newBookingModal">
+    <div class="modal-container modal-lg">
+        <div class="modal-header">
+            <h3 class="modal-title">Book Corporate Travel for Employee</h3>
+            <button type="button" class="modal-close-btn" onclick="closeNewBookingModal()">&times;</button>
+        </div>
+        <form id="newCorpBookingForm">
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="modalEmpSelect">Select Employee Traveler</label>
+                        <select id="modalEmpSelect" class="form-control" required onchange="onEmployeeSelected()">
+                            <option value="">-- Choose Employee --</option>
+                            <!-- Injected dynamically -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalServiceSelect">Service Category</label>
+                        <select id="modalServiceSelect" class="form-control" required onchange="calculateModalFare()">
+                            <option value="Local Cab" data-fare="950">Local Cab (City Meeting / Shift)</option>
+                            <option value="Outstation" data-fare="3800">Outstation (Client Pitch / Intercity)</option>
+                            <option value="Airport Transfer" data-fare="1200" selected>Airport Transfer (Business Flight)</option>
+                            <option value="Bus Rental" data-fare="7500">Executive Mini-Bus (Team Outing)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="modalPickup">Pickup Location</label>
+                        <input type="text" id="modalPickup" class="form-control" placeholder="e.g. TechCorp Campus, Hinjawadi" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalDestination">Destination</label>
+                        <input type="text" id="modalDestination" class="form-control" placeholder="e.g. Pune International Airport (PNQ)" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="modalDate">Travel Date</label>
+                        <input type="date" id="modalDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalTime">Travel Time</label>
+                        <input type="time" id="modalTime" class="form-control" value="09:00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalVehicle">Vehicle Class</label>
+                        <select id="modalVehicle" class="form-control" onchange="calculateModalFare()">
+                            <option value="Sedan" data-mult="1.0">Sedan (Dzire / City)</option>
+                            <option value="SUV" data-mult="1.4">SUV (Innova Crysta)</option>
+                            <option value="Luxury" data-mult="2.2">Executive Luxury (Mercedes E-Class)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="modalNotes">Cost Center / Business Justification</label>
+                    <input type="text" id="modalNotes" class="form-control" placeholder="e.g. Q4 Client Presentation / Project Alpha Site Visit">
+                </div>
+
+                <div style="background:#f8fafc; border:1px solid var(--border); border-radius:var(--radius-md); padding:14px 18px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:13px; color:var(--text-muted);">Corporate Credit Billing:</span>
+                    <strong id="modalFareDisplay" style="font-size:20px; color:var(--navy);">₹1,200</strong>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeNewBookingModal()">Cancel</button>
+                <button type="submit" class="btn btn-orange">Confirm Booking Request</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const user = Auth.requireRole('corporate', 'corporate-login.html');
+    const corpId = (user && user.corporateId) ? user.corporateId : 'CORP-101';
+
+    let corpBookings = [];
+    let employees = [];
+
+    function init() {
+        employees = StorageManager.getEmployees(corpId);
+        populateEmployeeDropdowns();
+        loadBookings();
+
+        // Check if query param empId exists
+        const urlParams = new URLSearchParams(window.location.search);
+        const preEmpId = urlParams.get('empId');
+        if (preEmpId) {
+            openNewBookingModal();
+            document.getElementById('modalEmpSelect').value = preEmpId;
+            onEmployeeSelected();
+        }
+    }
+
+    function populateEmployeeDropdowns() {
+        const filterSel = document.getElementById('empFilter');
+        const modalSel = document.getElementById('modalEmpSelect');
+
+        filterSel.innerHTML = '<option value="ALL">All Employees</option>';
+        modalSel.innerHTML = '<option value="">-- Choose Employee --</option>';
+
+        employees.forEach(emp => {
+            const opt1 = document.createElement('option');
+            opt1.value = emp.id;
+            opt1.textContent = `${emp.name} (${emp.department})`;
+            filterSel.appendChild(opt1);
+
+            const opt2 = document.createElement('option');
+            opt2.value = emp.id;
+            opt2.textContent = `${emp.name} (${emp.department} - ${emp.phone})`;
+            modalSel.appendChild(opt2);
+        });
+    }
+
+    function loadBookings() {
+        const all = StorageManager.getBookings();
+        corpBookings = all.filter(b => b.corporateId === corpId || (b.customerId === user.id && b.corporateId));
+        document.getElementById('badgeTrips').textContent = corpBookings.length;
+        filterCorpBookings();
+    }
+
+    function filterCorpBookings() {
+        const query = document.getElementById('searchTrip').value.trim().toLowerCase();
+        const empId = document.getElementById('empFilter').value;
+        const status = document.getElementById('statusFilter').value;
+
+        const filtered = corpBookings.filter(b => {
+            const matchesQuery = !query ||
+                b.id.toLowerCase().includes(query) ||
+                (b.customerName && b.customerName.toLowerCase().includes(query)) ||
+                b.pickup.toLowerCase().includes(query) ||
+                b.destination.toLowerCase().includes(query);
+
+            const matchesEmp = empId === 'ALL' || b.employeeId === empId;
+            const matchesStatus = status === 'ALL' || b.bookingStatus === status;
+
+            return matchesQuery && matchesEmp && matchesStatus;
+        });
+
+        renderTable(filtered);
+    }
+
+    function renderTable(bookings) {
+        const tbody = document.getElementById('corpBookingsTableBody');
+        const empty = document.getElementById('emptyCorpBookings');
+        tbody.innerHTML = '';
+
+        if (!bookings || bookings.length === 0) {
+            empty.style.display = 'block';
+            return;
+        }
+
+        empty.style.display = 'none';
+
+        bookings.forEach(b => {
+            const tr = document.createElement('tr');
+            const canCancel = ['Pending', 'Confirmed'].includes(b.bookingStatus);
+
+            tr.innerHTML = `
+                <td>
+                    <strong>${Utils.escapeHTML(b.id)}</strong><br>
+                    <small style="color:var(--text-muted); font-size:11px;">${Utils.formatDate(b.createdAt)}</small>
+                </td>
+                <td>
+                    <div style="font-weight:700; color:var(--navy);">${Utils.escapeHTML(b.customerName)}</div>
+                    <small style="color:var(--text-muted); font-size:11px;">${Utils.escapeHTML(b.customerPhone)}</small>
+                </td>
+                <td>
+                    <span style="font-weight:700; color:var(--blue); font-size:12px;">${Utils.escapeHTML(b.serviceType)}</span>
+                    <div style="font-size:13px; font-weight:600;">${Utils.escapeHTML(b.pickup)} &rarr; ${Utils.escapeHTML(b.destination)}</div>
+                </td>
+                <td>
+                    <div>${Utils.formatDate(b.journeyDate)}</div>
+                    <small style="color:var(--text-muted);">${Utils.escapeHTML(b.journeyTime || '--:--')}</small>
+                </td>
+                <td>${Utils.escapeHTML(b.vehicleType || 'Sedan')}</td>
+                <td><strong>${Utils.formatCurrency(b.estimatedFare)}</strong></td>
+                <td>${Utils.getStatusBadge(b.bookingStatus)}</td>
+                <td style="text-align: right;">
+                    <div class="table-actions" style="justify-content: flex-end;">
+                        <button class="action-btn" title="View Tax Invoice" onclick="Utils.showInvoiceModal('${b.id}')">
+                            <i class="fa-solid fa-file-invoice"></i>
+                        </button>
+                        ${canCancel ? `
+                            <button class="action-btn delete" title="Cancel Booking" onclick="cancelCorpBooking('${b.id}')">
+                                <i class="fa-solid fa-ban"></i>
+                            </button>
+                        ` : ''}
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function openNewBookingModal() {
+        document.getElementById('newCorpBookingForm').reset();
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('modalDate').min = today;
+        document.getElementById('modalDate').value = today;
+        calculateModalFare();
+        document.getElementById('newBookingModal').classList.add('active');
+    }
+
+    function closeNewBookingModal() {
+        document.getElementById('newBookingModal').classList.remove('active');
+    }
+
+    function onEmployeeSelected() {
+        // Pre-fill or adjust if needed
+        calculateModalFare();
+    }
+
+    function calculateModalFare() {
+        const srvSel = document.getElementById('modalServiceSelect');
+        const base = Number(srvSel.options[srvSel.selectedIndex].getAttribute('data-fare')) || 1000;
+        const vehSel = document.getElementById('modalVehicle');
+        const mult = Number(vehSel.options[vehSel.selectedIndex].getAttribute('data-mult')) || 1.0;
+
+        const total = Math.round(base * mult);
+        document.getElementById('modalFareDisplay').textContent = Utils.formatCurrency(total);
+        return total;
+    }
+
+    document.getElementById('newCorpBookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const empId = document.getElementById('modalEmpSelect').value;
+        const emp = StorageManager.getEmployeeById(empId);
+
+        if (!emp) {
+            Utils.showToast('Please select a valid corporate employee.', 'warning');
+            return;
+        }
+
+        const fare = calculateModalFare();
+        const srv = document.getElementById('modalServiceSelect').value;
+
+        const newBooking = StorageManager.createBooking({
+            corporateId: corpId,
+            customerId: user ? user.id : 'USR-CORP-01',
+            employeeId: emp.id,
+            customerName: `${emp.name} (${user.company || 'TechCorp'})`,
+            customerPhone: emp.phone,
+            customerEmail: emp.email,
+            serviceType: srv,
+            vehicleType: document.getElementById('modalVehicle').value,
+            pickup: document.getElementById('modalPickup').value.trim(),
+            destination: document.getElementById('modalDestination').value.trim(),
+            journeyDate: document.getElementById('modalDate').value,
+            journeyTime: document.getElementById('modalTime').value,
+            passengers: 1,
+            estimatedFare: fare,
+            bookingStatus: 'Pending',
+            paymentStatus: 'Pending',
+            notes: document.getElementById('modalNotes').value.trim() || 'Corporate business travel'
+        });
+
+        closeNewBookingModal();
+        Utils.showToast(`Corporate Trip ${newBooking.id} created successfully!`, 'success');
+        loadBookings();
+    });
+
+    function cancelCorpBooking(id) {
+        Utils.confirm('Cancel this employee booking request?', () => {
+            StorageManager.cancelBooking(id, 'Cancelled by corporate administrator');
+            Utils.showToast(`Booking ${id} cancelled.`, 'success');
+            loadBookings();
+        });
+    }
+
+    // Sync listener
+    window.addEventListener('travelnex_storage_changed', (e) => {
+        if (e.detail && e.detail.key === 'travelnex_bookings') {
+            loadBookings();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

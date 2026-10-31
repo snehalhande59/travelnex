@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Last Minute Travel Deals & Flash Sales | TRAVELNEX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/common.css">
+
+<style>
+:root {
+    --primary-purple: #07377F;
+    --dark-purple: #0B2B63;
+    --deep-purple-bg: #061C40;
+    --pink-accent: #F5B51B;
+    --purple-gradient: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
+}
+.page-hero {
+    background: linear-gradient(135deg, rgba(30, 9, 62, 0.94) 0%, rgba(185, 28, 28, 0.8) 100%),
+                url('https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1920&auto=format&fit=crop&q=80') center/cover;
+    color: #ffffff;
+    padding: 70px 0 60px;
+    text-align: center;
+}
+.countdown-box {
+    display: inline-flex;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 28px;
+    border-radius: 40px;
+    margin-top: 20px;
+}
+.countdown-unit {
+    text-align: center;
+}
+.countdown-unit strong {
+    font-size: 24px;
+    font-family: 'Outfit', sans-serif;
+    color: #F5B51B;
+    display: block;
+    line-height: 1;
+}
+.countdown-unit span {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #EAF1FA;
+    letter-spacing: 0.5px;
+}
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    margin-top: 40px;
+}
+.pkg-card {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 14px 38px rgba(46, 16, 101, 0.08);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+.pkg-card:hover { transform: translateY(-6px); box-shadow: 0 20px 45px rgba(46, 16, 101, 0.15); }
+.pkg-thumb-box { position: relative; height: 230px; overflow: hidden; }
+.pkg-thumb-box img { width: 100%; height: 100%; object-fit: cover; }
+.flash-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.pkg-content { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+.pkg-title { font-size: 18px; color: var(--dark-purple); font-weight: 700; margin-bottom: 8px; }
+.pkg-bottom-row { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+
+@media(max-width: 1024px) { .packages-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width: 768px) { .packages-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="topbar" style="background:var(--dark-purple); color:#e9d5ff; padding:8px 0; font-size:12.5px;">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+        <div><span><i class="fa-solid fa-phone" style="color:var(--pink-accent);"></i> +91 98765 43210</span> &nbsp; | &nbsp; <span><i class="fa-solid fa-envelope" style="color:var(--pink-accent);"></i> support@travelnex.com</span></div>
+        <div><span><i class="fa-solid fa-bolt" style="color:#ef4444;"></i> Flash Sale Closes In 48 Hours</span></div>
+    </div>
+</div>
+
+<!-- 1. EXACT CUSTOMER NAVBAR (Strict Reference Match) -->
+<header class="site-navbar">
+    <div class="container site-navbar-container">
+        <!-- Logo on the left -->
+        <a href="index.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <span>TRAVEL<strong>NEX</strong></span>
+        </a>
+
+        <!-- Exact 8 Menu Items in exact order -->
+        <nav class="site-nav-menu">
+            <ul class="site-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="nav-dropdown-item">
+                    <a href="javascript:void(0)" class="nav-dropdown-toggle">
+                        <span>Services</span> <i class="fa-solid fa-chevron-down nav-caret"></i>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <a href="local-taxi.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-taxi"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Local Taxi Services</span>
+                                <span class="nav-dropdown-sub">City point-to-point & hourly cabs</span>
+                            </div>
+                        </a>
+                        <a href="outstation-cabs.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-car-side"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Outstation Cabs</span>
+                                <span class="nav-dropdown-sub">One-way & round-trip intercity</span>
+                            </div>
+                        </a>
+                        <a href="airport-transfer.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-plane-departure"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Airport Pickup & Drop</span>
+                                <span class="nav-dropdown-sub">Reliable flight pickup transfers</span>
+                            </div>
+                        </a>
+                        <a href="mini-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-van-shuttle"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Mini Bus Booking</span>
+                                <span class="nav-dropdown-sub">12–26 seater Tempo Traveller</span>
+                            </div>
+                        </a>
+                        <a href="luxury-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Luxury Bus Booking</span>
+                                <span class="nav-dropdown-sub">32–55 seater AC Volvo coaches</span>
+                            </div>
+                        </a>
+                        <a href="group-transportation.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-users"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Group Transportation</span>
+                                <span class="nav-dropdown-sub">Corporate offsites & weddings</span>
+                            </div>
+                        </a>
+                        <a href="railway-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-train"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Railway Ticket Booking</span>
+                                <span class="nav-dropdown-sub">IRCTC verified booking inquiry</span>
+                            </div>
+                        </a>
+                        <a href="st-bus-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus-simple"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Maharashtra ST Bus Booking</span>
+                                <span class="nav-dropdown-sub">Shivneri, Shivshahi & Lalpari</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="packages.html">Tour Packages</a></li>
+                <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Right Side: Gold Book Your Trip Button -->
+        <div class="site-nav-actions">
+            <a href="packages.html" class="btn-book-trip d-none-mobile">
+                <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+            </a>
+            <button class="nav-hamburger" id="navToggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+        <a href="index.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <div class="brand-text">
+                <span class="brand-name">TRAVEL<strong>NEX</strong></span>
+                <span class="brand-tagline">Travel Beyond Limits</span>
+            </div>
+        </a>
+        <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close Navigation">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="mobile-dropdown-parent">
+            <a href="javascript:void(0)" class="mobile-dropdown-toggle" onclick="toggleMobileServices(this)">
+                <span>Services</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <div class="mobile-sub-menu show" id="mobileServicesSub">
+                <a href="local-taxi.html"><i class="fa-solid fa-taxi"></i> Local Taxi Services</a>
+                <a href="outstation-cabs.html"><i class="fa-solid fa-car-side"></i> Outstation Cabs</a>
+                <a href="airport-transfer.html"><i class="fa-solid fa-plane-departure"></i> Airport Pickup & Drop</a>
+                <a href="mini-bus.html"><i class="fa-solid fa-van-shuttle"></i> Mini Bus Booking</a>
+                <a href="luxury-bus.html"><i class="fa-solid fa-bus"></i> Luxury Bus Booking</a>
+                <a href="group-transportation.html"><i class="fa-solid fa-users"></i> Group Transportation</a>
+                <a href="railway-booking.html"><i class="fa-solid fa-train"></i> Railway Ticket Booking</a>
+                <a href="st-bus-booking.html"><i class="fa-solid fa-bus-simple"></i> Maharashtra ST Bus Booking</a>
+            </div>
+        </li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="packages.html">Tour Packages</a></li>
+        <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="mobile-nav-footer">
+        <a href="packages.html" class="btn-book-trip" style="width:100%; justify-content:center;">
+            <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+        </a>
+    </div>
+</div>
+
+<div class="page-hero">
+    <div class="container">
+        <span style="background:rgba(239,68,68,0.25); border:1px solid rgba(239,68,68,0.5); padding:6px 16px; border-radius:30px; font-size:12px; font-weight:800; text-transform:uppercase;">
+            LIMITED TIME FLASH DISCOUNTS
+        </span>
+        <h1 style="margin-top:12px;">Last Minute Travel Deals</h1>
+        <p>Spontaneous trips with up to 35% discount. Depart within the next 14 days with confirmed hotel vouchers and luxury transfers.</p>
+        
+        <div class="countdown-box">
+            <div class="countdown-unit"><strong id="timerHours">47</strong><span>Hours</span></div>
+            <span style="font-size:20px; color:#F5B51B;">:</span>
+            <div class="countdown-unit"><strong id="timerMins">54</strong><span>Minutes</span></div>
+            <span style="font-size:20px; color:#F5B51B;">:</span>
+            <div class="countdown-unit"><strong id="timerSecs">12</strong><span>Seconds</span></div>
+        </div>
+    </div>
+</div>
+
+<main class="container" style="padding-bottom:80px;">
+    <div class="packages-grid" id="lastMinuteGrid"></div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:var(--deep-purple-bg); color:#e9d5ff; padding:65px 0 25px;">
+    <div class="container" style="display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:40px; margin-bottom:40px;">
+        <div>
+            <a href="index.html" class="logo" style="color:#fff; font-size:24px; font-weight:800;">TRAVEL<span style="color:var(--pink-accent);">NEX</span></a>
+            <p style="font-size:13px; color:#c4b5fd; margin-top:14px; line-height:1.6;">Premier tours & travel management platform with transparent pricing and verified hospitality.</p>
+        </div>
+        <div>
+            <h4 style="color:#fff; margin-bottom:16px;">Quick Links</h4>
+            <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+                <a href="index.html" style="color:#c4b5fd;">Home</a>
+                <a href="packages.html" style="color:#c4b5fd;">All Packages</a>
+                <a href="domestic-tours.html" style="color:#c4b5fd;">Domestic Tours</a>
+                <a href="international-tours.html" style="color:#c4b5fd;">International Tours</a>
+            </div>
+        </div>
+        <div>
+            <h4 style="color:#fff; margin-bottom:16px;">Services</h4>
+            <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+                <a href="cab-booking.html" style="color:#c4b5fd;">Local Cabs</a>
+                <a href="outstation-booking.html" style="color:#c4b5fd;">Outstation</a>
+                <a href="airport-booking.html" style="color:#c4b5fd;">Airport Ride</a>
+                <a href="bus-booking.html" style="color:#c4b5fd;">Bus Rentals</a>
+            </div>
+        </div>
+        <div>
+            <h4 style="color:#fff; margin-bottom:16px;">Contact</h4>
+            <div style="font-size:13px; color:#c4b5fd; line-height:1.7;">
+                <div><i class="fa-solid fa-phone" style="color:var(--pink-accent);"></i> +91 98765 43210</div>
+                <div><i class="fa-solid fa-envelope" style="color:var(--pink-accent);"></i> support@travelnex.com</div>
+                <div><i class="fa-solid fa-location-dot" style="color:var(--pink-accent);"></i> Pune, Maharashtra, India</div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:20px; text-align:center; font-size:12px; color:#a78bfa;">
+        © 2026 TRAVELNEX Technologies Pvt. Ltd. All Rights Reserved.
+    </div>
+</footer>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+function loadDeals() {
+    const list = StorageManager.getPackages().filter(p => p.discount.includes('30%') || p.discount.includes('35%') || p.category === 'last-minute');
+    document.getElementById('lastMinuteGrid').innerHTML = list.map(pkg => `
+        <div class="pkg-card">
+            <div class="pkg-thumb-box">
+                <img src="${pkg.image}" alt="${pkg.title}">
+                <div class="flash-badge"><i class="fa-solid fa-bolt"></i> FLASH SALE ${pkg.discount}</div>
+            </div>
+            <div class="pkg-content">
+                <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); margin-bottom:8px;">
+                    <span><i class="fa-solid fa-location-dot" style="color:var(--primary-purple);"></i> ${pkg.destination}</span>
+                    <span><i class="fa-regular fa-clock" style="color:var(--primary-purple);"></i> ${pkg.duration}</span>
+                </div>
+                <h3 class="pkg-title">${pkg.title}</h3>
+                <div style="font-size:12.5px; color:#554470; margin-bottom:16px;"><i class="fa-solid fa-star" style="color:#f59e0b;"></i> ${pkg.hotel}</div>
+                <div class="pkg-bottom-row">
+                    <div>
+                        <span style="font-size:12px; color:#94a3b8; text-decoration:line-through;">${Utils.formatCurrency(pkg.oldPrice)}</span>
+                        <span style="font-size:20px; font-weight:800; color:#ef4444; display:block;">${Utils.formatCurrency(pkg.price)}</span>
+                    </div>
+                    <div style="display:flex; gap:8px;">
+                        <a href="package-details.html?id=${pkg.id}" class="btn" style="background:var(--lavender-soft); color:var(--primary-purple); border-radius:20px; font-weight:700; font-size:12px; padding:8px 14px;">Details</a>
+                        <a href="package-details.html?id=${pkg.id}#book" class="btn btn-primary" style="background:linear-gradient(135deg,#ef4444,#dc2626); border-radius:20px; font-weight:700; font-size:12px; padding:8px 16px;">Claim Deal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Live Countdown Timer
+let totalSecs = 47 * 3600 + 54 * 60 + 12;
+setInterval(() => {
+    if (totalSecs > 0) totalSecs--;
+    const h = Math.floor(totalSecs / 3600);
+    const m = Math.floor((totalSecs % 3600) / 60);
+    const s = totalSecs % 60;
+    document.getElementById('timerHours').textContent = String(h).padStart(2,'0');
+    document.getElementById('timerMins').textContent = String(m).padStart(2,'0');
+    document.getElementById('timerSecs').textContent = String(s).padStart(2,'0');
+}, 1000);
+
+document.addEventListener('DOMContentLoaded', loadDeals);
+</script>
+</body>
+</html>

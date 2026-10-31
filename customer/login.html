@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login | TRAVELNEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(7, 55, 127, 0.96) 0%, rgba(11, 43, 99, 0.92) 50%, rgba(6, 28, 64, 0.96) 100%),
+                        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1800') center/cover no-repeat;
+            padding: 30px 20px;
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 450px;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            box-shadow: 0 25px 60px rgba(6, 28, 64, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 22px;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+        }
+        .auth-logo .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            background: var(--primary);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: 19px;
+        }
+        .auth-logo span { color: var(--gold); }
+        .demo-chip {
+            background: #EAF1FA;
+            border: 1px dashed var(--primary);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .demo-chip:hover {
+            background: #dbe8f7;
+            transform: translateY(-2px);
+        }
+
+        .login-tabs {
+            display: flex;
+            background: #EAF1FA;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 18px;
+            gap: 4px;
+        }
+        .login-tab-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #53647F;
+            transition: var(--transition);
+            text-align: center;
+        }
+        .login-tab-btn.active {
+            background: #ffffff;
+            color: var(--primary);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-page">
+    <div class="auth-card">
+        <a href="index.html" class="auth-logo">
+            <div class="icon"><i class="fa-solid fa-route"></i></div>
+            TRAVEL<span>NEX</span>
+        </a>
+
+        <h2 style="font-size: 22px; text-align: center; margin-bottom: 6px; color:var(--navy); font-weight:800;">Customer Sign In</h2>
+        <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 18px;">
+            Access your bookings, itineraries, flights and cruise tickets
+        </p>
+
+        <!-- Clickable Demo Login Helper -->
+        <div class="demo-chip" onclick="fillDemoCredentials()">
+            <div style="font-weight: 800; color: var(--primary); margin-bottom: 3px;">
+                <i class="fa-solid fa-bolt"></i> Click to autofill Demo Customer Account:
+            </div>
+            <div>Email: <strong style="color:var(--navy);">customer@travelnex.com</strong></div>
+            <div>Password: <strong style="color:var(--navy);">User@123</strong></div>
+        </div>
+
+        <!-- Login Tabs: Password vs Mobile OTP -->
+        <div class="login-tabs">
+            <button type="button" class="login-tab-btn active" id="tabPassword" onclick="switchLoginMethod('password')">
+                <i class="fa-solid fa-key"></i> Password Login
+            </button>
+            <button type="button" class="login-tab-btn" id="tabOtp" onclick="switchLoginMethod('otp')">
+                <i class="fa-solid fa-mobile-screen"></i> Mobile OTP Login
+            </button>
+        </div>
+
+        <!-- 1. Password Form -->
+        <form id="passwordLoginForm">
+            <div class="form-group" style="margin-bottom:14px;">
+                <label for="email" style="font-weight:700; color:var(--navy); display:block; margin-bottom:5px; font-size:13px;">Email Address</label>
+                <input type="email" id="email" class="form-control" placeholder="name@example.com" required style="height:44px; border-radius:10px;">
+            </div>
+            <div class="form-group" style="margin-bottom:18px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                    <label for="password" style="font-weight:700; color:var(--navy); font-size:13px;">Password</label>
+                    <a href="#" onclick="alert('For demo, use User@123'); return false;" style="font-size:12px; color:var(--primary); font-weight:700;">Forgot?</a>
+                </div>
+                <input type="password" id="password" class="form-control" placeholder="••••••••" required style="height:44px; border-radius:10px;">
+            </div>
+
+            <button type="submit" class="btn" style="width: 100%; height: 46px; background:var(--primary); color:#ffffff; font-weight:700; border:none; border-radius:10px; font-size:14px; box-shadow:0 4px 14px rgba(7, 55, 127, 0.28);">
+                Sign In to Customer Dashboard <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </form>
+
+        <!-- 2. Mobile OTP Login Form -->
+        <form id="otpLoginForm" style="display:none;">
+            <div class="form-group" style="margin-bottom:14px;">
+                <label for="loginPhone" style="font-weight:700; color:var(--navy); font-size:13px; display:block; margin-bottom:5px;">Mobile Number</label>
+                <div style="display:flex; gap:8px;">
+                    <span style="height:44px; padding:0 12px; background:#EAF1FA; border:1px solid #D5E1F0; border-radius:10px; display:grid; place-items:center; font-weight:700; color:var(--navy); font-size:13px;">+91</span>
+                    <input type="tel" id="loginPhone" pattern="[6-9][0-9]{9}" class="form-control" placeholder="9822011223" style="height:44px; border-radius:10px; flex:1;">
+                    <button type="button" id="btnLoginSendOtp" class="btn" style="height:44px; background:var(--primary); color:#fff; font-size:12.5px; padding:0 14px; border-radius:8px;" onclick="handleLoginSendOtp()">
+                        Send OTP
+                    </button>
+                </div>
+            </div>
+
+            <div id="loginOtpBox" style="display:none; background:#EAF1FA; border:1px solid #D5E1F0; border-radius:10px; padding:14px; margin-bottom:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <label style="font-size:11.5px; font-weight:800; color:var(--navy); text-transform:uppercase;">Enter 6-Digit OTP</label>
+                    <span id="loginOtpTimer" style="font-size:11px; font-weight:700; color:var(--primary);"></span>
+                </div>
+                <input type="text" id="loginOtpInput" maxlength="6" style="width:100%; height:42px; font-size:18px; letter-spacing:6px; text-align:center; font-weight:800; font-family:'Outfit', monospace; border:1.5px solid #07377F; border-radius:8px; background:#fff;" placeholder="------">
+                <div id="loginOtpNotice" style="font-size:11px; color:#53647F; margin-top:6px; line-height:1.4;"></div>
+            </div>
+
+            <button type="submit" id="btnLoginWithOtpSubmit" class="btn" style="width: 100%; height: 46px; background:var(--gold); color:var(--navy); font-weight:800; border:none; border-radius:10px; font-size:14px; box-shadow:0 4px 14px rgba(245, 181, 27, 0.3);">
+                Verify & Login <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px; font-size: 13.5px; color: var(--text-muted);">
+            Don't have an account? <a href="register.html" style="color: var(--primary); font-weight: 700;">Create Account</a>
+        </div>
+
+        <div style="border-top: 1px solid var(--border); margin-top: 20px; padding-top: 16px; text-align: center;">
+            <span style="font-size: 12px; color: var(--text-muted);">Switch to another portal:</span><br>
+            <div style="display: flex; justify-content: center; gap: 14px; margin-top: 8px; font-size: 12px; font-weight: 700;">
+                <a href="../corporate/corporate-login.html" style="color: var(--primary);">Corporate Portal</a>
+                <span>•</span>
+                <a href="../admin/admin-login.html" style="color: var(--primary);">Admin Panel</a>
+                <span>•</span>
+                <a href="../driver/driver-login.html" style="color: var(--primary);">Driver App</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    function fillDemoCredentials() {
+        switchLoginMethod('password');
+        document.getElementById('email').value = 'customer@travelnex.com';
+        document.getElementById('password').value = 'User@123';
+        Utils.showToast('Demo customer credentials filled!', 'info');
+    }
+
+    function switchLoginMethod(method) {
+        const tabPwd = document.getElementById('tabPassword');
+        const tabOtp = document.getElementById('tabOtp');
+        const formPwd = document.getElementById('passwordLoginForm');
+        const formOtp = document.getElementById('otpLoginForm');
+
+        if (method === 'password') {
+            tabPwd.classList.add('active');
+            tabOtp.classList.remove('active');
+            formPwd.style.display = 'block';
+            formOtp.style.display = 'none';
+        } else {
+            tabOtp.classList.add('active');
+            tabPwd.classList.remove('active');
+            formOtp.style.display = 'block';
+            formPwd.style.display = 'none';
+        }
+    }
+
+    // Password login submit
+    document.getElementById('passwordLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const pwd = document.getElementById('password').value;
+
+        const res = Auth.login(email, pwd);
+        if (res.success) {
+            Utils.showToast('Login successful! Welcome back, ' + res.user.name, 'success');
+            setTimeout(() => {
+                window.location.href = 'my-bookings.html';
+            }, 800);
+        } else {
+            Utils.showToast(res.message, 'danger');
+        }
+    });
+
+    // Mobile OTP Login
+    let loginCooldown = null;
+
+    async function handleLoginSendOtp() {
+        const phone = document.getElementById('loginPhone').value.trim();
+        const validPhone = Auth.OTP.validatePhone(phone);
+        if (!validPhone) {
+            Utils.showToast('Please enter a valid 10-digit mobile number.', 'warning');
+            return;
+        }
+
+        const btn = document.getElementById('btnLoginSendOtp');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+        const res = await Auth.OTP.sendOtp(phone);
+        if (!res.success) {
+            Utils.showToast(res.message, 'warning');
+            btn.disabled = false;
+            btn.textContent = 'Send OTP';
+            return;
+        }
+
+        document.getElementById('loginOtpBox').style.display = 'block';
+        document.getElementById('loginOtpInput').focus();
+
+        if (res.isLiveBackend) {
+            Utils.showToast('OTP sent via SMS!', 'success');
+            document.getElementById('loginOtpNotice').innerHTML = `Enter the 6-digit OTP received on +91 ${res.phone}`;
+        } else {
+            Utils.showToast(`[SMS Simulation Mode] OTP: ${res.devOtp}`, 'info');
+            document.getElementById('loginOtpNotice').innerHTML = `Local Demo OTP: <strong style="color:var(--primary); font-family:monospace; background:#fff; padding:2px 6px; border-radius:4px;">${res.devOtp}</strong> (expires in 5 mins).`;
+        }
+
+        let remaining = res.cooldownSeconds || 60;
+        clearInterval(loginCooldown);
+        loginCooldown = setInterval(() => {
+            remaining--;
+            document.getElementById('loginOtpTimer').textContent = `${remaining}s`;
+            btn.textContent = `${remaining}s`;
+            if (remaining <= 0) {
+                clearInterval(loginCooldown);
+                btn.disabled = false;
+                btn.textContent = 'Resend';
+                document.getElementById('loginOtpTimer').textContent = '';
+            }
+        }, 1000);
+    }
+
+    document.getElementById('otpLoginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const phone = document.getElementById('loginPhone').value.trim();
+        const otpVal = document.getElementById('loginOtpInput').value.trim();
+
+        if (!otpVal) {
+            Utils.showToast('Please enter the 6-digit OTP.', 'warning');
+            return;
+        }
+
+        const verifyRes = await Auth.OTP.verifyOtp(phone, otpVal);
+        if (!verifyRes.success) {
+            Utils.showToast(verifyRes.message, 'danger');
+            return;
+        }
+
+        // Find or create customer account with this phone
+        const users = StorageManager.get('travelnex_users', []);
+        let user = users.find(u => (u.phone || '').replace(/\D/g,'').endsWith(phone.slice(-10)));
+
+        if (!user) {
+            user = StorageManager.saveCustomer({
+                name: 'Customer (+91 ' + phone + ')',
+                email: 'customer_' + phone.slice(-4) + '@travelnex.com',
+                phone: phone,
+                phoneVerified: true,
+                role: 'customer'
+            });
+        }
+
+        Auth.setCurrentUser(user);
+        Utils.showToast('Phone verified! Logged in successfully.', 'success');
+        setTimeout(() => {
+            window.location.href = 'my-bookings.html';
+        }, 800);
+    });
+
+    // If already logged in, redirect
+    const current = Auth.getCurrentUser();
+    if (current && current.role === 'customer') {
+        window.location.href = 'my-bookings.html';
+    }
+</script>
+</body>
+</html>

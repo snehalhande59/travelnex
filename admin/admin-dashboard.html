@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard & Operations | TRAVELNEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <!-- Admin Sidebar -->
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="admin-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Super Admin</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Core Management</div>
+            <a href="admin-dashboard.html" class="sidebar-link active">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard Overview</span>
+            </a>
+            <a href="bookings.html" class="sidebar-link">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Booking Management</span>
+                <span class="nav-count" id="badgePendingBookings">0</span>
+            </a>
+            <a href="customers.html" class="sidebar-link">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Customer Accounts</span>
+            </a>
+            <a href="corporate-clients.html" class="sidebar-link">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Corporate Clients</span>
+            </a>
+
+            <div class="sidebar-section-title">Fleet & Operations</div>
+            <a href="drivers.html" class="sidebar-link">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Drivers Management</span>
+            </a>
+            <a href="vehicles.html" class="sidebar-link">
+                <i class="fa-solid fa-taxi"></i>
+                <span>Vehicles & Fleet</span>
+            </a>
+            <a href="services.html" class="sidebar-link">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Services & Rates</span>
+            </a>
+
+            <div class="sidebar-section-title">Financials & Reports</div>
+            <a href="payments.html" class="sidebar-link">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Payment Records</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Invoices Management</span>
+            </a>
+            <a href="reports.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports & Analytics</span>
+            </a>
+            <a href="settings.html" class="sidebar-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>System Settings</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">A</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">Chief Admin</div>
+                <div class="sidebar-user-role">Super Administrator</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../admin/admin-login.html')" title="Logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb">Operations Center &gt; Control Tower</div>
+                    <h1 class="page-title">Executive Management Overview</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <a href="../customer/index.html" class="portal-switch-pill" target="_blank">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Customer Site
+                </a>
+                <a href="bookings.html" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-list-check"></i> Manage All Bookings
+                </a>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <!-- 11 Key Dynamic Metrics Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fa-solid fa-calendar-check"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Total Bookings</div>
+                        <div class="stat-value" id="statTotalBookings">0</div>
+                        <div class="stat-subtext">All portals combined</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i class="fa-solid fa-hourglass-half"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Pending Approval</div>
+                        <div class="stat-value" id="statPendingBookings">0</div>
+                        <div class="stat-subtext">Awaiting driver assignment</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Confirmed Trips</div>
+                        <div class="stat-value" id="statConfirmedBookings">0</div>
+                        <div class="stat-subtext">Assigned & Scheduled</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fa-solid fa-flag-checkered"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Completed Trips</div>
+                        <div class="stat-value" id="statCompletedBookings">0</div>
+                        <div class="stat-subtext">Successfully fulfilled</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red"><i class="fa-solid fa-ban"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Cancelled Trips</div>
+                        <div class="stat-value" id="statCancelledBookings">0</div>
+                        <div class="stat-subtext">User or admin cancelled</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Total Revenue</div>
+                        <div class="stat-value" id="statTotalRevenue">?0</div>
+                        <div class="stat-subtext">Settled & paid fares</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Registered Customers</div>
+                        <div class="stat-value" id="statTotalCustomers">0</div>
+                        <div class="stat-subtext">Retail consumers</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i class="fa-solid fa-building"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Corporate Clients</div>
+                        <div class="stat-value" id="statTotalCorporates">0</div>
+                        <div class="stat-subtext">Enterprise contracts</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i class="fa-solid fa-id-badge"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Active Drivers</div>
+                        <div class="stat-value" id="statTotalDrivers">0</div>
+                        <div class="stat-subtext">Fleet chauffeurs</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fa-solid fa-taxi"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Fleet Vehicles</div>
+                        <div class="stat-value" id="statTotalVehicles">0</div>
+                        <div class="stat-subtext">Active taxis & buses</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px; margin-bottom:28px;">
+                <div class="table-card" style="padding:22px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                        <h3 style="font-size:16px; color:var(--navy);">Platform Revenue & Booking Trend</h3>
+                        <span style="font-size:12px; color:var(--text-muted);">Real-Time Storage Data</span>
+                    </div>
+                    <div style="height:260px;">
+                        <canvas id="adminRevenueChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="table-card" style="padding:22px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                        <h3 style="font-size:16px; color:var(--navy);">Service Share</h3>
+                    </div>
+                    <div style="height:260px;">
+                        <canvas id="adminServiceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings Table -->
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Recent Cross-Portal Booking Activities</div>
+                    <a href="bookings.html" class="btn btn-primary btn-sm">Full Booking Manager &rarr;</a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Customer / Corporate</th>
+                                <th>Service & Route</th>
+                                <th>Travel Date & Time</th>
+                                <th>Assigned Driver</th>
+                                <th>Fare</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Quick Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminRecentBookingsTbody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    // Guard: Require Admin Role
+    const user = Auth.requireRole('admin', 'admin-login.html');
+
+    let revenueChartInstance = null;
+    let serviceChartInstance = null;
+
+    function refreshDashboard() {
+        // Fetch all datasets from shared storage
+        const bookings = StorageManager.getBookings();
+        const users = StorageManager.get('travelnex_users', []);
+        const corporates = StorageManager.getCorporateClients();
+        const drivers = StorageManager.getDrivers();
+        const vehicles = StorageManager.getVehicles();
+        const payments = StorageManager.getPayments();
+
+        // Calculate dynamic figures
+        const totalBookings = bookings.length;
+        const pendingBookings = bookings.filter(b => b.bookingStatus === 'Pending').length;
+        const confirmedBookings = bookings.filter(b => ['Confirmed', 'In Progress'].includes(b.bookingStatus)).length;
+        const completedBookings = bookings.filter(b => b.bookingStatus === 'Completed').length;
+        const cancelledBookings = bookings.filter(b => ['Cancelled', 'Rejected'].includes(b.bookingStatus)).length;
+
+        const totalCustomers = users.filter(u => u.role === 'customer').length;
+        const totalCorporates = corporates.length;
+        const totalDrivers = drivers.length;
+        const totalVehicles = vehicles.length;
+
+        // Total revenue from settled payments
+        const totalRev = payments
+            .filter(p => p.status === 'Paid')
+            .reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
+
+        // Update DOM elements
+        document.getElementById('statTotalBookings').textContent = totalBookings;
+        document.getElementById('statPendingBookings').textContent = pendingBookings;
+        document.getElementById('badgePendingBookings').textContent = pendingBookings;
+        document.getElementById('statConfirmedBookings').textContent = confirmedBookings;
+        document.getElementById('statCompletedBookings').textContent = completedBookings;
+        document.getElementById('statCancelledBookings').textContent = cancelledBookings;
+        document.getElementById('statTotalRevenue').textContent = Utils.formatCurrency(totalRev);
+
+        document.getElementById('statTotalCustomers').textContent = totalCustomers;
+        document.getElementById('statTotalCorporates').textContent = totalCorporates;
+        document.getElementById('statTotalDrivers').textContent = totalDrivers;
+        document.getElementById('statTotalVehicles').textContent = totalVehicles;
+
+        renderCharts(bookings);
+        renderRecentTable(bookings);
+    }
+
+    function renderCharts(bookings) {
+        // 1. Revenue Chart
+        const ctxRev = document.getElementById('adminRevenueChart').getContext('2d');
+        if (revenueChartInstance) revenueChartInstance.destroy();
+
+        revenueChartInstance = new Chart(ctxRev, {
+            type: 'line',
+            data: {
+                labels: ['Jul', 'Aug', 'Sep', 'Oct 24', 'Oct 28', 'Oct 31'],
+                datasets: [{
+                    label: 'Revenue (?)',
+                    data: [18000, 32000, 48000, 62000, 75000, 89500],
+                    borderColor: '#07377F',
+                    backgroundColor: 'rgba(109, 40, 217, 0.1)',
+                    fill: true,
+                    tension: 0.35,
+                    borderWidth: 2.5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { callback: v => '?' + v.toLocaleString() }
+                    }
+                }
+            }
+        });
+
+        // 2. Service Distribution Chart
+        const srvCounts = {};
+        bookings.forEach(b => {
+            const s = b.serviceType || 'Other';
+            srvCounts[s] = (srvCounts[s] || 0) + 1;
+        });
+
+        const ctxSrv = document.getElementById('adminServiceChart').getContext('2d');
+        if (serviceChartInstance) serviceChartInstance.destroy();
+
+        serviceChartInstance = new Chart(ctxSrv, {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(srvCounts),
+                datasets: [{
+                    data: Object.values(srvCounts),
+                    backgroundColor: ['#07377F', '#F5B51B', '#10b981', '#0284c7', '#06b6d4', '#f59e0b']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                }
+            }
+        });
+    }
+
+    function renderRecentTable(bookings) {
+        const tbody = document.getElementById('adminRecentBookingsTbody');
+        tbody.innerHTML = '';
+
+        bookings.slice(0, 6).forEach(b => {
+            const driver = b.driverId ? StorageManager.getDriverById(b.driverId) : null;
+            const tr = document.createElement('tr');
+
+            tr.innerHTML = `
+                <td>
+                    <strong>${Utils.escapeHTML(b.id)}</strong><br>
+                    <small style="color:var(--text-muted); font-size:11px;">${Utils.formatDate(b.createdAt)}</small>
+                </td>
+                <td>
+                    <div style="font-weight:700; color:var(--navy);">${Utils.escapeHTML(b.customerName)}</div>
+                    <small style="color:var(--text-muted); font-size:11px;">
+                        ${b.corporateId ? '<span class="badge badge-confirmed" style="padding:1px 5px; font-size:10px;">Corporate</span> ' : ''}
+                        ${Utils.escapeHTML(b.customerPhone)}
+                    </small>
+                </td>
+                <td>
+                    <span style="font-weight:700; color:var(--blue); font-size:12px;">${Utils.escapeHTML(b.serviceType)}</span>
+                    <div style="font-size:12.5px;">${Utils.escapeHTML(b.pickup)} &rarr; ${Utils.escapeHTML(b.destination)}</div>
+                </td>
+                <td>
+                    <div>${Utils.formatDate(b.journeyDate)}</div>
+                    <small style="color:var(--text-muted);">${Utils.escapeHTML(b.journeyTime || '--:--')}</small>
+                </td>
+                <td>
+                    ${driver ? `
+                        <span style="font-weight:600; color:var(--navy);"><i class="fa-solid fa-id-card"></i> ${Utils.escapeHTML(driver.name)}</span>
+                    ` : `
+                        <span style="color:var(--warning); font-size:12px; font-weight:600;"><i class="fa-solid fa-triangle-exclamation"></i> Unassigned</span>
+                    `}
+                </td>
+                <td><strong>${Utils.formatCurrency(b.estimatedFare)}</strong></td>
+                <td>${Utils.getStatusBadge(b.bookingStatus)}</td>
+                <td style="text-align: right;">
+                    <a href="bookings.html?id=${b.id}" class="action-btn" title="Manage Booking">
+                        <i class="fa-solid fa-sliders"></i>
+                    </a>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Reactively refresh when storage changes anywhere (e.g. driver starts/completes trip, customer cancels)
+    window.addEventListener('travelnex_storage_changed', refreshDashboard);
+    window.addEventListener('storage', refreshDashboard);
+
+    document.addEventListener('DOMContentLoaded', refreshDashboard);
+</script>
+</body>
+</html>

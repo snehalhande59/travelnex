@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management | TRAVELNEX Corporate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="corporate-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Corporate</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Navigation</div>
+            <a href="corporate-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Overview</span>
+            </a>
+            <a href="employees.html" class="sidebar-link active">
+                <i class="fa-solid fa-users"></i>
+                <span>Employees</span>
+                <span class="nav-count" id="badgeEmpCount">0</span>
+            </a>
+            <a href="corporate-bookings.html" class="sidebar-link">
+                <i class="fa-solid fa-car-side"></i>
+                <span>Corporate Bookings</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+                <span>Monthly Invoices</span>
+            </a>
+            <a href="reports.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Expense Reports</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">C</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">TechCorp Global</div>
+                <div class="sidebar-user-role">Corporate Client</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../corporate/corporate-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="corporate-dashboard.html">Corporate</a> &gt; Employee Roster</div>
+                    <h1 class="page-title">Employee Directory & Commuters</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button type="button" class="btn btn-primary btn-sm" onclick="openAddEmployeeModal()">
+                    <i class="fa-solid fa-user-plus"></i> Add Employee
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Registered Corporate Employees</div>
+                    <div class="table-filters">
+                        <div class="search-input-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="searchEmp" placeholder="Search name, email, department..." oninput="filterEmployees()">
+                        </div>
+                        <select id="deptFilter" class="form-control" style="width: auto; height: 38px; font-size: 13px;" onchange="filterEmployees()">
+                            <option value="ALL">All Departments</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Sales & BD">Sales & BD</option>
+                            <option value="HR & People">HR & People</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Emp ID</th>
+                                <th>Employee Name</th>
+                                <th>Contact Information</th>
+                                <th>Department & Role</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeeTableBody">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="emptyEmployees" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon"><i class="fa-solid fa-users"></i></div>
+                    <h3>No Employees Found</h3>
+                    <p>Add your first employee to enable automated booking and travel subsidies.</p>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="openAddEmployeeModal()">Add Employee</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Add / Edit Employee Modal -->
+<div class="modal-overlay" id="employeeModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="empModalTitle">Add Corporate Employee</h3>
+            <button type="button" class="modal-close-btn" onclick="closeEmployeeModal()">&times;</button>
+        </div>
+        <form id="employeeForm">
+            <div class="modal-body">
+                <input type="hidden" id="empId">
+                <div class="form-group">
+                    <label for="empName">Full Name</label>
+                    <input type="text" id="empName" class="form-control" placeholder="e.g. Ananya Iyer" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="empEmail">Corporate Email</label>
+                        <input type="email" id="empEmail" class="form-control" placeholder="ananya@techcorp.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="empPhone">Mobile Phone</label>
+                        <input type="tel" id="empPhone" pattern="[0-9]{10}" class="form-control" placeholder="9876511001" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="empDept">Department</label>
+                        <select id="empDept" class="form-control" required>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Sales & BD">Sales & BD</option>
+                            <option value="HR & People">HR & People</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="empRole">Designation / Job Title</label>
+                        <input type="text" id="empRole" class="form-control" placeholder="e.g. Senior Architect" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeEmployeeModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="empSubmitBtn">Save Employee</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const user = Auth.requireRole('corporate', 'corporate-login.html');
+    const corpId = (user && user.corporateId) ? user.corporateId : 'CORP-101';
+
+    let employeesList = [];
+
+    function loadEmployees() {
+        employeesList = StorageManager.getEmployees(corpId);
+        document.getElementById('badgeEmpCount').textContent = employeesList.length;
+        filterEmployees();
+    }
+
+    function filterEmployees() {
+        const query = document.getElementById('searchEmp').value.trim().toLowerCase();
+        const dept = document.getElementById('deptFilter').value;
+
+        const filtered = employeesList.filter(e => {
+            const matchesQuery = !query ||
+                e.name.toLowerCase().includes(query) ||
+                e.email.toLowerCase().includes(query) ||
+                (e.department && e.department.toLowerCase().includes(query)) ||
+                (e.id && e.id.toLowerCase().includes(query));
+
+            const matchesDept = dept === 'ALL' || e.department === dept;
+
+            return matchesQuery && matchesDept;
+        });
+
+        renderEmployeesTable(filtered);
+    }
+
+    function renderEmployeesTable(employees) {
+        const tbody = document.getElementById('employeeTableBody');
+        const empty = document.getElementById('emptyEmployees');
+
+        tbody.innerHTML = '';
+        if (!employees || employees.length === 0) {
+            empty.style.display = 'block';
+            return;
+        }
+
+        empty.style.display = 'none';
+
+        employees.forEach(emp => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>
+                    <strong>${Utils.escapeHTML(emp.id)}</strong>
+                </td>
+                <td>
+                    <div style="font-weight:700; color:var(--navy); font-size:14px;">${Utils.escapeHTML(emp.name)}</div>
+                    <small style="color:var(--text-muted); font-size:11px;">Added on ${Utils.formatDate(emp.createdAt)}</small>
+                </td>
+                <td>
+                    <div><i class="fa-solid fa-envelope" style="color:var(--text-muted); font-size:11px;"></i> ${Utils.escapeHTML(emp.email)}</div>
+                    <div><i class="fa-solid fa-phone" style="color:var(--text-muted); font-size:11px;"></i> ${Utils.escapeHTML(emp.phone)}</div>
+                </td>
+                <td>
+                    <span style="font-weight:600; color:var(--blue);">${Utils.escapeHTML(emp.department || 'General')}</span>
+                    <div style="font-size:12px; color:var(--text-muted);">${Utils.escapeHTML(emp.designation || 'Staff')}</div>
+                </td>
+                <td>
+                    <span class="badge badge-active"><i class="fa-solid fa-circle-check"></i> ${Utils.escapeHTML(emp.status || 'Active')}</span>
+                </td>
+                <td style="text-align: right;">
+                    <div class="table-actions" style="justify-content: flex-end;">
+                        <a href="corporate-bookings.html?empId=${emp.id}" class="action-btn" title="Book Trip for ${Utils.escapeHTML(emp.name)}">
+                            <i class="fa-solid fa-calendar-plus" style="color:var(--orange);"></i>
+                        </a>
+                        <button class="action-btn edit" title="Edit Employee" onclick="openEditEmployeeModal('${emp.id}')">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="action-btn delete" title="Delete Employee" onclick="deleteEmployee('${emp.id}')">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function openAddEmployeeModal() {
+        document.getElementById('empId').value = '';
+        document.getElementById('employeeForm').reset();
+        document.getElementById('empModalTitle').textContent = 'Add Corporate Employee';
+        document.getElementById('employeeModal').classList.add('active');
+    }
+
+    function openEditEmployeeModal(id) {
+        const emp = StorageManager.getEmployeeById(id);
+        if (!emp) return;
+
+        document.getElementById('empId').value = emp.id;
+        document.getElementById('empName').value = emp.name;
+        document.getElementById('empEmail').value = emp.email;
+        document.getElementById('empPhone').value = emp.phone;
+        document.getElementById('empDept').value = emp.department || 'Engineering';
+        document.getElementById('empRole').value = emp.designation || '';
+
+        document.getElementById('empModalTitle').textContent = `Edit Employee: ${emp.name}`;
+        document.getElementById('employeeModal').classList.add('active');
+    }
+
+    function closeEmployeeModal() {
+        document.getElementById('employeeModal').classList.remove('active');
+    }
+
+    document.getElementById('employeeForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const id = document.getElementById('empId').value;
+        const name = document.getElementById('empName').value.trim();
+        const email = document.getElementById('empEmail').value.trim();
+        const phone = document.getElementById('empPhone').value.trim();
+        const dept = document.getElementById('empDept').value;
+        const role = document.getElementById('empRole').value.trim();
+
+        const saved = StorageManager.saveEmployee({
+            id: id || undefined,
+            corporateId: corpId,
+            name: name,
+            email: email,
+            phone: phone,
+            department: dept,
+            designation: role,
+            status: 'Active'
+        });
+
+        closeEmployeeModal();
+        Utils.showToast(`Employee ${saved.name} saved successfully!`, 'success');
+        loadEmployees();
+    });
+
+    function deleteEmployee(id) {
+        const emp = StorageManager.getEmployeeById(id);
+        if (!emp) return;
+
+        Utils.confirm(`Are you sure you want to remove employee "${emp.name}" from corporate roster?`, () => {
+            StorageManager.deleteEmployee(id);
+            Utils.showToast(`Employee ${emp.name} removed.`, 'success');
+            loadEmployees();
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadEmployees);
+</script>
+</body>
+</html>

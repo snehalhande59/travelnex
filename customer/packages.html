@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Tour Packages | TRAVELNEX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/common.css">
+
+<style>
+:root {
+    --primary-purple: #07377F;
+    --dark-purple: #0B2B63;
+    --deep-purple-bg: #061C40;
+    --vibrant-purple: #07377F;
+    --lavender-soft: #EAF1FA;
+    --pink-accent: #F5B51B;
+    --pink-gradient: linear-gradient(135deg, #F5B51B 0%, #DE9F0C 100%);
+    --purple-gradient: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
+    --card-shadow: 0 10px 30px rgba(11, 43, 99, 0.08);
+}
+.page-hero {
+    background: linear-gradient(135deg, rgba(30, 9, 62, 0.92) 0%, rgba(76, 29, 149, 0.8) 100%),
+                url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1920&auto=format&fit=crop&q=80') center/cover;
+    color: #ffffff;
+    padding: 65px 0 55px;
+    text-align: center;
+}
+.page-hero h1 { font-size: clamp(32px, 4vw, 48px); margin-bottom: 12px; color: #ffffff; }
+.page-hero p { color: #EAF1FA; max-width: 600px; margin: 0 auto 24px; font-size: 15px; }
+
+/* Filter Controls Box */
+.filter-box-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 24px 30px;
+    box-shadow: 0 10px 30px rgba(46, 16, 101, 0.08);
+    border: 1px solid var(--border);
+    margin-top: -35px;
+    position: relative;
+    z-index: 10;
+}
+.filter-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+    gap: 15px;
+    align-items: flex-end;
+}
+.filter-field label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--primary-purple);
+    margin-bottom: 6px;
+    display: block;
+}
+.filter-field input, .filter-field select {
+    width: 100%;
+    height: 48px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 0 14px;
+    font-size: 13.5px;
+    background: #faf8fe;
+}
+.filter-pills {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+.filter-pill {
+    padding: 8px 18px;
+    border-radius: 30px;
+    background: var(--lavender-soft);
+    color: var(--dark-purple);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+.filter-pill.active {
+    background: var(--purple-gradient);
+    color: #ffffff;
+}
+
+/* Packages Grid */
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    margin-top: 35px;
+}
+.pkg-card {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+.pkg-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(46, 16, 101, 0.15);
+    border-color: #d8b4fe;
+}
+.pkg-thumb-box {
+    position: relative;
+    height: 230px;
+    overflow: hidden;
+    background: #e9d5ff;
+}
+.pkg-thumb-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.pkg-card:hover .pkg-thumb-box img { transform: scale(1.06); }
+.discount-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: var(--pink-gradient);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+.wishlist-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    color: #64748b;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+.wishlist-btn.active { color: var(--pink-accent); }
+.pkg-content {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.pkg-meta-strip {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+.pkg-title {
+    font-size: 18px;
+    color: var(--dark-purple);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.pkg-hotel-info {
+    font-size: 12.5px;
+    color: #554470;
+    margin-bottom: 16px;
+}
+.pkg-bottom-row {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media(max-width: 1024px) {
+    .filter-grid { grid-template-columns: 1fr 1fr; }
+    .packages-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width: 768px) {
+    .filter-grid { grid-template-columns: 1fr; }
+    .packages-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; font-size:12.5px; padding:8px 0; color:#e9d5ff;">
+        <div><span><i class="fa-solid fa-phone" style="color:var(--pink-accent);"></i> +91 98765 43210</span> &nbsp; | &nbsp; <span><i class="fa-solid fa-envelope" style="color:var(--pink-accent);"></i> support@travelnex.com</span></div>
+        <div><span><i class="fa-solid fa-shield-halved" style="color:var(--pink-accent);"></i> Best Price Guaranteed</span></div>
+    </div>
+</div>
+
+<!-- NAVBAR -->
+<!-- 1. EXACT CUSTOMER NAVBAR (Strict Reference Match) -->
+<header class="site-navbar">
+    <div class="container site-navbar-container">
+        <!-- Logo on the left -->
+        <a href="index.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <span>TRAVEL<strong>NEX</strong></span>
+        </a>
+
+        <!-- Exact 8 Menu Items in exact order -->
+        <nav class="site-nav-menu">
+            <ul class="site-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="nav-dropdown-item">
+                    <a href="javascript:void(0)" class="nav-dropdown-toggle">
+                        <span>Services</span> <i class="fa-solid fa-chevron-down nav-caret"></i>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <a href="local-taxi.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-taxi"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Local Taxi Services</span>
+                                <span class="nav-dropdown-sub">City point-to-point & hourly cabs</span>
+                            </div>
+                        </a>
+                        <a href="outstation-cabs.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-car-side"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Outstation Cabs</span>
+                                <span class="nav-dropdown-sub">One-way & round-trip intercity</span>
+                            </div>
+                        </a>
+                        <a href="airport-transfer.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-plane-departure"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Airport Pickup & Drop</span>
+                                <span class="nav-dropdown-sub">Reliable flight pickup transfers</span>
+                            </div>
+                        </a>
+                        <a href="mini-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-van-shuttle"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Mini Bus Booking</span>
+                                <span class="nav-dropdown-sub">12–26 seater Tempo Traveller</span>
+                            </div>
+                        </a>
+                        <a href="luxury-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Luxury Bus Booking</span>
+                                <span class="nav-dropdown-sub">32–55 seater AC Volvo coaches</span>
+                            </div>
+                        </a>
+                        <a href="group-transportation.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-users"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Group Transportation</span>
+                                <span class="nav-dropdown-sub">Corporate offsites & weddings</span>
+                            </div>
+                        </a>
+                        <a href="railway-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-train"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Railway Ticket Booking</span>
+                                <span class="nav-dropdown-sub">IRCTC verified booking inquiry</span>
+                            </div>
+                        </a>
+                        <a href="st-bus-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus-simple"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Maharashtra ST Bus Booking</span>
+                                <span class="nav-dropdown-sub">Shivneri, Shivshahi & Lalpari</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="packages.html" class="active">Tour Packages</a></li>
+                <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Right Side: Gold Book Your Trip Button -->
+        <div class="site-nav-actions">
+            <a href="packages.html" class="btn-book-trip d-none-mobile">
+                <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+            </a>
+            <button class="nav-hamburger" id="navToggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+        <a href="index.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <div class="brand-text">
+                <span class="brand-name">TRAVEL<strong>NEX</strong></span>
+                <span class="brand-tagline">Travel Beyond Limits</span>
+            </div>
+        </a>
+        <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close Navigation">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="mobile-dropdown-parent">
+            <a href="javascript:void(0)" class="mobile-dropdown-toggle" onclick="toggleMobileServices(this)">
+                <span>Services</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <div class="mobile-sub-menu show" id="mobileServicesSub">
+                <a href="local-taxi.html"><i class="fa-solid fa-taxi"></i> Local Taxi Services</a>
+                <a href="outstation-cabs.html"><i class="fa-solid fa-car-side"></i> Outstation Cabs</a>
+                <a href="airport-transfer.html"><i class="fa-solid fa-plane-departure"></i> Airport Pickup & Drop</a>
+                <a href="mini-bus.html"><i class="fa-solid fa-van-shuttle"></i> Mini Bus Booking</a>
+                <a href="luxury-bus.html"><i class="fa-solid fa-bus"></i> Luxury Bus Booking</a>
+                <a href="group-transportation.html"><i class="fa-solid fa-users"></i> Group Transportation</a>
+                <a href="railway-booking.html"><i class="fa-solid fa-train"></i> Railway Ticket Booking</a>
+                <a href="st-bus-booking.html"><i class="fa-solid fa-bus-simple"></i> Maharashtra ST Bus Booking</a>
+            </div>
+        </li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="packages.html" class="active">Tour Packages</a></li>
+        <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="mobile-nav-footer">
+        <a href="packages.html" class="btn-book-trip" style="width:100%; justify-content:center;">
+            <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+        </a>
+    </div>
+</div>
+
+<div class="page-hero">
+    <div class="container">
+        <span style="background:rgba(255,255,255,0.15); padding:6px 16px; border-radius:30px; font-size:12px; font-weight:800; text-transform:uppercase;">
+            CURATED EXPERIENCES
+        </span>
+        <h1>All Tour Packages</h1>
+        <p>Explore our complete collection of domestic and international holiday tour packages with verified luxury transport and handpicked hotels.</p>
+    </div>
+</div>
+
+<main class="container" style="padding-bottom: 80px;">
+    <!-- FILTER BAR -->
+    <div class="filter-box-card">
+        <div class="filter-pills" id="filterPills">
+            <button class="filter-pill active" onclick="setCategoryFilter('all', this)">All Packages</button>
+            <button class="filter-pill" onclick="setCategoryFilter('international', this)">International Tours</button>
+            <button class="filter-pill" onclick="setCategoryFilter('domestic', this)">Domestic Tours</button>
+            <button class="filter-pill" onclick="setCategoryFilter('family', this)">Family Holidays</button>
+            <button class="filter-pill" onclick="setCategoryFilter('last-minute', this)">Last Minute Offers</button>
+        </div>
+
+        <div class="filter-grid">
+            <div class="filter-field">
+                <label><i class="fa-solid fa-magnifying-glass"></i> Search Destination</label>
+                <input type="text" id="searchInput" placeholder="e.g. Bali, Paris, Kashmir, Dubai, Taj Mahal" oninput="applyFilters()">
+            </div>
+            <div class="filter-field">
+                <label><i class="fa-solid fa-clock"></i> Duration</label>
+                <select id="durationFilter" onchange="applyFilters()">
+                    <option value="all">Any Duration</option>
+                    <option value="short">Short Trip (1–3 Days)</option>
+                    <option value="medium">Standard (4–5 Days)</option>
+                    <option value="long">Extended (6+ Days)</option>
+                </select>
+            </div>
+            <div class="filter-field">
+                <label><i class="fa-solid fa-money-bill-wave"></i> Max Budget</label>
+                <select id="budgetFilter" onchange="applyFilters()">
+                    <option value="all">Any Budget</option>
+                    <option value="15000">Under ₹15,000</option>
+                    <option value="25000">Under ₹25,000</option>
+                    <option value="35000">Under ₹35,000</option>
+                </select>
+            </div>
+            <div class="filter-field">
+                <label><i class="fa-solid fa-arrow-down-wide-short"></i> Sort By</label>
+                <select id="sortFilter" onchange="applyFilters()">
+                    <option value="popular">Popularity & Rating</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                </select>
+            </div>
+            <div>
+                <button class="btn btn-primary" style="background:var(--purple-gradient); border-radius:10px; height:48px; padding:0 24px; font-weight:800;" onclick="resetFilters()">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PACKAGES COUNT -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:35px; color:var(--text-muted); font-size:14px;">
+        <span id="resultsCount">Showing all packages</span>
+    </div>
+
+    <!-- GRID -->
+    <div class="packages-grid" id="packagesGrid">
+        <!-- Rendered by JS -->
+    </div>
+</main>
+
+<!-- BOOKING MODAL -->
+<div class="modal" id="dealBookingModal">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('dealBookingModal')">&times;</button>
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+            <div style="width:40px; height:40px; border-radius:12px; background:var(--lavender-soft); color:var(--primary-purple); display:grid; place-items:center; font-size:18px;">
+                <i class="fa-solid fa-plane-departure"></i>
+            </div>
+            <div>
+                <h2 style="font-size:20px; color:var(--dark-purple); margin:0;">Book Tour Package</h2>
+                <p style="font-size:12px; color:var(--text-muted); margin:0;">Instant Reservation Request</p>
+            </div>
+        </div>
+
+        <div style="background:var(--lavender-soft); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:18px; font-size:13px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div><strong style="color:var(--text-muted);">Package:</strong> <span id="modalDealTitle" style="font-weight:700; color:var(--dark-purple);">Tour</span></div>
+                <div><strong style="color:var(--text-muted);">Status:</strong> <span style="color:#10b981; font-weight:700;">Instant Confirmation</span></div>
+                <div style="grid-column:span 2; padding-top:8px; border-top:1px dashed #d8b4fe; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="color:var(--text-muted);">Package Price:</span>
+                    <strong style="font-size:20px; color:var(--pink-accent);" id="modalDealPrice">₹19,999</strong>
+                </div>
+            </div>
+        </div>
+
+        <form class="modal-form" id="confirmDealForm">
+            <div><label>Passenger Full Name *</label><input type="text" id="dealCustName" required placeholder="Enter full name"></div>
+            <div><label>Email Address *</label><input type="email" id="dealCustEmail" required placeholder="name@example.com"></div>
+            <div><label>Mobile Number *</label><input type="tel" id="dealCustPhone" required pattern="[0-9]{10}" maxlength="10" placeholder="10-digit number"></div>
+            <button class="btn btn-primary" type="submit" style="background:var(--purple-gradient); width:100%; height:48px; border-radius:30px; font-size:14px; margin-top:8px;">
+                Confirm Reservation
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- FOOTER -->
+<footer class="site-footer" style="background:var(--navy); color:#D0DCED; padding:60px 0 25px;">
+    <div class="container">
+        <div class="footer-grid" style="display:grid; grid-template-columns:1.5fr 1fr 1.2fr 1.1fr 1.4fr 1fr; gap:30px; margin-bottom:40px;">
+            <div>
+                <a href="index.html" class="brand-logo" style="margin-bottom:14px;">
+                    <div class="logo-icon" style="background:var(--blue);"><i class="fa-solid fa-route"></i></div>
+                    <div class="brand-text">
+                        <span class="brand-name" style="color:#ffffff;">TRAVEL<strong style="color:var(--gold);">NEX</strong></span>
+                        <span class="brand-tagline" style="color:#D0DCED;">Travel Beyond Limits</span>
+                    </div>
+                </a>
+                <p style="font-size:13px; color:#D0DCED; line-height:1.6;">Premier tours & travel management platform with transparent pricing and verified hospitality.</p>
+            </div>
+            <div>
+                <h4 style="color:#fff; font-size:15px; margin-bottom:16px;">Quick Links</h4>
+                <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+                    <a href="index.html" style="color:#D0DCED; text-decoration:none;">Home</a>
+                    <a href="destinations.html" style="color:#D0DCED; text-decoration:none;">Destinations</a>
+                    <a href="packages.html" style="color:var(--gold); text-decoration:none;">Tour Packages</a>
+                    <a href="about.html" style="color:#D0DCED; text-decoration:none;">About Us</a>
+                </div>
+            </div>
+            <div>
+                <h4 style="color:#fff; font-size:15px; margin-bottom:16px;">Our Services</h4>
+                <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+                    <a href="local-taxi.html" style="color:#D0DCED; text-decoration:none;">Local Taxi Services</a>
+                    <a href="outstation-cabs.html" style="color:#D0DCED; text-decoration:none;">Outstation Cabs</a>
+                    <a href="airport-transfer.html" style="color:#D0DCED; text-decoration:none;">Airport Transfers</a>
+                    <a href="mini-bus.html" style="color:#D0DCED; text-decoration:none;">Mini Bus Booking</a>
+                </div>
+            </div>
+            <div>
+                <h4 style="color:#fff; font-size:15px; margin-bottom:16px;">More Services</h4>
+                <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+                    <a href="luxury-bus.html" style="color:#D0DCED; text-decoration:none;">Luxury Bus Booking</a>
+                    <a href="group-transportation.html" style="color:#D0DCED; text-decoration:none;">Group Transportation</a>
+                    <a href="railway-booking.html" style="color:#D0DCED; text-decoration:none;">Railway Booking</a>
+                    <a href="st-bus-booking.html" style="color:#D0DCED; text-decoration:none;">Maharashtra ST Bus</a>
+                </div>
+            </div>
+            <div>
+                <h4 style="color:#fff; font-size:15px; margin-bottom:16px;">Contact Us</h4>
+                <div style="font-size:13px; color:#D0DCED; line-height:1.7;">
+                    <div><i class="fa-solid fa-phone" style="color:var(--gold);"></i> +1 800 123 4567</div>
+                    <div><i class="fa-solid fa-envelope" style="color:var(--gold);"></i> info@travelnex.com</div>
+                    <div><i class="fa-solid fa-location-dot" style="color:var(--gold);"></i> 123 Travel Street, New York, USA</div>
+                </div>
+            </div>
+            <div>
+                <h4 style="color:#fff; font-size:15px; margin-bottom:16px;">Follow Us</h4>
+                <div style="display:flex; gap:8px;">
+                    <a href="#" style="width:34px; height:34px; border-radius:50%; background:#1877f2; color:#fff; display:grid; place-items:center;"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" style="width:34px; height:34px; border-radius:50%; background:#e4405f; color:#fff; display:grid; place-items:center;"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="width:34px; height:34px; border-radius:50%; background:#0077b5; color:#fff; display:grid; place-items:center;"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:18px; text-align:center; font-size:12.5px; color:#D0DCED;">
+            © 2024 TRAVELNEX. All Rights Reserved. | Transparent Holiday Packages
+        </div>
+    </div>
+</footer>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+
+<script>
+let currentCategory = 'all';
+let allPackages = [];
+let currentBookingPkg = null;
+
+function setCategoryFilter(cat, btn) {
+    currentCategory = cat;
+    document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+}
+
+function applyFilters() {
+    const search = document.getElementById('searchInput').value.toLowerCase().trim();
+    const duration = document.getElementById('durationFilter').value;
+    const budget = document.getElementById('budgetFilter').value;
+    const sort = document.getElementById('sortFilter').value;
+
+    let filtered = allPackages.filter(p => {
+        const matchesCategory = (currentCategory === 'all') || 
+                                (currentCategory === 'last-minute' && (p.category === 'last-minute' || p.discount.includes('30%') || p.discount.includes('35%'))) ||
+                                (p.category === currentCategory);
+        const matchesSearch = !search || p.title.toLowerCase().includes(search) || p.destination.toLowerCase().includes(search);
+        
+        let matchesDuration = true;
+        if (duration === 'short') matchesDuration = p.days <= 3;
+        else if (duration === 'medium') matchesDuration = p.days >= 4 && p.days <= 5;
+        else if (duration === 'long') matchesDuration = p.days >= 6;
+
+        let matchesBudget = true;
+        if (budget !== 'all') matchesBudget = p.price <= Number(budget);
+
+        return matchesCategory && matchesSearch && matchesDuration && matchesBudget;
+    });
+
+    if (sort === 'price-asc') filtered.sort((a,b) => a.price - b.price);
+    else if (sort === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+    else filtered.sort((a,b) => b.rating - a.rating);
+
+    renderGrid(filtered);
+}
+
+function resetFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('durationFilter').value = 'all';
+    document.getElementById('budgetFilter').value = 'all';
+    document.getElementById('sortFilter').value = 'popular';
+    currentCategory = 'all';
+    document.querySelectorAll('.filter-pill').forEach((b, idx) => b.classList.toggle('active', idx === 0));
+    applyFilters();
+}
+
+function renderGrid(packages) {
+    const grid = document.getElementById('packagesGrid');
+    document.getElementById('resultsCount').textContent = `Showing ${packages.length} tour packages`;
+
+    if (packages.length === 0) {
+        grid.innerHTML = `
+            <div style="grid-column:1/-1; text-align:center; padding:60px 20px; background:#fff; border-radius:18px; border:1px solid var(--border);">
+                <i class="fa-solid fa-map-location" style="font-size:42px; color:var(--primary-purple); margin-bottom:16px;"></i>
+                <h3 style="color:var(--dark-purple);">No packages found</h3>
+                <p style="color:var(--text-muted); font-size:14px; margin-top:6px;">Try adjusting your search criteria or resetting filters.</p>
+                <button class="btn btn-primary" style="background:var(--purple-gradient); margin-top:16px;" onclick="resetFilters()">Reset All Filters</button>
+            </div>
+        `;
+        return;
+    }
+
+    grid.innerHTML = packages.map(pkg => `
+        <div class="pkg-card">
+            <div class="pkg-thumb-box">
+                <img src="${pkg.image}" alt="${pkg.title}">
+                <div class="discount-badge">${pkg.discount}</div>
+                <button class="wishlist-btn" onclick="toggleWishlist(this)" title="Save to favorites">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+            </div>
+            <div class="pkg-content">
+                <div class="pkg-meta-strip">
+                    <span><i class="fa-solid fa-location-dot" style="color:var(--primary-purple);"></i> ${pkg.destination}</span>
+                    <span><i class="fa-regular fa-clock" style="color:var(--primary-purple);"></i> ${pkg.duration}</span>
+                </div>
+                <h3 class="pkg-title">${pkg.title}</h3>
+                <div class="pkg-hotel-info">
+                    <i class="fa-solid fa-star" style="color:#f59e0b;"></i> ${pkg.hotel}
+                </div>
+                <div class="pkg-bottom-row">
+                    <div class="pkg-price-box">
+                        <span style="font-size:12px; color:#94a3b8; text-decoration:line-through;">${Utils.formatCurrency(pkg.oldPrice)}</span>
+                        <span style="font-size:20px; font-weight:800; color:var(--dark-purple);">${Utils.formatCurrency(pkg.price)}</span>
+                    </div>
+                    <div style="display:flex; gap:8px;">
+                        <a href="package-details.html?id=${pkg.id}" class="btn-pkg-action" style="padding:8px 14px; font-size:12px; background:var(--blue-light); border-radius:20px; color:var(--blue); font-weight:700; text-decoration:none;">Details</a>
+                        <button class="btn btn-primary" style="background:var(--blue); color:#fff; border-radius:20px; padding:8px 16px; font-size:12px; font-weight:700; border:none; cursor:pointer;" onclick="openBookingModal('${pkg.id}')">Book</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function openBookingModal(pkgId) {
+    const pkg = StorageManager.getPackageById(pkgId);
+    if (!pkg) return;
+    currentBookingPkg = pkg;
+
+    document.getElementById('modalDealTitle').textContent = pkg.title;
+    document.getElementById('modalDealPrice').textContent = Utils.formatCurrency(pkg.price);
+
+    const user = AuthManager.getCurrentUser();
+    if (user) {
+        document.getElementById('dealCustName').value = user.name || '';
+        document.getElementById('dealCustEmail').value = user.email || '';
+    }
+
+    document.getElementById('dealBookingModal').classList.add('show');
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove('show');
+}
+
+document.getElementById('confirmDealForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!currentBookingPkg) return;
+
+    const user = AuthManager.getCurrentUser();
+    const customerId = user ? user.id : 'CUST-' + Math.floor(1000 + Math.random() * 9000);
+
+    const newBooking = {
+        customerId: customerId,
+        customerName: document.getElementById('dealCustName').value.trim(),
+        customerEmail: document.getElementById('dealCustEmail').value.trim(),
+        customerPhone: document.getElementById('dealCustPhone').value.trim(),
+        serviceType: 'Tour Package',
+        service: 'Tour Package',
+        pickup: 'Home City / Airport',
+        destination: currentBookingPkg.destination,
+        drop: currentBookingPkg.destination,
+        journeyDate: new Date().toISOString().split('T')[0],
+        journeyTime: '09:00',
+        passengers: 2,
+        vehicleType: 'Chauffeur Tour',
+        estimatedFare: currentBookingPkg.price,
+        fare: currentBookingPkg.price,
+        notes: `Booked ${currentBookingPkg.title}`,
+        status: 'Pending',
+        bookingStatus: 'Pending'
+    };
+
+    const created = StorageManager.createBooking(newBooking);
+    closeModal('dealBookingModal');
+    this.reset();
+    showToast(`Booking ${created.id} confirmed! Synced with your dashboard.`);
+
+    setTimeout(() => {
+        if (confirm(`Booking ${created.id} created successfully! View booking in Customer Dashboard?`)) {
+            window.location.href = `booking-details.html?id=${created.id}`;
+        }
+    }, 1200);
+});
+
+function toggleWishlist(btn) {
+    btn.classList.toggle('active');
+    const icon = btn.querySelector('i');
+    if (btn.classList.contains('active')) {
+        icon.className = 'fa-solid fa-heart';
+        showToast('Saved to wishlist!');
+    } else {
+        icon.className = 'fa-regular fa-heart';
+        showToast('Removed from wishlist.');
+    }
+}
+
+let toastTimer;
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    allPackages = StorageManager.getPackages();
+
+    // Parse URL params
+    const params = new URLSearchParams(window.location.search);
+    const dest = params.get('dest');
+    if (dest) {
+        document.getElementById('searchInput').value = dest;
+    }
+
+    applyFilters();
+});
+</script>
+</body>
+</html>

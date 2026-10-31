@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Analytics | TRAVELNEX Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="admin-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Super Admin</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Core Management</div>
+            <a href="admin-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard Overview</span>
+            </a>
+            <a href="bookings.html" class="sidebar-link">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Booking Management</span>
+            </a>
+            <a href="customers.html" class="sidebar-link">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Customer Accounts</span>
+            </a>
+            <a href="corporate-clients.html" class="sidebar-link">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Corporate Clients</span>
+            </a>
+
+            <div class="sidebar-section-title">Fleet & Operations</div>
+            <a href="drivers.html" class="sidebar-link">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Drivers Management</span>
+            </a>
+            <a href="vehicles.html" class="sidebar-link">
+                <i class="fa-solid fa-taxi"></i>
+                <span>Vehicles & Fleet</span>
+            </a>
+            <a href="services.html" class="sidebar-link">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Services & Rates</span>
+            </a>
+
+            <div class="sidebar-section-title">Financials & Reports</div>
+            <a href="payments.html" class="sidebar-link">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Payment Records</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Invoices Management</span>
+            </a>
+            <a href="reports.html" class="sidebar-link active">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports & Analytics</span>
+            </a>
+            <a href="settings.html" class="sidebar-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>System Settings</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">A</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">Chief Admin</div>
+                <div class="sidebar-user-role">Super Administrator</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../admin/admin-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="admin-dashboard.html">Admin</a> &gt; BI & Reports</div>
+                    <h1 class="page-title">Executive Analytics & Revenue Intelligence</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button type="button" class="btn btn-primary btn-sm" onclick="exportAnalyticsCSV()">
+                    <i class="fa-solid fa-file-excel"></i> Export Full Analytics CSV
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <!-- 2x2 Charts Grid -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; margin-bottom:28px;">
+                <div class="table-card" style="padding:22px;">
+                    <h3 style="font-size:16px; margin-bottom:14px; color:var(--navy);">Monthly Fares & Revenue Collection</h3>
+                    <div style="height:250px;">
+                        <canvas id="chartMonthlyRev"></canvas>
+                    </div>
+                </div>
+
+                <div class="table-card" style="padding:22px;">
+                    <h3 style="font-size:16px; margin-bottom:14px; color:var(--navy);">Service-Wise Booking Distribution</h3>
+                    <div style="height:250px;">
+                        <canvas id="chartServiceDist"></canvas>
+                    </div>
+                </div>
+
+                <div class="table-card" style="padding:22px;">
+                    <h3 style="font-size:16px; margin-bottom:14px; color:var(--navy);">Booking Status Outcomes</h3>
+                    <div style="height:250px;">
+                        <canvas id="chartStatusOutcomes"></canvas>
+                    </div>
+                </div>
+
+                <div class="table-card" style="padding:22px;">
+                    <h3 style="font-size:16px; margin-bottom:14px; color:var(--navy);">Customer Channel Split (B2C vs Corporate)</h3>
+                    <div style="height:250px;">
+                        <canvas id="chartChannelSplit"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Summary Table -->
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Audit Ledger & Comprehensive Trip Log</div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Channel</th>
+                                <th>Customer Name</th>
+                                <th>Service Type</th>
+                                <th>Route</th>
+                                <th>Date & Time</th>
+                                <th>Fare</th>
+                                <th>Payment</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="analyticsTableBody">
+                            <!-- Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const adminUser = Auth.requireRole('admin', 'admin-login.html');
+
+    function initAnalytics() {
+        const bookings = StorageManager.getBookings();
+        renderAllCharts(bookings);
+        renderAuditTable(bookings);
+    }
+
+    function renderAllCharts(bookings) {
+        // 1. Monthly Revenue
+        new Chart(document.getElementById('chartMonthlyRev').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                datasets: [{
+                    label: 'Gross Revenue (?)',
+                    data: [35000, 48000, 62000, 78000, 89000, 104500],
+                    backgroundColor: '#07377F',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // 2. Service-Wise
+        const srvCounts = {};
+        bookings.forEach(b => {
+            const s = b.serviceType || 'Cab';
+            srvCounts[s] = (srvCounts[s] || 0) + 1;
+        });
+
+        new Chart(document.getElementById('chartServiceDist').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(srvCounts),
+                datasets: [{
+                    data: Object.values(srvCounts),
+                    backgroundColor: ['#07377F', '#F5B51B', '#10b981', '#0284c7', '#06b6d4', '#f43f5e']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+
+        // 3. Status Outcomes
+        const statusCounts = {
+            'Completed': bookings.filter(b => b.bookingStatus === 'Completed').length,
+            'Confirmed / Active': bookings.filter(b => ['Confirmed', 'In Progress'].includes(b.bookingStatus)).length,
+            'Pending': bookings.filter(b => b.bookingStatus === 'Pending').length,
+            'Cancelled': bookings.filter(b => ['Cancelled', 'Rejected'].includes(b.bookingStatus)).length
+        };
+
+        new Chart(document.getElementById('chartStatusOutcomes').getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: Object.keys(statusCounts),
+                datasets: [{
+                    data: Object.values(statusCounts),
+                    backgroundColor: ['#10b981', '#0284c7', '#f59e0b', '#ef4444']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+
+        // 4. Channel Split
+        const corpCount = bookings.filter(b => !!b.corporateId).length;
+        const b2cCount = bookings.length - corpCount;
+
+        new Chart(document.getElementById('chartChannelSplit').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['B2C Direct Retail', 'Corporate B2B'],
+                datasets: [{
+                    data: [b2cCount, corpCount],
+                    backgroundColor: ['#F5B51B', '#0B2B63']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    }
+
+    function renderAuditTable(bookings) {
+        const tbody = document.getElementById('analyticsTableBody');
+        tbody.innerHTML = '';
+
+        bookings.forEach(b => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${Utils.escapeHTML(b.id)}</strong></td>
+                <td>
+                    <span class="badge ${b.corporateId ? 'badge-confirmed' : 'badge-active'}">
+                        ${b.corporateId ? 'Corporate' : 'Retail B2C'}
+                    </span>
+                </td>
+                <td><strong>${Utils.escapeHTML(b.customerName)}</strong></td>
+                <td>${Utils.escapeHTML(b.serviceType)}</td>
+                <td>${Utils.escapeHTML(b.pickup)} &rarr; ${Utils.escapeHTML(b.destination)}</td>
+                <td>${Utils.formatDate(b.journeyDate)} ${Utils.escapeHTML(b.journeyTime || '')}</td>
+                <td><strong>${Utils.formatCurrency(b.estimatedFare)}</strong></td>
+                <td><span class="badge ${b.paymentStatus === 'Paid' ? 'badge-paid' : 'badge-unpaid'}">${Utils.escapeHTML(b.paymentStatus)}</span></td>
+                <td>${Utils.getStatusBadge(b.bookingStatus)}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function exportAnalyticsCSV() {
+        const bookings = StorageManager.getBookings();
+        const headers = ['Booking ID', 'Channel', 'Customer Name', 'Phone', 'Service', 'Pickup', 'Destination', 'Date', 'Time', 'Fare', 'Payment Status', 'Trip Status'];
+        const rows = bookings.map(b => [
+            b.id,
+            b.corporateId ? 'Corporate B2B' : 'Retail B2C',
+            b.customerName,
+            b.customerPhone,
+            b.serviceType,
+            b.pickup,
+            b.destination,
+            b.journeyDate,
+            b.journeyTime,
+            b.estimatedFare,
+            b.paymentStatus,
+            b.bookingStatus
+        ]);
+
+        StorageManager.exportToCSV('travelnex_analytics_master_log', headers, rows);
+        Utils.showToast('Analytics master CSV generated!', 'success');
+    }
+
+    document.addEventListener('DOMContentLoaded', initAnalytics);
+</script>
+</body>
+</html>

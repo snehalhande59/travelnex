@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Management | TRAVELNEX Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <!-- Admin Sidebar -->
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="admin-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Super Admin</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Core Management</div>
+            <a href="admin-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard Overview</span>
+            </a>
+            <a href="bookings.html" class="sidebar-link active">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Booking Management</span>
+                <span class="nav-count" id="badgePending">0</span>
+            </a>
+            <a href="customers.html" class="sidebar-link">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Customer Accounts</span>
+            </a>
+            <a href="corporate-clients.html" class="sidebar-link">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Corporate Clients</span>
+            </a>
+
+            <div class="sidebar-section-title">Fleet & Operations</div>
+            <a href="drivers.html" class="sidebar-link">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Drivers Management</span>
+            </a>
+            <a href="vehicles.html" class="sidebar-link">
+                <i class="fa-solid fa-taxi"></i>
+                <span>Vehicles & Fleet</span>
+            </a>
+            <a href="services.html" class="sidebar-link">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Services & Rates</span>
+            </a>
+
+            <div class="sidebar-section-title">Financials & Reports</div>
+            <a href="payments.html" class="sidebar-link">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Payment Records</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Invoices Management</span>
+            </a>
+            <a href="reports.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports & Analytics</span>
+            </a>
+            <a href="settings.html" class="sidebar-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>System Settings</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">A</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">Chief Admin</div>
+                <div class="sidebar-user-role">Super Administrator</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../admin/admin-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="admin-dashboard.html">Admin</a> &gt; Operations</div>
+                    <h1 class="page-title">All Bookings & Dispatch Center</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button type="button" class="btn btn-outline btn-sm" onclick="exportBookingsCSV()">
+                    <i class="fa-solid fa-download"></i> Export CSV
+                </button>
+                <a href="../customer/cab-booking.html" class="btn btn-primary btn-sm" target="_blank">
+                    <i class="fa-solid fa-plus"></i> New Manual Booking
+                </a>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Platform Bookings Database</div>
+                    <div class="table-filters">
+                        <div class="search-input-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="searchBooking" placeholder="Search ID, customer, route..." oninput="filterBookings()">
+                        </div>
+
+                        <select id="filterService" class="form-control" style="width: auto; height: 38px; font-size: 13px;" onchange="filterBookings()">
+                            <option value="ALL">All Services</option>
+                            <option value="Local Cab">Local Cab</option>
+                            <option value="Outstation">Outstation</option>
+                            <option value="Airport Transfer">Airport Transfer</option>
+                            <option value="Bus Rental">Bus Rental</option>
+                            <option value="Train Booking">Train Booking</option>
+                            <option value="ST Bus Booking">ST Bus Booking</option>
+                        </select>
+
+                        <select id="filterStatus" class="form-control" style="width: auto; height: 38px; font-size: 13px;" onchange="filterBookings()">
+                            <option value="ALL">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Customer / Channel</th>
+                                <th>Service & Route</th>
+                                <th>Schedule Date</th>
+                                <th>Assigned Chauffeur & Fleet</th>
+                                <th>Fare</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Dispatch Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="emptyBookings" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon"><i class="fa-solid fa-calendar-xmark"></i></div>
+                    <h3>No Bookings Matched</h3>
+                    <p>Try adjusting your search terms or filters.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Assign Driver & Vehicle Modal -->
+<div class="modal-overlay" id="assignModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="assignModalTitle">Assign Driver & Vehicle</h3>
+            <button type="button" class="modal-close-btn" onclick="closeAssignModal()">&times;</button>
+        </div>
+        <form id="assignForm">
+            <div class="modal-body">
+                <input type="hidden" id="assignBookingId">
+                <div id="assignBookingSummary" style="background:#f8fafc; border:1px solid var(--border); padding:12px; border-radius:8px; margin-bottom:18px; font-size:13px;">
+                    <!-- Booking details -->
+                </div>
+
+                <div class="form-group">
+                    <label for="selectDriver">Assign Chauffeur / Driver</label>
+                    <select id="selectDriver" class="form-control" required onchange="onDriverSelected()">
+                        <option value="">-- Choose Driver --</option>
+                        <!-- Injected -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="selectVehicle">Assign Fleet Vehicle</label>
+                    <select id="selectVehicle" class="form-control" required>
+                        <option value="">-- Choose Vehicle --</option>
+                        <!-- Injected -->
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeAssignModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Confirm Assignment & Schedule</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Status Update Modal -->
+<div class="modal-overlay" id="statusModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title">Update Booking Status</h3>
+            <button type="button" class="modal-close-btn" onclick="closeStatusModal()">&times;</button>
+        </div>
+        <form id="statusForm">
+            <div class="modal-body">
+                <input type="hidden" id="statusBookingId">
+                <p id="statusBookingText" style="font-size:13.5px; color:var(--text-muted); margin-bottom:14px;"></p>
+                <div class="form-group">
+                    <label for="newStatusSelect">Choose Status</label>
+                    <select id="newStatusSelect" class="form-control" required>
+                        <option value="Pending">Pending (Under Review)</option>
+                        <option value="Confirmed">Confirmed (Ready / Assigned)</option>
+                        <option value="In Progress">In Progress (Trip Started)</option>
+                        <option value="Completed">Completed (Trip Finished & Invoiced)</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeStatusModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Update Status Across Portals</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const user = Auth.requireRole('admin', 'admin-login.html');
+
+    let allBookingsList = [];
+    let driversList = [];
+    let vehiclesList = [];
+
+    function loadAllBookings() {
+        allBookingsList = StorageManager.getBookings();
+        driversList = StorageManager.getDrivers();
+        vehiclesList = StorageManager.getVehicles();
+
+        const pendingCount = allBookingsList.filter(b => b.bookingStatus === 'Pending').length;
+        document.getElementById('badgePending').textContent = pendingCount;
+
+        filterBookings();
+    }
+
+    function filterBookings() {
+        const query = document.getElementById('searchBooking').value.trim().toLowerCase();
+        const srv = document.getElementById('filterService').value;
+        const status = document.getElementById('filterStatus').value;
+
+        const filtered = allBookingsList.filter(b => {
+            const matchesQuery = !query ||
+                b.id.toLowerCase().includes(query) ||
+                (b.customerName && b.customerName.toLowerCase().includes(query)) ||
+                (b.customerPhone && b.customerPhone.toLowerCase().includes(query)) ||
+                b.pickup.toLowerCase().includes(query) ||
+                b.destination.toLowerCase().includes(query);
+
+            const matchesSrv = srv === 'ALL' || b.serviceType === srv;
+            const matchesStatus = status === 'ALL' || b.bookingStatus === status;
+
+            return matchesQuery && matchesSrv && matchesStatus;
+        });
+
+        renderBookingsTable(filtered);
+    }
+
+    function renderBookingsTable(bookings) {
+        const tbody = document.getElementById('bookingsTableBody');
+        const empty = document.getElementById('emptyBookings');
+        tbody.innerHTML = '';
+
+        if (!bookings || bookings.length === 0) {
+            empty.style.display = 'block';
+            return;
+        }
+
+        empty.style.display = 'none';
+
+        bookings.forEach(b => {
+            const driver = b.driverId ? StorageManager.getDriverById(b.driverId) : null;
+            const vehicle = b.vehicleId ? StorageManager.getVehicleById(b.vehicleId) : null;
+            const tr = document.createElement('tr');
+
+            tr.innerHTML = `
+                <td>
+                    <strong>${Utils.escapeHTML(b.id)}</strong><br>
+                    <small style="color:var(--text-muted); font-size:11px;">${Utils.formatDate(b.createdAt)}</small>
+                </td>
+                <td>
+                    <div style="font-weight:700; color:var(--navy);">${Utils.escapeHTML(b.customerName)}</div>
+                    <div style="font-size:12px; color:var(--text-muted);">
+                        ${b.corporateId ? '<span class="badge badge-confirmed" style="padding:1px 5px; font-size:10px;">Corporate</span> ' : ''}
+                        <i class="fa-solid fa-phone" style="font-size:10px;"></i> ${Utils.escapeHTML(b.customerPhone)}
+                    </div>
+                </td>
+                <td>
+                    <span style="font-weight:700; color:var(--blue); font-size:12px;">${Utils.escapeHTML(b.serviceType)}</span>
+                    <div style="font-size:13px; font-weight:600;">${Utils.escapeHTML(b.pickup)} &rarr; ${Utils.escapeHTML(b.destination)}</div>
+                </td>
+                <td>
+                    <div>${Utils.formatDate(b.journeyDate)}</div>
+                    <small style="color:var(--text-muted);">${Utils.escapeHTML(b.journeyTime || '--:--')}</small>
+                </td>
+                <td>
+                    ${driver ? `
+                        <div style="font-weight:700; color:var(--navy);"><i class="fa-solid fa-user-tie"></i> ${Utils.escapeHTML(driver.name)}</div>
+                        <small style="color:var(--text-muted);">${vehicle ? Utils.escapeHTML(vehicle.regNumber + ' (' + vehicle.name + ')') : 'Vehicle Assigned'}</small>
+                    ` : `
+                        <button type="button" class="btn btn-outline-orange btn-sm" onclick="openAssignModal('${b.id}')">
+                            <i class="fa-solid fa-user-plus"></i> Assign Driver
+                        </button>
+                    `}
+                </td>
+                <td>
+                    <strong>${Utils.formatCurrency(b.estimatedFare)}</strong><br>
+                    <span style="font-size:11px; color:${b.paymentStatus === 'Paid' ? 'var(--success)' : 'var(--warning)'}; font-weight:600;">
+                        ${Utils.escapeHTML(b.paymentStatus)}
+                    </span>
+                </td>
+                <td>
+                    ${Utils.getStatusBadge(b.bookingStatus)}
+                </td>
+                <td style="text-align: right;">
+                    <div class="table-actions" style="justify-content: flex-end;">
+                        <button class="action-btn" title="Assign / Reassign Driver" onclick="openAssignModal('${b.id}')">
+                            <i class="fa-solid fa-id-card"></i>
+                        </button>
+                        <button class="action-btn edit" title="Update Status" onclick="openStatusModal('${b.id}')">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                        <button class="action-btn view" title="View Tax Invoice" onclick="Utils.showInvoiceModal('${b.id}')">
+                            <i class="fa-solid fa-file-invoice"></i>
+                        </button>
+                        <button class="action-btn delete" title="Cancel Booking" onclick="adminCancelBooking('${b.id}')">
+                            <i class="fa-solid fa-ban"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Modal: Assign Driver & Vehicle
+    function openAssignModal(bookingId) {
+        const b = StorageManager.getBookingById(bookingId);
+        if (!b) return;
+
+        document.getElementById('assignBookingId').value = b.id;
+        document.getElementById('assignModalTitle').textContent = `Assign Fleet: ${b.id}`;
+        document.getElementById('assignBookingSummary').innerHTML = `
+            <strong>Passenger:</strong> ${Utils.escapeHTML(b.customerName)} (${Utils.escapeHTML(b.customerPhone)})<br>
+            <strong>Route:</strong> ${Utils.escapeHTML(b.pickup)} &rarr; ${Utils.escapeHTML(b.destination)}<br>
+            <strong>Service:</strong> ${Utils.escapeHTML(b.serviceType)} • <strong>Requested Vehicle:</strong> ${Utils.escapeHTML(b.vehicleType || 'Sedan')}
+        `;
+
+        // Populate Drivers
+        const drvSelect = document.getElementById('selectDriver');
+        drvSelect.innerHTML = '<option value="">-- Choose Driver --</option>';
+        driversList.forEach(d => {
+            const opt = document.createElement('option');
+            opt.value = d.id;
+            opt.textContent = `${d.name} (${d.availabilityStatus} - Rating ${d.rating}★)`;
+            if (b.driverId === d.id) opt.selected = true;
+            drvSelect.appendChild(opt);
+        });
+
+        // Populate Vehicles
+        const vehSelect = document.getElementById('selectVehicle');
+        vehSelect.innerHTML = '<option value="">-- Choose Vehicle --</option>';
+        vehiclesList.forEach(v => {
+            const opt = document.createElement('option');
+            opt.value = v.id;
+            opt.textContent = `${v.name} [${v.regNumber}] - ${v.type} (${v.status})`;
+            if (b.vehicleId === v.id) opt.selected = true;
+            vehSelect.appendChild(opt);
+        });
+
+        document.getElementById('assignModal').classList.add('active');
+    }
+
+    function onDriverSelected() {
+        const drvId = document.getElementById('selectDriver').value;
+        const driver = StorageManager.getDriverById(drvId);
+        if (driver && driver.assignedVehicleId) {
+            document.getElementById('selectVehicle').value = driver.assignedVehicleId;
+        }
+    }
+
+    function closeAssignModal() {
+        document.getElementById('assignModal').classList.remove('active');
+    }
+
+    document.getElementById('assignForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const bId = document.getElementById('assignBookingId').value;
+        const dId = document.getElementById('selectDriver').value;
+        const vId = document.getElementById('selectVehicle').value;
+
+        // Perform assignment
+        const updated = StorageManager.assignDriverAndVehicle(bId, dId, vId);
+        if (updated) {
+            closeAssignModal();
+            Utils.showToast(`Driver & Vehicle assigned to ${bId}. Status set to Confirmed!`, 'success');
+            loadAllBookings();
+        } else {
+            Utils.showToast('Failed to assign driver.', 'error');
+        }
+    });
+
+    // Modal: Update Status
+    function openStatusModal(bookingId) {
+        const b = StorageManager.getBookingById(bookingId);
+        if (!b) return;
+
+        document.getElementById('statusBookingId').value = b.id;
+        document.getElementById('statusBookingText').textContent = `Current status for ${b.id} is "${b.bookingStatus}". Select the updated state below:`;
+        document.getElementById('newStatusSelect').value = b.bookingStatus;
+        document.getElementById('statusModal').classList.add('active');
+    }
+
+    function closeStatusModal() {
+        document.getElementById('statusModal').classList.remove('active');
+    }
+
+    document.getElementById('statusForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const bId = document.getElementById('statusBookingId').value;
+        const nextStatus = document.getElementById('newStatusSelect').value;
+
+        StorageManager.updateBookingStatus(bId, nextStatus);
+        closeStatusModal();
+        Utils.showToast(`Booking ${bId} updated to ${nextStatus}.`, 'success');
+        loadAllBookings();
+    });
+
+    function adminCancelBooking(id) {
+        Utils.confirm(`Are you sure you want to cancel booking ${id}?`, () => {
+            StorageManager.cancelBooking(id, 'Cancelled by Admin Operations');
+            Utils.showToast(`Booking ${id} cancelled.`, 'success');
+            loadAllBookings();
+        });
+    }
+
+    function exportBookingsCSV() {
+        if (allBookingsList.length === 0) {
+            Utils.showToast('No bookings to export.', 'warning');
+            return;
+        }
+
+        const headers = ['Booking ID', 'Customer Name', 'Phone', 'Email', 'Service', 'Pickup', 'Destination', 'Date', 'Time', 'Vehicle', 'Fare', 'Payment Status', 'Booking Status'];
+        const rows = allBookingsList.map(b => [
+            b.id,
+            b.customerName,
+            b.customerPhone,
+            b.customerEmail,
+            b.serviceType,
+            b.pickup,
+            b.destination,
+            b.journeyDate,
+            b.journeyTime,
+            b.vehicleType,
+            b.estimatedFare,
+            b.paymentStatus,
+            b.bookingStatus
+        ]);
+
+        StorageManager.exportToCSV('travelnex_all_bookings', headers, rows);
+        Utils.showToast('Full Bookings CSV exported!', 'success');
+    }
+
+    // Live update when driver or customer acts
+    window.addEventListener('travelnex_storage_changed', (e) => {
+        if (['travelnex_bookings', 'travelnex_drivers'].includes(e.detail.key)) {
+            loadAllBookings();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', loadAllBookings);
+</script>
+</body>
+</html>

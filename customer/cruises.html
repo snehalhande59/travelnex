@@ -1,0 +1,907 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Cruises & Ocean Voyages | TRAVELNEX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/common.css">
+
+<style>
+:root {
+    --gold: #F5B51B;
+    --gold-hover: #DE9F0C;
+    --gold-light: #FEF8E7;
+    --primary: #07377F;
+    --navy: #0B2B63;
+    --navy-dark: #061C40;
+    --pink: #F5B51B;
+    --text-dark: #14233F;
+}
+
+/* Page Hero */
+.cruise-hero {
+    background: linear-gradient(135deg, rgba(7, 55, 127, 0.92) 0%, rgba(11, 43, 99, 0.88) 60%, rgba(245, 181, 27, 0.5) 100%),
+                url('https://images.unsplash.com/photo-1548574505-5e239809ee19?w=1920&auto=format&fit=crop&q=80') center/cover no-repeat;
+    color: #ffffff;
+    padding: 55px 0 70px;
+    text-align: center;
+}
+.cruise-hero .hero-pill {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 5px 14px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+}
+.cruise-hero h1 {
+    font-size: clamp(28px, 3.5vw, 34px);
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 10px;
+    line-height: 1.25;
+}
+.cruise-hero p {
+    font-size: 13.5px;
+    color: #e9d5ff;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Filter Card */
+.cruise-filter-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-top: -32px;
+    box-shadow: 0 12px 32px rgba(46, 16, 101, 0.08);
+    border: 1px solid #edf0f5;
+    position: relative;
+    z-index: 10;
+}
+.filter-form-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) auto;
+    gap: 16px;
+    align-items: flex-end;
+}
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.filter-group label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #6b5e7d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.filter-group select,
+.filter-group input {
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #1e1338;
+    background: #ffffff;
+    outline: none;
+    transition: var(--transition);
+}
+.filter-group select:focus,
+.filter-group input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(200, 147, 39, 0.15);
+}
+
+/* Cruise Grid */
+.cruise-section {
+    padding: 48px 0 65px;
+}
+.cruise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    margin-top: 28px;
+}
+.cruise-card {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #edf0f5;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(46, 16, 101, 0.05);
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+}
+.cruise-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(46, 16, 101, 0.12);
+}
+.cruise-card-img-wrap {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+.cruise-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.cruise-card:hover .cruise-card-img-wrap img {
+    transform: scale(1.05);
+}
+.cruise-badge-ship {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(27, 7, 66, 0.85);
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    backdrop-filter: blur(4px);
+}
+.cruise-badge-duration {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(200, 147, 39, 0.95);
+    color: #ffffff;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.cruise-card-body {
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.cruise-card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.35;
+    margin-bottom: 8px;
+}
+.cruise-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12.5px;
+    color: #6b5e7d;
+    margin-bottom: 12px;
+}
+.cruise-meta-row i {
+    color: var(--gold);
+}
+.cruise-cabins {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+.cabin-tag {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 4px;
+}
+.cruise-highlights {
+    list-style: none;
+    margin-bottom: 16px;
+    padding: 0;
+    font-size: 12px;
+    color: #4b3d60;
+}
+.cruise-highlights li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+}
+.cruise-highlights li i {
+    color: var(--gold);
+    font-size: 11px;
+}
+.cruise-card-footer {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid #edf0f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.cruise-price-block {
+    display: flex;
+    flex-direction: column;
+}
+.price-label {
+    font-size: 11px;
+    color: #8b8398;
+}
+.price-value {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--navy);
+    font-family: 'Outfit', sans-serif;
+}
+.price-strike {
+    font-size: 12px;
+    color: #a0aec0;
+    text-decoration: line-through;
+    margin-left: 4px;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 7, 34, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.modal-overlay.active {
+    display: flex;
+}
+.modal-box {
+    background: #ffffff;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: modalPop 0.25s ease-out;
+}
+@keyframes modalPop {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+.modal-header {
+    background: var(--navy);
+    color: #ffffff;
+    padding: 16px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-header h3 {
+    color: #ffffff;
+    font-size: 17px;
+    margin: 0;
+}
+.modal-close-btn {
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+.modal-body {
+    padding: 22px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.form-row {
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.form-row label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #4b3d60;
+}
+.form-row input, .form-row select {
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 13.5px;
+}
+
+@media (max-width: 992px) {
+    .filter-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .cruise-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 640px) {
+    .filter-form-grid {
+        grid-template-columns: 1fr;
+    }
+    .cruise-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- 1. EXACT CUSTOMER NAVBAR (Strict Reference Match) -->
+<header class="site-navbar">
+    <div class="container site-navbar-container">
+        <!-- Logo on the left -->
+        <a href="index.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <span>TRAVEL<strong>NEX</strong></span>
+        </a>
+
+        <!-- Exact 8 Menu Items in exact order -->
+        <nav class="site-nav-menu">
+            <ul class="site-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="nav-dropdown-item">
+                    <a href="javascript:void(0)" class="nav-dropdown-toggle">
+                        <span>Services</span> <i class="fa-solid fa-chevron-down nav-caret"></i>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <a href="local-taxi.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-taxi"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Local Taxi Services</span>
+                                <span class="nav-dropdown-sub">City point-to-point & hourly cabs</span>
+                            </div>
+                        </a>
+                        <a href="outstation-cabs.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-car-side"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Outstation Cabs</span>
+                                <span class="nav-dropdown-sub">One-way & round-trip intercity</span>
+                            </div>
+                        </a>
+                        <a href="airport-transfer.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-plane-departure"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Airport Pickup & Drop</span>
+                                <span class="nav-dropdown-sub">Reliable flight pickup transfers</span>
+                            </div>
+                        </a>
+                        <a href="mini-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-van-shuttle"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Mini Bus Booking</span>
+                                <span class="nav-dropdown-sub">12–26 seater Tempo Traveller</span>
+                            </div>
+                        </a>
+                        <a href="luxury-bus.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Luxury Bus Booking</span>
+                                <span class="nav-dropdown-sub">32–55 seater AC Volvo coaches</span>
+                            </div>
+                        </a>
+                        <a href="group-transportation.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-users"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Group Transportation</span>
+                                <span class="nav-dropdown-sub">Corporate offsites & weddings</span>
+                            </div>
+                        </a>
+                        <a href="railway-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-train"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Railway Ticket Booking</span>
+                                <span class="nav-dropdown-sub">IRCTC verified booking inquiry</span>
+                            </div>
+                        </a>
+                        <a href="st-bus-booking.html" class="nav-dropdown-link">
+                            <span class="nav-dropdown-icon"><i class="fa-solid fa-bus-simple"></i></span>
+                            <div class="nav-dropdown-info">
+                                <span class="nav-dropdown-title">Maharashtra ST Bus Booking</span>
+                                <span class="nav-dropdown-sub">Shivneri, Shivshahi & Lalpari</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="packages.html">Tour Packages</a></li>
+                <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Right Side: Gold Book Your Trip Button -->
+        <div class="site-nav-actions">
+            <a href="packages.html" class="btn-book-trip d-none-mobile">
+                <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+            </a>
+            <button class="nav-hamburger" id="navToggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+        <a href="index.html" class="brand-logo">
+            <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+            <div class="brand-text">
+                <span class="brand-name">TRAVEL<strong>NEX</strong></span>
+                <span class="brand-tagline">Travel Beyond Limits</span>
+            </div>
+        </a>
+        <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close Navigation">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="mobile-dropdown-parent">
+            <a href="javascript:void(0)" class="mobile-dropdown-toggle" onclick="toggleMobileServices(this)">
+                <span>Services</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <div class="mobile-sub-menu show" id="mobileServicesSub">
+                <a href="local-taxi.html"><i class="fa-solid fa-taxi"></i> Local Taxi Services</a>
+                <a href="outstation-cabs.html"><i class="fa-solid fa-car-side"></i> Outstation Cabs</a>
+                <a href="airport-transfer.html"><i class="fa-solid fa-plane-departure"></i> Airport Pickup & Drop</a>
+                <a href="mini-bus.html"><i class="fa-solid fa-van-shuttle"></i> Mini Bus Booking</a>
+                <a href="luxury-bus.html"><i class="fa-solid fa-bus"></i> Luxury Bus Booking</a>
+                <a href="group-transportation.html"><i class="fa-solid fa-users"></i> Group Transportation</a>
+                <a href="railway-booking.html"><i class="fa-solid fa-train"></i> Railway Ticket Booking</a>
+                <a href="st-bus-booking.html"><i class="fa-solid fa-bus-simple"></i> Maharashtra ST Bus Booking</a>
+            </div>
+        </li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="packages.html">Tour Packages</a></li>
+        <li><a href="../corporate/corporate.html">Corporate Transportation</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="mobile-nav-footer">
+        <a href="packages.html" class="btn-book-trip" style="width:100%; justify-content:center;">
+            <span>Book Your Trip</span> <i class="fa-solid fa-plane"></i>
+        </a>
+    </div>
+</div>
+
+<!-- 2. HERO SECTION -->
+<section class="cruise-hero">
+    <div class="container">
+        <div class="hero-pill"><i class="fa-solid fa-anchor"></i> All-Inclusive Ocean & Backwater Voyages</div>
+        <h1>Luxury Cruise Vacations</h1>
+        <p>Sail with world-renowned luxury liners across the Arabian Sea, Singapore, the Mediterranean, and Greek Isles with fine dining, Broadway shows, and exotic shore excursions.</p>
+    </div>
+</section>
+
+<!-- 3. CRUISE SEARCH & FILTER -->
+<div class="container">
+    <div class="cruise-filter-card">
+        <div class="filter-form-grid">
+            <div class="filter-group">
+                <label><i class="fa-solid fa-location-dot"></i> Departure Port</label>
+                <select id="filterPort" onchange="applyCruiseFilter()">
+                    <option value="all">All Departure Ports</option>
+                    <option value="Mumbai">Mumbai Port Trust</option>
+                    <option value="Singapore">Singapore Marina Bay</option>
+                    <option value="Dubai">Dubai Harbour Terminal</option>
+                    <option value="Barcelona">Barcelona, Spain</option>
+                    <option value="Athens">Athens, Greece</option>
+                    <option value="Alleppey">Alleppey, Kerala</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label><i class="fa-solid fa-clock"></i> Duration</label>
+                <select id="filterDuration" onchange="applyCruiseFilter()">
+                    <option value="all">Any Duration</option>
+                    <option value="short">3 - 4 Nights</option>
+                    <option value="medium">5 - 6 Nights</option>
+                    <option value="long">7+ Nights</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label><i class="fa-solid fa-indian-rupee-sign"></i> Budget</label>
+                <select id="filterBudget" onchange="applyCruiseFilter()">
+                    <option value="all">Any Budget</option>
+                    <option value="30000">Under ₹30,000</option>
+                    <option value="70000">Under ₹70,000</option>
+                    <option value="100000">Under ₹1,00,000</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label><i class="fa-solid fa-arrow-down-short-wide"></i> Sort By</label>
+                <select id="sortCruises" onchange="applyCruiseFilter()">
+                    <option value="rating">Top Rated</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>&nbsp;</label>
+                <button type="button" class="btn btn-gold" onclick="resetCruiseFilter()" style="width: 100%;">
+                    <i class="fa-solid fa-rotate-left"></i> Reset
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 4. CRUISE LISTINGS -->
+<section class="cruise-section">
+    <div class="container">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <div>
+                <h2 style="font-size:24px; font-weight:700; color:var(--navy); margin-bottom:4px;">Available Cruise Packages</h2>
+                <p style="font-size:13px; color:#6b5e7d;" id="cruiseCountText">Showing curated luxury voyages</p>
+            </div>
+        </div>
+
+        <div class="cruise-grid" id="cruiseGridContainer">
+            <!-- Dynamically populated from StorageManager -->
+        </div>
+    </div>
+</section>
+
+<!-- 5. BOOKING MODAL -->
+<div class="modal-overlay" id="cruiseBookingModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="modalCruiseTitle">Book Your Cruise</h3>
+            <button class="modal-close-btn" onclick="closeCruiseModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="cruiseBookingForm" onsubmit="handleCruiseBooking(event)">
+                <input type="hidden" id="bookCruiseId">
+                <input type="hidden" id="bookBasePrice">
+
+                <div class="form-row">
+                    <label>Selected Ship & Itinerary</label>
+                    <input type="text" id="bookCruiseName" readonly style="background:#f8fafc; font-weight:600;">
+                </div>
+
+                <div class="form-row">
+                    <label>Departure Date</label>
+                    <select id="bookCruiseDate" required></select>
+                </div>
+
+                <div class="form-row">
+                    <label>Select Cabin Category</label>
+                    <select id="bookCabinType" onchange="recalculateCruisePrice()" required></select>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div class="form-row">
+                        <label>Guests (Adults)</label>
+                        <select id="bookGuests" onchange="recalculateCruisePrice()">
+                            <option value="1">1 Guest</option>
+                            <option value="2" selected>2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label>Full Name</label>
+                        <input type="text" id="bookGuestName" placeholder="e.g. Rahul Sharma" required>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div class="form-row">
+                        <label>Email Address</label>
+                        <input type="email" id="bookGuestEmail" placeholder="rahul@example.com" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Contact Phone</label>
+                        <input type="tel" id="bookGuestPhone" placeholder="+91 98765 43210" required>
+                    </div>
+                </div>
+
+                <div style="background:#fef7e6; border:1px solid #f9df9e; border-radius:8px; padding:12px 16px; margin:14px 0;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:13px; color:#78350f; font-weight:600;">Estimated Total Fare:</span>
+                        <span style="font-size:20px; font-weight:800; color:#78350f; font-family:'Outfit';" id="modalTotalPrice">₹0</span>
+                    </div>
+                    <span style="font-size:11px; color:#92400e; display:block; margin-top:2px;">Includes port taxes, stateroom accommodation & gourmet meals.</span>
+                </div>
+
+                <div style="display:flex; gap:10px; margin-top:16px;">
+                    <button type="button" class="btn" style="background:#e2e8f0; color:#334155; flex:1;" onclick="closeCruiseModal()">Cancel</button>
+                    <button type="submit" class="btn btn-gold" style="flex:2;">Confirm & Reserve Stateroom</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 6. STANDARD FOOTER -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="brand-logo" style="color:#ffffff;">
+                    <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+                    <span style="color:#ffffff;">TRAVEL<strong style="color:var(--pink);">NEX</strong></span>
+                </a>
+                <p>TRAVELNEX is India's leading comprehensive tours, mobility, cruises and travel management platform designed for memorable adventures.</p>
+                <div class="footer-socials">
+                    <a href="javascript:void(0)"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="javascript:void(0)"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="javascript:void(0)"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="javascript:void(0)"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Navigation</h3>
+                <a href="index.html">Home</a>
+                <a href="destinations.html">Destinations</a>
+                <a href="packages.html">Vacation Packages</a>
+                <a href="cruises.html">Cruises</a>
+                <a href="flights.html">Flights</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h3>Travel Services</h3>
+                <a href="cab-booking.html">Local & Airport Cabs</a>
+                <a href="outstation-booking.html">Outstation Rides</a>
+                <a href="bus-booking.html">Luxury Buses</a>
+                <a href="train-booking.html">Train Reservations</a>
+                <a href="../corporate/corporate.html">Corporate Travel</a>
+            </div>
+            <div class="footer-col">
+                <h3>Contact & Support</h3>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>+91 98220 12345 / 1800-209-7788</div>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>support@travelnex.com</div>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>TRAVELNEX House, Senapati Bapat Road, Pune 411016</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 TRAVELNEX Technologies Pvt. Ltd. All Rights Reserved.</span>
+            <div>
+                <a href="javascript:void(0)">Privacy Policy</a>
+                <a href="javascript:void(0)">Terms of Service</a>
+                <a href="javascript:void(0)">Support FAQ</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+
+<script>
+let allCruises = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+    allCruises = StorageManager.getCruises();
+    renderCruises(allCruises);
+
+    // Pre-fill user if logged in
+    const user = AuthManager.getCurrentUser();
+    if (user) {
+        document.getElementById('bookGuestName').value = user.name || '';
+        document.getElementById('bookGuestEmail').value = user.email || '';
+        document.getElementById('bookGuestPhone').value = user.phone || '';
+    }
+});
+
+function renderCruises(cruises) {
+    const container = document.getElementById('cruiseGridContainer');
+    const countEl = document.getElementById('cruiseCountText');
+    if (!container) return;
+
+    countEl.textContent = `Showing ${cruises.length} luxury voyages matching your preferences`;
+
+    if (cruises.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 48px; background: #fff; border-radius: 12px; border: 1px solid #edf0f5;">
+                <i class="fa-solid fa-ship" style="font-size: 38px; color: #cbd5e1; margin-bottom: 12px;"></i>
+                <h3 style="font-size: 18px; color: var(--navy); margin-bottom: 6px;">No cruises match your filter criteria</h3>
+                <p style="font-size: 13px; color: #6b5e7d; margin-bottom: 16px;">Try adjusting your departure port or budget filters.</p>
+                <button class="btn btn-gold" onclick="resetCruiseFilter()">Show All Cruises</button>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = cruises.map(cruise => {
+        const cabinBadges = (cruise.cabins || []).slice(0, 3).map(c => `<span class="cabin-tag">${c}</span>`).join('');
+        const highlightsList = (cruise.highlights || []).slice(0, 3).map(h => `<li><i class="fa-solid fa-check"></i> ${h}</li>`).join('');
+
+        return `
+            <div class="cruise-card">
+                <div class="cruise-card-img-wrap">
+                    <img src="${cruise.image}" alt="${cruise.title}" loading="lazy">
+                    <div class="cruise-badge-ship"><i class="fa-solid fa-ship"></i> ${cruise.shipName}</div>
+                    <div class="cruise-badge-duration"><i class="fa-solid fa-moon"></i> ${cruise.duration}</div>
+                </div>
+                <div class="cruise-card-body">
+                    <h3 class="cruise-card-title">${cruise.title}</h3>
+                    <div class="cruise-meta-row">
+                        <span><i class="fa-solid fa-anchor"></i> ${cruise.departurePort}</span>
+                        <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> ${cruise.rating} (${cruise.reviewsCount})</span>
+                    </div>
+
+                    <div class="cruise-cabins">
+                        ${cabinBadges}
+                    </div>
+
+                    <ul class="cruise-highlights">
+                        ${highlightsList}
+                    </ul>
+
+                    <div class="cruise-card-footer">
+                        <div class="cruise-price-block">
+                            <span class="price-label">Starting per person</span>
+                            <div>
+                                <span class="price-value">₹${cruise.price.toLocaleString('en-IN')}</span>
+                                ${cruise.originalPrice ? `<span class="price-strike">₹${cruise.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-gold" onclick="openCruiseBooking('${cruise.id}')">
+                            Book Stateroom
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function applyCruiseFilter() {
+    const port = document.getElementById('filterPort').value;
+    const duration = document.getElementById('filterDuration').value;
+    const budget = document.getElementById('filterBudget').value;
+    const sortBy = document.getElementById('sortCruises').value;
+
+    let filtered = [...allCruises];
+
+    if (port !== 'all') {
+        filtered = filtered.filter(c => c.departurePort.toLowerCase().includes(port.toLowerCase()));
+    }
+
+    if (duration !== 'all') {
+        if (duration === 'short') filtered = filtered.filter(c => c.nights <= 4);
+        else if (duration === 'medium') filtered = filtered.filter(c => c.nights >= 5 && c.nights <= 6);
+        else if (duration === 'long') filtered = filtered.filter(c => c.nights >= 7);
+    }
+
+    if (budget !== 'all') {
+        const maxBudget = parseInt(budget, 10);
+        filtered = filtered.filter(c => c.price <= maxBudget);
+    }
+
+    if (sortBy === 'rating') {
+        filtered.sort((a, b) => b.rating - a.rating);
+    } else if (sortBy === 'price-asc') {
+        filtered.sort((a, b) => a.price - b.price);
+    } else if (sortBy === 'price-desc') {
+        filtered.sort((a, b) => b.price - a.price);
+    }
+
+    renderCruises(filtered);
+}
+
+function resetCruiseFilter() {
+    document.getElementById('filterPort').value = 'all';
+    document.getElementById('filterDuration').value = 'all';
+    document.getElementById('filterBudget').value = 'all';
+    document.getElementById('sortCruises').value = 'rating';
+    renderCruises(allCruises);
+}
+
+// Booking Modal Logic
+function openCruiseBooking(cruiseId) {
+    const cruise = StorageManager.getCruiseById(cruiseId);
+    if (!cruise) return;
+
+    document.getElementById('bookCruiseId').value = cruise.id;
+    document.getElementById('bookBasePrice').value = cruise.price;
+    document.getElementById('bookCruiseName').value = `${cruise.title} (${cruise.shipName})`;
+
+    // Populate dates
+    const dateSelect = document.getElementById('bookCruiseDate');
+    dateSelect.innerHTML = (cruise.departureDates || []).map(d => `<option value="${d}">${d}</option>`).join('');
+
+    // Populate cabins
+    const cabinSelect = document.getElementById('bookCabinType');
+    cabinSelect.innerHTML = (cruise.cabins || ['Standard Cabin']).map((c, idx) => {
+        const extra = idx === 0 ? 0 : idx * 6500;
+        return `<option value="${c}" data-extra="${extra}">${c} ${extra ? `(+₹${extra.toLocaleString('en-IN')})` : '(Base Fare)'}</option>`;
+    }).join('');
+
+    recalculateCruisePrice();
+    document.getElementById('cruiseBookingModal').classList.add('active');
+}
+
+function closeCruiseModal() {
+    document.getElementById('cruiseBookingModal').classList.remove('active');
+}
+
+function recalculateCruisePrice() {
+    const basePrice = parseInt(document.getElementById('bookBasePrice').value || 0, 10);
+    const guests = parseInt(document.getElementById('bookGuests').value || 1, 10);
+    const cabinOption = document.getElementById('bookCabinType');
+    const extraPerGuest = parseInt(cabinOption.options[cabinOption.selectedIndex]?.dataset?.extra || 0, 10);
+
+    const total = (basePrice + extraPerGuest) * guests;
+    document.getElementById('modalTotalPrice').textContent = `₹${total.toLocaleString('en-IN')}`;
+}
+
+function handleCruiseBooking(e) {
+    e.preventDefault();
+    const cruiseId = document.getElementById('bookCruiseId').value;
+    const cruise = StorageManager.getCruiseById(cruiseId);
+    if (!cruise) return;
+
+    const guests = parseInt(document.getElementById('bookGuests').value, 10);
+    const cabin = document.getElementById('bookCabinType').value;
+    const date = document.getElementById('bookCruiseDate').value;
+    const name = document.getElementById('bookGuestName').value;
+    const email = document.getElementById('bookGuestEmail').value;
+    const phone = document.getElementById('bookGuestPhone').value;
+
+    const basePrice = parseInt(document.getElementById('bookBasePrice').value, 10);
+    const cabinOption = document.getElementById('bookCabinType');
+    const extraPerGuest = parseInt(cabinOption.options[cabinOption.selectedIndex]?.dataset?.extra || 0, 10);
+    const totalAmount = (basePrice + extraPerGuest) * guests;
+
+    const bookingPayload = {
+        serviceType: 'Cruise Vacation',
+        pickup: cruise.departurePort,
+        destination: cruise.destination,
+        date: date,
+        time: '12:00 PM Embarkation',
+        totalFare: totalAmount,
+        status: 'Confirmed',
+        customerName: name,
+        customerEmail: email,
+        customerPhone: phone,
+        notes: `Ship: ${cruise.shipName} | Cabin: ${cabin} | Guests: ${guests}`,
+        vehicleType: cruise.shipName
+    };
+
+    const newBooking = StorageManager.createBooking(bookingPayload);
+    closeCruiseModal();
+    Utils.showToast(`Cruise stateroom reserved successfully! Booking ID: ${newBooking.id}`, 'success');
+
+    setTimeout(() => {
+        window.location.href = `my-bookings.html?bookingId=${newBooking.id}`;
+    }, 1200);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details | TRAVELNEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 25px 0 35px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            right: 30px;
+            height: 3px;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+        .timeline-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            background: #fff;
+            padding: 0 10px;
+        }
+        .timeline-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #64748b;
+            display: grid;
+            place-items: center;
+            font-size: 13px;
+            margin: 0 auto 6px;
+        }
+        .timeline-step.active .timeline-icon {
+            background: var(--blue);
+            color: #fff;
+        }
+        .timeline-step.completed .timeline-icon {
+            background: var(--success);
+            color: #fff;
+        }
+        .timeline-label {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .timeline-step.active .timeline-label {
+            color: var(--navy);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="index.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-route"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Customer</span>
+        </div>
+        <div class="sidebar-menu">
+            <a href="my-bookings.html" class="sidebar-link active">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>My Bookings</span>
+            </a>
+            <a href="profile.html" class="sidebar-link">
+                <i class="fa-solid fa-user-gear"></i>
+                <span>My Profile</span>
+            </a>
+            <div class="sidebar-section-title">Quick Links</div>
+            <a href="local-taxi.html" class="sidebar-link">
+                <i class="fa-solid fa-taxi"></i>
+                <span>Local Taxi</span>
+            </a>
+            <a href="outstation-cabs.html" class="sidebar-link">
+                <i class="fa-solid fa-car"></i>
+                <span>Outstation Cabs</span>
+            </a>
+            <a href="airport-transfer.html" class="sidebar-link">
+                <i class="fa-solid fa-plane-departure"></i>
+                <span>Airport Transfers</span>
+            </a>
+            <a href="mini-bus.html" class="sidebar-link">
+                <i class="fa-solid fa-van-shuttle"></i>
+                <span>Mini Bus</span>
+            </a>
+            <a href="packages.html" class="sidebar-link">
+                <i class="fa-solid fa-suitcase"></i>
+                <span>Tour Packages</span>
+            </a>
+        </div>
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">A</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">Customer User</div>
+                <div class="sidebar-user-role">Customer Account</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="my-bookings.html">My Bookings</a> &gt; Booking Details</div>
+                    <h1 class="page-title" id="pageHeading">Booking Details</h1>
+                </div>
+            </div>
+            <div class="header-right">
+                <button type="button" class="btn btn-outline btn-sm" onclick="history.back()">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" id="printInvoiceBtn">
+                    <i class="fa-solid fa-print"></i> Print Invoice
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <div id="bookingDetailsCard" class="table-card" style="padding: 30px; max-width: 900px; margin: 0 auto;">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const user = Auth.requireRole('customer', 'login.html');
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookingId = urlParams.get('id') || 'TNX-BOOKING-1001';
+
+    function renderBookingDetails() {
+        const b = StorageManager.getBookingById(bookingId);
+        const card = document.getElementById('bookingDetailsCard');
+
+        if (!b) {
+            card.innerHTML = `
+                <div class="empty-state">
+                    <h3>Booking Not Found</h3>
+                    <p>Could not locate records for reference ${Utils.escapeHTML(bookingId)}.</p>
+                    <a href="my-bookings.html" class="btn btn-primary">Return to My Bookings</a>
+                </div>
+            `;
+            return;
+        }
+
+        const driver = b.driverId ? StorageManager.getDriverById(b.driverId) : null;
+        const vehicle = b.vehicleId ? StorageManager.getVehicleById(b.vehicleId) : null;
+
+        // Timeline step calculation
+        const status = b.bookingStatus;
+        const sPending = 'completed';
+        const sConfirmed = ['Confirmed', 'In Progress', 'Completed'].includes(status) ? (status === 'Confirmed' ? 'active' : 'completed') : '';
+        const sStarted = ['In Progress', 'Completed'].includes(status) ? (status === 'In Progress' ? 'active' : 'completed') : '';
+        const sCompleted = status === 'Completed' ? 'completed active' : '';
+
+        card.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+                <div>
+                    <span style="font-size: 12px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 1px;">
+                        ${Utils.escapeHTML(b.serviceType)}
+                    </span>
+                    <h2 style="font-size: 24px; margin-top: 4px;">${Utils.escapeHTML(b.id)}</h2>
+                    <p style="font-size: 13px; color: var(--text-muted);">Booked on ${Utils.formatDateTime(b.createdAt)}</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="margin-bottom: 6px;">${Utils.getStatusBadge(b.bookingStatus)}</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--navy);">${Utils.formatCurrency(b.estimatedFare)}</div>
+                    <span style="font-size: 12px; color: ${b.paymentStatus === 'Paid' ? 'var(--success)' : 'var(--warning)'}; font-weight: 600;">
+                        Payment: ${Utils.escapeHTML(b.paymentStatus)}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Trip Lifecycle Timeline -->
+            <div class="timeline">
+                <div class="timeline-step ${sPending}">
+                    <div class="timeline-icon"><i class="fa-solid fa-file-lines"></i></div>
+                    <div class="timeline-label">Requested</div>
+                </div>
+                <div class="timeline-step ${sConfirmed}">
+                    <div class="timeline-icon"><i class="fa-solid fa-check"></i></div>
+                    <div class="timeline-label">Confirmed</div>
+                </div>
+                <div class="timeline-step ${sStarted}">
+                    <div class="timeline-icon"><i class="fa-solid fa-car-side"></i></div>
+                    <div class="timeline-label">In Progress</div>
+                </div>
+                <div class="timeline-step ${sCompleted}">
+                    <div class="timeline-icon"><i class="fa-solid fa-flag-checkered"></i></div>
+                    <div class="timeline-label">Completed</div>
+                </div>
+            </div>
+
+            <!-- Route & Schedule -->
+            <div style="background: var(--light); padding: 20px; border-radius: var(--radius-md); margin-bottom: 24px;">
+                <h4 style="margin-bottom: 14px; font-size: 16px;"><i class="fa-solid fa-map-location-dot" style="color:var(--blue);"></i> Journey Itinerary</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-muted); font-weight: 700;">PICKUP LOCATION</div>
+                        <div style="font-size: 15px; font-weight: 600; color: var(--navy); margin-top: 2px;">
+                            ${Utils.escapeHTML(b.pickup)}
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-muted); font-weight: 700;">DESTINATION DROP</div>
+                        <div style="font-size: 15px; font-weight: 600; color: var(--navy); margin-top: 2px;">
+                            ${Utils.escapeHTML(b.destination)}
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-muted); font-weight: 700;">DEPARTURE DATE & TIME</div>
+                        <div style="font-size: 14px; margin-top: 2px;">
+                            ${Utils.formatDate(b.journeyDate)} at ${Utils.escapeHTML(b.journeyTime || '--:--')}
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-muted); font-weight: 700;">PASSENGERS & CLASS</div>
+                        <div style="font-size: 14px; margin-top: 2px;">
+                            ${b.passengers} Passenger(s) • ${Utils.escapeHTML(b.vehicleType || 'Standard')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Driver & Fleet Allocation -->
+            <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; margin-bottom: 24px;">
+                <h4 style="margin-bottom: 12px; font-size: 16px;"><i class="fa-solid fa-id-badge" style="color:var(--orange);"></i> Chauffeur & Vehicle Allocation</h4>
+                ${driver ? `
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 14px;">
+                            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--blue-light); color: var(--blue); display: grid; place-items: center; font-size: 20px;">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 16px;">${Utils.escapeHTML(driver.name)}</h4>
+                                <p style="font-size: 13px; color: var(--text-muted);">
+                                    <i class="fa-solid fa-phone"></i> ${Utils.escapeHTML(driver.phone)} • Rating: <strong>${driver.rating} ★</strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 15px; font-weight: 700; color: var(--navy);">
+                                ${vehicle ? Utils.escapeHTML(vehicle.name) : 'Fleet Vehicle'}
+                            </div>
+                            <div style="font-size: 13px; color: var(--blue); font-weight: 600;">
+                                ${vehicle ? Utils.escapeHTML(vehicle.regNumber) : 'Assigned'}
+                            </div>
+                        </div>
+                    </div>
+                ` : `
+                    <p style="font-size: 13.5px; color: var(--text-muted); font-style: italic;">
+                        Driver and vehicle assignment is pending. As soon as the operations dispatcher confirms your booking, live driver contact details will display here.
+                    </p>
+                `}
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <a href="my-bookings.html" class="btn btn-outline"><i class="fa-solid fa-arrow-left"></i> Back to My Bookings</a>
+                <button type="button" class="btn btn-primary" onclick="Utils.showInvoiceModal('${b.id}')">
+                    <i class="fa-solid fa-file-invoice"></i> View Tax Invoice
+                </button>
+            </div>
+        `;
+
+        document.getElementById('printInvoiceBtn').onclick = () => Utils.showInvoiceModal(b.id);
+    }
+
+    document.addEventListener('DOMContentLoaded', renderBookingDetails);
+</script>
+</body>
+</html>

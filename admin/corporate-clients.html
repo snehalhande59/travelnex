@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Clients Management | TRAVELNEX Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="admin-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Super Admin</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Core Management</div>
+            <a href="admin-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard Overview</span>
+            </a>
+            <a href="bookings.html" class="sidebar-link">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Booking Management</span>
+            </a>
+            <a href="customers.html" class="sidebar-link">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Customer Accounts</span>
+            </a>
+            <a href="corporate-clients.html" class="sidebar-link active">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Corporate Clients</span>
+                <span class="nav-count" id="badgeCorps">0</span>
+            </a>
+
+            <div class="sidebar-section-title">Fleet & Operations</div>
+            <a href="drivers.html" class="sidebar-link">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Drivers Management</span>
+            </a>
+            <a href="vehicles.html" class="sidebar-link">
+                <i class="fa-solid fa-taxi"></i>
+                <span>Vehicles & Fleet</span>
+            </a>
+            <a href="services.html" class="sidebar-link">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Services & Rates</span>
+            </a>
+
+            <div class="sidebar-section-title">Financials & Reports</div>
+            <a href="payments.html" class="sidebar-link">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Payment Records</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Invoices Management</span>
+            </a>
+            <a href="reports.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports & Analytics</span>
+            </a>
+            <a href="settings.html" class="sidebar-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>System Settings</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">A</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">Chief Admin</div>
+                <div class="sidebar-user-role">Super Administrator</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../admin/admin-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="admin-dashboard.html">Admin</a> &gt; B2B Clients</div>
+                    <h1 class="page-title">Corporate Accounts & SLA Management</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button type="button" class="btn btn-primary btn-sm" onclick="openAddCorpModal()">
+                    <i class="fa-solid fa-plus"></i> Add Corporate Client
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Corporate Enterprise Contracts</div>
+                    <div class="table-filters">
+                        <div class="search-input-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="searchCorp" placeholder="Search company, contact, GSTIN..." oninput="filterCorps()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Client ID</th>
+                                <th>Company Name</th>
+                                <th>Authorized Contact</th>
+                                <th>GSTIN & Address</th>
+                                <th>Credit Limit</th>
+                                <th>Employees</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpTableBody">
+                            <!-- Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Add / Edit Corporate Client Modal -->
+<div class="modal-overlay" id="corpModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="corpModalTitle">Add Corporate Account</h3>
+            <button type="button" class="modal-close-btn" onclick="closeCorpModal()">&times;</button>
+        </div>
+        <form id="corpClientForm">
+            <div class="modal-body">
+                <input type="hidden" id="corpId">
+                <div class="form-group">
+                    <label for="corpCompanyName">Company Name</label>
+                    <input type="text" id="corpCompanyName" class="form-control" placeholder="e.g. Wipro Limited" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="corpContact">Contact Person</label>
+                        <input type="text" id="corpContact" class="form-control" placeholder="Full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="corpPhone">Phone</label>
+                        <input type="tel" id="corpPhone" class="form-control" placeholder="9822011111" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="corpEmail">Email</label>
+                        <input type="email" id="corpEmail" class="form-control" placeholder="corp@domain.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="corpGstin">GSTIN</label>
+                        <input type="text" id="corpGstin" class="form-control" placeholder="27AAACT1234F1Z1" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="corpCredit">Credit Limit (₹)</label>
+                        <input type="number" id="corpCredit" class="form-control" value="200000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="corpStatus">Approval Status</label>
+                        <select id="corpStatus" class="form-control">
+                            <option value="Approved">Approved</option>
+                            <option value="Pending">Pending Review</option>
+                            <option value="Suspended">Suspended</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeCorpModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Client Profile</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const adminUser = Auth.requireRole('admin', 'admin-login.html');
+    let clientsList = [];
+
+    function loadClients() {
+        clientsList = StorageManager.getCorporateClients();
+        document.getElementById('badgeCorps').textContent = clientsList.length;
+        filterCorps();
+    }
+
+    function filterCorps() {
+        const q = document.getElementById('searchCorp').value.trim().toLowerCase();
+        const allEmployees = StorageManager.get('travelnex_employees', []);
+
+        const filtered = clientsList.filter(c => !q ||
+            c.companyName.toLowerCase().includes(q) ||
+            (c.contactPerson && c.contactPerson.toLowerCase().includes(q)) ||
+            (c.gstin && c.gstin.toLowerCase().includes(q)) ||
+            c.id.toLowerCase().includes(q)
+        );
+
+        const tbody = document.getElementById('corpTableBody');
+        tbody.innerHTML = '';
+
+        filtered.forEach(c => {
+            const empCount = allEmployees.filter(e => e.corporateId === c.id).length;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${Utils.escapeHTML(c.id)}</strong></td>
+                <td>
+                    <div style="font-weight:700; color:var(--navy); font-size:14px;">${Utils.escapeHTML(c.companyName)}</div>
+                    <small style="color:var(--text-muted); font-size:11px;">Joined: ${Utils.formatDate(c.registeredAt)}</small>
+                </td>
+                <td>
+                    <div style="font-weight:600;">${Utils.escapeHTML(c.contactPerson || 'N/A')}</div>
+                    <small style="color:var(--text-muted);">${Utils.escapeHTML(c.email)} • ${Utils.escapeHTML(c.phone)}</small>
+                </td>
+                <td>
+                    <strong>${Utils.escapeHTML(c.gstin || 'N/A')}</strong>
+                    <div style="font-size:11.5px; color:var(--text-muted);">${Utils.escapeHTML(c.address || 'Corporate Office')}</div>
+                </td>
+                <td><strong>${Utils.formatCurrency(c.creditLimit || 200000)}</strong></td>
+                <td><span class="badge badge-confirmed">${empCount} Active</span></td>
+                <td>
+                    <span class="badge ${c.status === 'Approved' ? 'badge-completed' : (c.status === 'Pending' ? 'badge-pending' : 'badge-cancelled')}">
+                        ${Utils.escapeHTML(c.status || 'Approved')}
+                    </span>
+                </td>
+                <td style="text-align: right;">
+                    <div class="table-actions" style="justify-content: flex-end;">
+                        <button class="action-btn edit" title="Edit Corporate" onclick="openEditCorpModal('${c.id}')">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="action-btn" title="Toggle Approve/Reject" onclick="toggleCorpStatus('${c.id}')">
+                            <i class="fa-solid fa-toggle-on"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function openAddCorpModal() {
+        document.getElementById('corpId').value = '';
+        document.getElementById('corpClientForm').reset();
+        document.getElementById('corpModalTitle').textContent = 'Add Corporate Client';
+        document.getElementById('corpModal').classList.add('active');
+    }
+
+    function openEditCorpModal(id) {
+        const c = clientsList.find(x => x.id === id);
+        if (!c) return;
+
+        document.getElementById('corpId').value = c.id;
+        document.getElementById('corpCompanyName').value = c.companyName;
+        document.getElementById('corpContact').value = c.contactPerson || '';
+        document.getElementById('corpPhone').value = c.phone || '';
+        document.getElementById('corpEmail').value = c.email || '';
+        document.getElementById('corpGstin').value = c.gstin || '';
+        document.getElementById('corpCredit').value = c.creditLimit || 200000;
+        document.getElementById('corpStatus').value = c.status || 'Approved';
+
+        document.getElementById('corpModalTitle').textContent = `Edit Client: ${c.companyName}`;
+        document.getElementById('corpModal').classList.add('active');
+    }
+
+    function closeCorpModal() {
+        document.getElementById('corpModal').classList.remove('active');
+    }
+
+    document.getElementById('corpClientForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const id = document.getElementById('corpId').value;
+        const saved = StorageManager.saveCorporateClient({
+            id: id || undefined,
+            companyName: document.getElementById('corpCompanyName').value.trim(),
+            contactPerson: document.getElementById('corpContact').value.trim(),
+            phone: document.getElementById('corpPhone').value.trim(),
+            email: document.getElementById('corpEmail').value.trim(),
+            gstin: document.getElementById('corpGstin').value.trim(),
+            creditLimit: Number(document.getElementById('corpCredit').value) || 200000,
+            status: document.getElementById('corpStatus').value
+        });
+
+        closeCorpModal();
+        Utils.showToast(`Corporate client ${saved.companyName} saved.`, 'success');
+        loadClients();
+    });
+
+    function toggleCorpStatus(id) {
+        const c = clientsList.find(x => x.id === id);
+        if (!c) return;
+        const next = c.status === 'Approved' ? 'Suspended' : 'Approved';
+        StorageManager.updateCorporateStatus(id, next);
+        Utils.showToast(`Corporate status updated to ${next}.`, 'info');
+        loadClients();
+    }
+
+    document.addEventListener('DOMContentLoaded', loadClients);
+</script>
+</body>
+</html>

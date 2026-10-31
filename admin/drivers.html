@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chauffeur & Driver Management | TRAVELNEX Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="admin-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Super Admin</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Core Management</div>
+            <a href="admin-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard Overview</span>
+            </a>
+            <a href="bookings.html" class="sidebar-link">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Booking Management</span>
+            </a>
+            <a href="customers.html" class="sidebar-link">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Customer Accounts</span>
+            </a>
+            <a href="corporate-clients.html" class="sidebar-link">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Corporate Clients</span>
+            </a>
+
+            <div class="sidebar-section-title">Fleet & Operations</div>
+            <a href="drivers.html" class="sidebar-link active">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Drivers Management</span>
+                <span class="nav-count" id="badgeDrivers">0</span>
+            </a>
+            <a href="vehicles.html" class="sidebar-link">
+                <i class="fa-solid fa-taxi"></i>
+                <span>Vehicles & Fleet</span>
+            </a>
+            <a href="services.html" class="sidebar-link">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Services & Rates</span>
+            </a>
+
+            <div class="sidebar-section-title">Financials & Reports</div>
+            <a href="payments.html" class="sidebar-link">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Payment Records</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Invoices Management</span>
+            </a>
+            <a href="reports.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports & Analytics</span>
+            </a>
+            <a href="settings.html" class="sidebar-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>System Settings</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">A</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">Chief Admin</div>
+                <div class="sidebar-user-role">Super Administrator</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../admin/admin-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="admin-dashboard.html">Admin</a> &gt; Fleet Personnel</div>
+                    <h1 class="page-title">Fleet Chauffeurs & Drivers Roster</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button type="button" class="btn btn-primary btn-sm" onclick="openAddDriverModal()">
+                    <i class="fa-solid fa-user-plus"></i> Add New Driver
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Registered Fleet Drivers</div>
+                    <div class="table-filters">
+                        <div class="search-input-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="searchDriver" placeholder="Search driver name, license, phone..." oninput="filterDrivers()">
+                        </div>
+
+                        <select id="availFilter" class="form-control" style="width: auto; height: 38px; font-size: 13px;" onchange="filterDrivers()">
+                            <option value="ALL">All Availabilities</option>
+                            <option value="Available">Available</option>
+                            <option value="On Trip">On Trip</option>
+                            <option value="Off Duty">Off Duty</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Driver ID</th>
+                                <th>Driver Name</th>
+                                <th>Contact & License</th>
+                                <th>Assigned Vehicle</th>
+                                <th>Rating & Trips</th>
+                                <th>Live Availability</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="driverTableBody">
+                            <!-- Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Add / Edit Driver Modal -->
+<div class="modal-overlay" id="driverModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="driverModalTitle">Add Fleet Driver</h3>
+            <button type="button" class="modal-close-btn" onclick="closeDriverModal()">&times;</button>
+        </div>
+        <form id="driverForm">
+            <div class="modal-body">
+                <input type="hidden" id="driverId">
+                <div class="form-group">
+                    <label for="driverName">Chauffeur Full Name</label>
+                    <input type="text" id="driverName" class="form-control" placeholder="e.g. Ramesh Pawar" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="driverPhone">Mobile Phone</label>
+                        <input type="tel" id="driverPhone" pattern="[0-9]{10}" class="form-control" placeholder="9822033333" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="driverEmail">Driver Email (for portal login)</label>
+                        <input type="email" id="driverEmail" class="form-control" placeholder="driver@travelnex.com" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="driverLicense">Commercial License No</label>
+                        <input type="text" id="driverLicense" class="form-control" placeholder="MH12-20150044812" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="driverVehicle">Assigned Vehicle</label>
+                        <select id="driverVehicle" class="form-control">
+                            <option value="">-- No Assigned Vehicle --</option>
+                            <!-- Injected -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="driverAvail">Availability Status</label>
+                        <select id="driverAvail" class="form-control">
+                            <option value="Available">Available</option>
+                            <option value="On Trip">On Trip</option>
+                            <option value="Off Duty">Off Duty</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="driverActive">Account Status</label>
+                        <select id="driverActive" class="form-control">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeDriverModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Driver Profile</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const adminUser = Auth.requireRole('admin', 'admin-login.html');
+    let drivers = [];
+    let vehicles = [];
+
+    function loadDrivers() {
+        drivers = StorageManager.getDrivers();
+        vehicles = StorageManager.getVehicles();
+        document.getElementById('badgeDrivers').textContent = drivers.length;
+        populateVehicleDropdown();
+        filterDrivers();
+    }
+
+    function populateVehicleDropdown() {
+        const select = document.getElementById('driverVehicle');
+        select.innerHTML = '<option value="">-- No Assigned Vehicle --</option>';
+        vehicles.forEach(v => {
+            const opt = document.createElement('option');
+            opt.value = v.id;
+            opt.textContent = `${v.name} (${v.regNumber})`;
+            select.appendChild(opt);
+        });
+    }
+
+    function filterDrivers() {
+        const q = document.getElementById('searchDriver').value.trim().toLowerCase();
+        const avail = document.getElementById('availFilter').value;
+
+        const filtered = drivers.filter(d => {
+            const matchesQ = !q ||
+                d.name.toLowerCase().includes(q) ||
+                (d.phone && d.phone.includes(q)) ||
+                (d.licenseNumber && d.licenseNumber.toLowerCase().includes(q)) ||
+                d.id.toLowerCase().includes(q);
+
+            const matchesAvail = avail === 'ALL' || d.availabilityStatus === avail;
+            return matchesQ && matchesAvail;
+        });
+
+        renderDriverTable(filtered);
+    }
+
+    function renderDriverTable(list) {
+        const tbody = document.getElementById('driverTableBody');
+        tbody.innerHTML = '';
+
+        list.forEach(d => {
+            const v = d.assignedVehicleId ? StorageManager.getVehicleById(d.assignedVehicleId) : null;
+            const tr = document.createElement('tr');
+
+            tr.innerHTML = `
+                <td><strong>${Utils.escapeHTML(d.id)}</strong></td>
+                <td>
+                    <div style="font-weight:700; color:var(--navy); font-size:14px;"><i class="fa-solid fa-user-tie"></i> ${Utils.escapeHTML(d.name)}</div>
+                    <small style="color:var(--text-muted); font-size:11px;">${Utils.escapeHTML(d.email || 'driver@travelnex.com')}</small>
+                </td>
+                <td>
+                    <div><i class="fa-solid fa-phone" style="font-size:11px; color:var(--text-muted);"></i> ${Utils.escapeHTML(d.phone)}</div>
+                    <small style="color:var(--text-muted);">Lic: ${Utils.escapeHTML(d.licenseNumber)}</small>
+                </td>
+                <td>
+                    ${v ? `
+                        <strong>${Utils.escapeHTML(v.regNumber)}</strong>
+                        <div style="font-size:12px; color:var(--text-muted);">${Utils.escapeHTML(v.name)}</div>
+                    ` : '<span style="color:var(--text-muted); font-size:12px;">Unassigned</span>'}
+                </td>
+                <td>
+                    <strong>${d.rating || 5.0} ★</strong>
+                    <div style="font-size:11px; color:var(--text-muted);">${d.totalTrips || 0} completed trips</div>
+                </td>
+                <td>
+                    <span class="badge ${d.availabilityStatus === 'Available' ? 'badge-completed' : (d.availabilityStatus === 'On Trip' ? 'badge-progress' : 'badge-inactive')}">
+                        ${Utils.escapeHTML(d.availabilityStatus || 'Available')}
+                    </span>
+                </td>
+                <td style="text-align: right;">
+                    <div class="table-actions" style="justify-content: flex-end;">
+                        <button class="action-btn edit" title="Edit Driver" onclick="openEditDriverModal('${d.id}')">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="action-btn" title="Toggle Availability" onclick="toggleDriverAvail('${d.id}')">
+                            <i class="fa-solid fa-clock"></i>
+                        </button>
+                        <button class="action-btn delete" title="Delete Driver" onclick="deleteDriverRecord('${d.id}')">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function openAddDriverModal() {
+        document.getElementById('driverId').value = '';
+        document.getElementById('driverForm').reset();
+        document.getElementById('driverModalTitle').textContent = 'Add Fleet Driver';
+        document.getElementById('driverModal').classList.add('active');
+    }
+
+    function openEditDriverModal(id) {
+        const d = drivers.find(x => x.id === id);
+        if (!d) return;
+
+        document.getElementById('driverId').value = d.id;
+        document.getElementById('driverName').value = d.name;
+        document.getElementById('driverPhone').value = d.phone;
+        document.getElementById('driverEmail').value = d.email || 'driver@travelnex.com';
+        document.getElementById('driverLicense').value = d.licenseNumber;
+        document.getElementById('driverVehicle').value = d.assignedVehicleId || '';
+        document.getElementById('driverAvail').value = d.availabilityStatus || 'Available';
+        document.getElementById('driverActive').value = d.status || 'Active';
+
+        document.getElementById('driverModalTitle').textContent = `Edit Driver: ${d.name}`;
+        document.getElementById('driverModal').classList.add('active');
+    }
+
+    function closeDriverModal() {
+        document.getElementById('driverModal').classList.remove('active');
+    }
+
+    document.getElementById('driverForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const id = document.getElementById('driverId').value;
+        const saved = StorageManager.saveDriver({
+            id: id || undefined,
+            name: document.getElementById('driverName').value.trim(),
+            phone: document.getElementById('driverPhone').value.trim(),
+            email: document.getElementById('driverEmail').value.trim(),
+            licenseNumber: document.getElementById('driverLicense').value.trim(),
+            assignedVehicleId: document.getElementById('driverVehicle').value || null,
+            availabilityStatus: document.getElementById('driverAvail').value,
+            status: document.getElementById('driverActive').value
+        });
+
+        closeDriverModal();
+        Utils.showToast(`Driver ${saved.name} saved successfully!`, 'success');
+        loadDrivers();
+    });
+
+    function toggleDriverAvail(id) {
+        const d = drivers.find(x => x.id === id);
+        if (!d) return;
+        const next = d.availabilityStatus === 'Available' ? 'Off Duty' : 'Available';
+        StorageManager.updateDriverAvailability(id, next);
+        Utils.showToast(`Driver ${d.name} marked as ${next}.`, 'info');
+        loadDrivers();
+    }
+
+    function deleteDriverRecord(id) {
+        const d = drivers.find(x => x.id === id);
+        if (!d) return;
+        Utils.confirm(`Are you sure you want to delete driver ${d.name}?`, () => {
+            StorageManager.deleteDriver(id);
+            Utils.showToast(`Driver ${d.name} deleted.`, 'success');
+            loadDrivers();
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadDrivers);
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoices Management | TRAVELNEX Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="admin-dashboard.html" style="display:flex; align-items:center; gap:10px;">
+                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">TRAVEL<span>NEX</span></div>
+            </a>
+            <span class="sidebar-badge">Super Admin</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="sidebar-section-title">Core Management</div>
+            <a href="admin-dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard Overview</span>
+            </a>
+            <a href="bookings.html" class="sidebar-link">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Booking Management</span>
+            </a>
+            <a href="customers.html" class="sidebar-link">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Customer Accounts</span>
+            </a>
+            <a href="corporate-clients.html" class="sidebar-link">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Corporate Clients</span>
+            </a>
+
+            <div class="sidebar-section-title">Fleet & Operations</div>
+            <a href="drivers.html" class="sidebar-link">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Drivers Management</span>
+            </a>
+            <a href="vehicles.html" class="sidebar-link">
+                <i class="fa-solid fa-taxi"></i>
+                <span>Vehicles & Fleet</span>
+            </a>
+            <a href="services.html" class="sidebar-link">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Services & Rates</span>
+            </a>
+
+            <div class="sidebar-section-title">Financials & Reports</div>
+            <a href="payments.html" class="sidebar-link">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Payment Records</span>
+            </a>
+            <a href="invoices.html" class="sidebar-link active">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Invoices Management</span>
+                <span class="nav-count" id="badgeInvoices">0</span>
+            </a>
+            <a href="reports.html" class="sidebar-link">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports & Analytics</span>
+            </a>
+            <a href="settings.html" class="sidebar-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>System Settings</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-avatar">A</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">Chief Admin</div>
+                <div class="sidebar-user-role">Super Administrator</div>
+            </div>
+            <button type="button" class="sidebar-logout-btn" onclick="Auth.logout('../admin/admin-login.html')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="page-breadcrumb"><a href="admin-dashboard.html">Admin</a> &gt; Billing</div>
+                    <h1 class="page-title">Tax Invoices & Printable Bills</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button type="button" class="btn btn-outline btn-sm" onclick="exportInvoicesCSV()">
+                    <i class="fa-solid fa-download"></i> Export Invoices CSV
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <div class="table-card">
+                <div class="table-header-bar">
+                    <div class="table-title">Issued Tax Invoices</div>
+                    <div class="table-filters">
+                        <div class="search-input-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="searchInvoice" placeholder="Search invoice or booking ID..." oninput="filterInvoices()">
+                        </div>
+
+                        <select id="invoiceStatusFilter" class="form-control" style="width: auto; height: 38px; font-size: 13px;" onchange="filterInvoices()">
+                            <option value="ALL">All Statuses</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Invoice No</th>
+                                <th>Booking Ref</th>
+                                <th>Client / Customer</th>
+                                <th>Service Category</th>
+                                <th>Base Fare</th>
+                                <th>GST (18%)</th>
+                                <th>Total Bill</th>
+                                <th>Payment</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoicesTableBody">
+                            <!-- Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+    const adminUser = Auth.requireRole('admin', 'admin-login.html');
+    let invoicesList = [];
+
+    function loadInvoices() {
+        invoicesList = StorageManager.getInvoices();
+        document.getElementById('badgeInvoices').textContent = invoicesList.length;
+        filterInvoices();
+    }
+
+    function filterInvoices() {
+        const q = document.getElementById('searchInvoice').value.trim().toLowerCase();
+        const status = document.getElementById('invoiceStatusFilter').value;
+
+        const filtered = invoicesList.filter(inv => {
+            const matchesQ = !q ||
+                inv.id.toLowerCase().includes(q) ||
+                (inv.bookingId && inv.bookingId.toLowerCase().includes(q)) ||
+                (inv.customerName && inv.customerName.toLowerCase().includes(q));
+
+            const matchesStatus = status === 'ALL' || inv.status === status;
+            return matchesQ && matchesStatus;
+        });
+
+        renderInvoicesTable(filtered);
+    }
+
+    function renderInvoicesTable(list) {
+        const tbody = document.getElementById('invoicesTableBody');
+        tbody.innerHTML = '';
+
+        list.forEach(inv => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>
+                    <strong>${Utils.escapeHTML(inv.id)}</strong><br>
+                    <small style="color:var(--text-muted); font-size:11px;">Issued: ${Utils.formatDate(inv.issuedDate)}</small>
+                </td>
+                <td><strong>${Utils.escapeHTML(inv.bookingId)}</strong></td>
+                <td>
+                    <div style="font-weight:700; color:var(--navy);">${Utils.escapeHTML(inv.customerName)}</div>
+                    <small style="color:var(--text-muted);">${Utils.escapeHTML(inv.customerEmail || '')}</small>
+                </td>
+                <td>${Utils.escapeHTML(inv.serviceType || 'Travel Service')}</td>
+                <td>${Utils.formatCurrency(inv.baseFare)}</td>
+                <td>${Utils.formatCurrency(inv.taxes)}</td>
+                <td><strong style="color:var(--navy); font-size:15px;">${Utils.formatCurrency(inv.totalAmount)}</strong></td>
+                <td>
+                    <span class="badge ${inv.status === 'Paid' ? 'badge-paid' : 'badge-unpaid'}">
+                        ${Utils.escapeHTML(inv.status)}
+                    </span>
+                </td>
+                <td style="text-align: right;">
+                    <button class="btn btn-primary btn-sm" onclick="Utils.showInvoiceModal('${inv.bookingId}')">
+                        <i class="fa-solid fa-print"></i> View / Print
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function exportInvoicesCSV() {
+        if (invoicesList.length === 0) {
+            Utils.showToast('No invoices to export.', 'warning');
+            return;
+        }
+
+        const headers = ['Invoice No', 'Booking ID', 'Customer Name', 'Service', 'Base Amount', 'GST (18%)', 'Total', 'Payment Status', 'Issued Date'];
+        const rows = invoicesList.map(i => [
+            i.id,
+            i.bookingId,
+            i.customerName,
+            i.serviceType || 'Travel',
+            i.baseFare,
+            i.taxes,
+            i.totalAmount,
+            i.status,
+            i.issuedDate
+        ]);
+
+        StorageManager.exportToCSV('travelnex_tax_invoices', headers, rows);
+        Utils.showToast('Invoices CSV exported!', 'success');
+    }
+
+    document.addEventListener('DOMContentLoaded', loadInvoices);
+</script>
+</body>
+</html>
