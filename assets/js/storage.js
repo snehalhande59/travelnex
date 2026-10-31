@@ -1147,7 +1147,8 @@ const StorageManager = {
 
         bookings.unshift(newBooking);
         this.set(STORAGE_KEYS.BOOKINGS, bookings);
-        return newBooking;,
+        return newBooking;
+    },
 
     updateBookingStatus(id, newStatus, extraData = {}) {
         const bookings = this.getBookings();

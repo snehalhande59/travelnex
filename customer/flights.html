@@ -796,14 +796,14 @@ function renderFlights(flights, cabinClass = 'economy') {
     }
 
     container.innerHTML = flights.map(f => {
-        const fare = cabinClass === 'business' ? f.businessPrice : f.economyPrice;
+        const fare = cabinClass === 'business' \u2192 f.businessPrice : f.economyPrice;
         return `
             <div class="flight-card">
                 <div class="airline-info">
                     <div class="airline-icon"><i class="fa-solid fa-plane"></i></div>
                     <div>
                         <div class="airline-name">${f.airline}</div>
-                        <div class="airline-number">${f.flightNumber} &bull; ${cabinClass === 'business' ? 'Business Class' : 'Economy'}</div>
+                        <div class="airline-number">${f.flightNumber} &bull; ${cabinClass === 'business' \u2192 'Business Class' : 'Economy'}</div>
                     </div>
                 </div>
 
@@ -825,7 +825,7 @@ function renderFlights(flights, cabinClass = 'economy') {
 
                 <div class="flight-features">
                     <span><i class="fa-solid fa-suitcase" style="color:var(--gold);"></i> ${f.baggage}</span>
-                    <span><i class="fa-solid fa-check" style="color:#10b981;"></i> ${f.refundable ? 'Refundable' : 'Non-Refundable'}</span>
+                    <span><i class="fa-solid fa-check" style="color:#10b981;"></i> ${f.refundable \u2192 'Refundable' : 'Non-Refundable'}</span>
                     <span style="color:#dc2626;"><i class="fa-solid fa-user-group"></i> ${f.seatsLeft} seats left</span>
                 </div>
 

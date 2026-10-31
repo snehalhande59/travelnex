@@ -594,7 +594,7 @@ function setTripType(type) {
     currentTripType = type;
     document.getElementById('tabOneway').classList.toggle('active', type === 'oneway');
     document.getElementById('tabRound').classList.toggle('active', type === 'round');
-    document.getElementById('returnGroup').style.display = type === 'round' ? 'block' : 'none';
+    document.getElementById('returnGroup').style.display = type === 'round' \u2192 'block' : 'none';
 }
 
 function quickBookRoute(from, to, vClass) {
@@ -614,34 +614,51 @@ function handleOutstationBooking(e) {
     const phone = document.getElementById('outCustPhone').value;
 
     const randomId = 'TNX-OUT-' + Math.floor(1000 + Math.random() * 9000);
-    const fare = (vClass === 'Innova' ? 3600 : (vClass === 'SUV' ? 2900 : 2300)) * (currentTripType === 'round' ? 1.8 : 1);
+    const fare = (vClass === 'Innova' \u2192 3600 : (vClass === 'SUV' \u2192 2900 : 2300)) * (currentTripType === 'round' \u2192 1.8 : 1);
+
+    const datePart = time \u2192 time.split('T')[0] : new Date().toISOString().split('T')[0];
+    const timePart = time && time.includes('T') \u2192 time.split('T')[1] : '10:00';
 
     const bookingObj = {
         id: randomId,
         serviceType: 'Outstation Cabs',
+        pickup: from,
         pickupLocation: from,
+        destination: to,
         dropLocation: to,
-        pickupDateTime: time,
+        journeyDate: datePart,
+        journeyTime: timePart,
+        pickupDateTime: time || new Date().toISOString(),
         vehicleType: vClass,
-        tripMode: currentTripType === 'round' ? 'Round Trip' : 'One Way',
+        tripMode: currentTripType === 'round' \u2192 'Round Trip' : 'One Way',
+        customerName: name,
         passengerName: name,
+        customerPhone: phone,
         passengerPhone: phone,
+        bookingStatus: 'Confirmed',
         status: 'Confirmed',
+        estimatedFare: Math.round(fare),
         amount: Math.round(fare),
+        paymentStatus: 'Pending',
         createdAt: new Date().toISOString()
     };
 
     try {
-        const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
-        existing.unshift(bookingObj);
-        localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+        if (typeof StorageManager !== 'undefined' && StorageManager.createBooking) {
+            StorageManager.createBooking(bookingObj);
+        } else {
+            const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
+            existing.unshift(bookingObj);
+            localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+            window.dispatchEvent(new CustomEvent('travelnex_storage_changed', { detail: { key: 'travelnex_bookings', value: existing } }));
+        }
     } catch(err) {
         console.error(err);
     }
 
-    document.getElementById('outModalId').textContent = randomId;
+    document.getElementById('outModalId').textContent = randomId;    document.getElementById('outModalId').textContent = randomId;
     document.getElementById('outModalRoute').textContent = `${from} ➔ ${to}`;
-    document.getElementById('outModalType').textContent = currentTripType === 'round' ? 'Round-Trip' : 'One-Way Drop';
+    document.getElementById('outModalType').textContent = currentTripType === 'round' \u2192 'Round-Trip' : 'One-Way Drop';
     document.getElementById('outModalVehicle').textContent = vClass;
     document.getElementById('outModalFare').textContent = '₹' + Math.round(fare).toLocaleString('en-IN');
     document.getElementById('outConfirmModal').classList.add('show');

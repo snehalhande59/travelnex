@@ -519,7 +519,7 @@ document.getElementById('sideBookingForm').addEventListener('submit', function(e
     const guests = Number(document.getElementById('bookGuests').value);
     const total = activePackage.price * guests;
     const user = AuthManager.getCurrentUser();
-    const customerId = user ? user.id : 'CUST-' + Math.floor(1000 + Math.random() * 9000);
+    const customerId = user \u2192 user.id : 'CUST-' + Math.floor(1000 + Math.random() * 9000);
 
     const booking = {
         customerId: customerId,

@@ -686,32 +686,45 @@ function handleMsrtcBooking(e) {
     const bookingObj = {
         id: randomId,
         serviceType: 'Maharashtra ST Bus',
+        pickup: from,
         pickupLocation: from,
+        destination: to,
         dropLocation: to,
+        journeyDate: date,
+        journeyTime: slot,
         pickupDateTime: date,
-        timeSlot: slot,
         busCategory: selectedCatName,
         seatsCount: seats,
         concession: conc,
+        customerName: name,
         passengerName: name,
+        customerPhone: phone,
         passengerPhone: phone,
+        bookingStatus: 'Confirmed',
         status: 'Confirmed',
+        estimatedFare: total,
         amount: total,
+        paymentStatus: 'Pending',
         createdAt: new Date().toISOString()
     };
 
     try {
-        const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
-        existing.unshift(bookingObj);
-        localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+        if (typeof StorageManager !== 'undefined' && StorageManager.createBooking) {
+            StorageManager.createBooking(bookingObj);
+        } else {
+            const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
+            existing.unshift(bookingObj);
+            localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+            window.dispatchEvent(new CustomEvent('travelnex_storage_changed', { detail: { key: 'travelnex_bookings', value: existing } }));
+        }
     } catch(err) {
         console.error(err);
     }
 
-    document.getElementById('stModalId').textContent = randomId;
+    document.getElementById('stModalId').textContent = randomId;    document.getElementById('stModalId').textContent = randomId;
     document.getElementById('stModalRoute').textContent = `${from.split(' - ')[0]} ➔ ${to.split(' - ')[0]}`;
     document.getElementById('stModalCat').textContent = selectedCatName;
-    document.getElementById('stModalSeats').textContent = `${seats} Seat(s) (${conc === 'None' ? 'Full' : conc})`;
+    document.getElementById('stModalSeats').textContent = `${seats} Seat(s) (${conc === 'None' \u2192 'Full' : conc})`;
     document.getElementById('stModalTotal').textContent = '₹' + total.toLocaleString('en-IN');
     document.getElementById('stConfirmModal').classList.add('show');
 }

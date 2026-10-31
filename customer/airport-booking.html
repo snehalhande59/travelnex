@@ -530,7 +530,7 @@ function setTransferType(type) {
     currentTransferType = type;
     document.getElementById('tabPickup').classList.toggle('active', type === 'pickup');
     document.getElementById('tabDrop').classList.toggle('active', type === 'drop');
-    document.getElementById('addressLabel').textContent = type === 'pickup' ? 'Drop City Address / Hotel' : 'Pickup City Address / Home';
+    document.getElementById('addressLabel').textContent = type === 'pickup' \u2192 'Drop City Address / Hotel' : 'Pickup City Address / Home';
 }
 
 function handleAirportBooking(e) {
@@ -544,35 +544,55 @@ function handleAirportBooking(e) {
     const phone = document.getElementById('airCustPhone').value;
 
     const randomId = 'TNX-AIR-' + Math.floor(1000 + Math.random() * 9000);
-    const fare = vehicle === 'Innova' ? 1450 : (vehicle === 'SUV' ? 1150 : 850);
+    const fare = vehicle === 'Innova' \u2192 1450 : (vehicle === 'SUV' \u2192 1150 : 850);
+
+    const datePart = time \u2192 time.split('T')[0] : new Date().toISOString().split('T')[0];
+    const timePart = time && time.includes('T') \u2192 time.split('T')[1] : '10:00';
+    const pick = currentTransferType === 'pickup' \u2192 airport : addr;
+    const dest = currentTransferType === 'pickup' \u2192 addr : airport;
 
     const bookingObj = {
         id: randomId,
         serviceType: 'Airport Transfer',
+        pickup: pick,
+        pickupLocation: pick,
+        destination: dest,
+        dropLocation: dest,
         airportName: airport,
-        transferMode: currentTransferType === 'pickup' ? 'Airport Pickup (Arrival)' : 'Airport Drop (Departure)',
-        cityAddress: addr,
+        transferMode: currentTransferType === 'pickup' \u2192 'Airport Pickup (Arrival)' : 'Airport Drop (Departure)',
         flightNumber: fNo,
-        pickupDateTime: time,
+        journeyDate: datePart,
+        journeyTime: timePart,
+        pickupDateTime: time || new Date().toISOString(),
         vehicleType: vehicle,
+        customerName: name,
         passengerName: name,
+        customerPhone: phone,
         passengerPhone: phone,
+        bookingStatus: 'Confirmed',
         status: 'Confirmed',
+        estimatedFare: fare,
         amount: fare,
+        paymentStatus: 'Pending',
         createdAt: new Date().toISOString()
     };
 
     try {
-        const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
-        existing.unshift(bookingObj);
-        localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+        if (typeof StorageManager !== 'undefined' && StorageManager.createBooking) {
+            StorageManager.createBooking(bookingObj);
+        } else {
+            const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
+            existing.unshift(bookingObj);
+            localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+            window.dispatchEvent(new CustomEvent('travelnex_storage_changed', { detail: { key: 'travelnex_bookings', value: existing } }));
+        }
     } catch(err) {
         console.error(err);
     }
 
-    document.getElementById('airModalId').textContent = randomId;
+    document.getElementById('airModalId').textContent = randomId;    document.getElementById('airModalId').textContent = randomId;
     document.getElementById('airModalPort').textContent = airport.split(' - ')[0];
-    document.getElementById('airModalDir').textContent = currentTransferType === 'pickup' ? 'Arrival Pickup' : 'Departure Drop';
+    document.getElementById('airModalDir').textContent = currentTransferType === 'pickup' \u2192 'Arrival Pickup' : 'Departure Drop';
     document.getElementById('airModalAddr').textContent = addr;
     document.getElementById('airModalVehicle').textContent = vehicle;
     document.getElementById('airModalFare').textContent = '₹' + fare.toLocaleString('en-IN');

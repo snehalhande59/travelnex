@@ -651,8 +651,8 @@ document.getElementById('railDate').value = journey.toISOString().slice(0, 10);
 function switchRailTab(tab) {
     document.getElementById('tabBook').classList.toggle('active', tab === 'book');
     document.getElementById('tabPnr').classList.toggle('active', tab === 'pnr');
-    document.getElementById('railBookSection').style.display = tab === 'book' ? 'block' : 'none';
-    document.getElementById('railPnrSection').style.display = tab === 'pnr' ? 'block' : 'none';
+    document.getElementById('railBookSection').style.display = tab === 'book' \u2192 'block' : 'none';
+    document.getElementById('railPnrSection').style.display = tab === 'pnr' \u2192 'block' : 'none';
 }
 
 function quickBookTrain(from, to) {
@@ -682,32 +682,46 @@ function handleRailBooking(e) {
     const phone = document.getElementById('railPhone').value;
 
     const randomId = 'TNX-RLY-' + Math.floor(1000 + Math.random() * 9000);
-    const fare = rClass.includes('1A') ? 2850 : (rClass.includes('2A') ? 1950 : 1380);
+    const fare = rClass.includes('1A') \u2192 2850 : (rClass.includes('2A') \u2192 1950 : 1380);
 
     const bookingObj = {
         id: randomId,
         serviceType: 'Railway Ticket Booking',
+        pickup: from,
         pickupLocation: from,
+        destination: to,
         dropLocation: to,
+        journeyDate: date,
+        journeyTime: '10:00',
         pickupDateTime: date,
         travelClass: rClass,
         quota: quota,
+        customerName: name,
         passengerName: name,
+        customerPhone: phone,
         passengerPhone: phone,
-        status: 'In Review',
+        bookingStatus: 'Confirmed',
+        status: 'Confirmed',
+        estimatedFare: fare,
         amount: fare,
+        paymentStatus: 'Pending',
         createdAt: new Date().toISOString()
     };
 
     try {
-        const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
-        existing.unshift(bookingObj);
-        localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+        if (typeof StorageManager !== 'undefined' && StorageManager.createBooking) {
+            StorageManager.createBooking(bookingObj);
+        } else {
+            const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
+            existing.unshift(bookingObj);
+            localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+            window.dispatchEvent(new CustomEvent('travelnex_storage_changed', { detail: { key: 'travelnex_bookings', value: existing } }));
+        }
     } catch(err) {
         console.error(err);
     }
 
-    document.getElementById('railModalId').textContent = randomId;
+    document.getElementById('railModalId').textContent = randomId;    document.getElementById('railModalId').textContent = randomId;
     document.getElementById('railModalRoute').textContent = `${from} ➔ ${to}`;
     document.getElementById('railModalClass').textContent = `${rClass.split(' - ')[0]} (${quota})`;
     document.getElementById('railModalName').textContent = name;

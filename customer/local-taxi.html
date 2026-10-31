@@ -626,8 +626,8 @@ function setBookingType(type) {
     currentRentalType = type;
     document.getElementById('tabPoint').classList.toggle('active', type === 'point');
     document.getElementById('tabHourly').classList.toggle('active', type === 'hourly');
-    document.getElementById('dropGroup').style.display = type === 'point' ? 'block' : 'none';
-    document.getElementById('hourlyGroup').style.display = type === 'hourly' ? 'block' : 'none';
+    document.getElementById('dropGroup').style.display = type === 'point' \u2192 'block' : 'none';
+    document.getElementById('hourlyGroup').style.display = type === 'hourly' \u2192 'block' : 'none';
 }
 
 function selectFleet(vType) {
@@ -638,39 +638,55 @@ function selectFleet(vType) {
 function handleLocalBooking(e) {
     e.preventDefault();
     const pickup = document.getElementById('pickupLoc').value;
-    const drop = currentRentalType === 'point' ? document.getElementById('dropLoc').value : document.getElementById('hourlyPackage').value;
+    const drop = currentRentalType === 'point' \u2192 document.getElementById('dropLoc').value : document.getElementById('hourlyPackage').value;
     const time = document.getElementById('pickupTime').value;
     const vehicle = document.getElementById('vehicleType').value;
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
 
     const randomId = 'TNX-LCL-' + Math.floor(1000 + Math.random() * 9000);
-    const fare = currentRentalType === 'point' ? (vehicle === 'Innova' ? 1250 : (vehicle === 'SUV' ? 950 : 650)) : 1899;
+    const fare = currentRentalType === 'point' \u2192 (vehicle === 'Innova' \u2192 1250 : (vehicle === 'SUV' \u2192 950 : 650)) : 1899;
+
+    const datePart = time \u2192 time.split('T')[0] : new Date().toISOString().split('T')[0];
+    const timePart = time && time.includes('T') \u2192 time.split('T')[1] : '10:00';
 
     const bookingObj = {
         id: randomId,
         serviceType: 'Local Taxi',
+        pickup: pickup,
         pickupLocation: pickup,
+        destination: drop,
         dropLocation: drop,
-        pickupDateTime: time,
+        journeyDate: datePart,
+        journeyTime: timePart,
+        pickupDateTime: time || new Date().toISOString(),
         vehicleType: vehicle,
+        customerName: name,
         passengerName: name,
+        customerPhone: phone,
         passengerPhone: phone,
+        bookingStatus: 'Confirmed',
         status: 'Confirmed',
+        estimatedFare: fare,
         amount: fare,
+        paymentStatus: 'Pending',
         createdAt: new Date().toISOString()
     };
 
-    // Save to LocalStorage
     try {
-        const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
-        existing.unshift(bookingObj);
-        localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+        if (typeof StorageManager !== 'undefined' && StorageManager.createBooking) {
+            StorageManager.createBooking(bookingObj);
+        } else {
+            const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
+            existing.unshift(bookingObj);
+            localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+            window.dispatchEvent(new CustomEvent('travelnex_storage_changed', { detail: { key: 'travelnex_bookings', value: existing } }));
+        }
     } catch(err) {
         console.error(err);
     }
 
-    // Show modal
+    // Show modal    // Show modal
     document.getElementById('modalBookId').textContent = randomId;
     document.getElementById('modalPickup').textContent = pickup;
     document.getElementById('modalDrop').textContent = drop;

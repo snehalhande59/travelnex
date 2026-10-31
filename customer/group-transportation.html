@@ -570,28 +570,43 @@ function handleGroupBooking(e) {
     const bookingObj = {
         id: randomId,
         serviceType: 'Group Transportation',
+        pickup: loc,
+        pickupLocation: loc,
+        destination: loc + ' (Event Logistics)',
+        dropLocation: loc + ' (Event Logistics)',
         eventType: type,
-        location: loc,
-        eventStartDate: date,
+        journeyDate: date,
+        journeyTime: '09:00',
+        pickupDateTime: date,
         groupSize: size,
         fleetMix: mix,
-        organizerName: name,
-        organizerPhone: phone,
+        customerName: name,
+        passengerName: name,
+        customerPhone: phone,
+        passengerPhone: phone,
         organization: company,
-        status: 'In Review',
+        bookingStatus: 'Confirmed',
+        status: 'Confirmed',
+        estimatedFare: 35000,
         amount: 35000,
+        paymentStatus: 'Pending',
         createdAt: new Date().toISOString()
     };
 
     try {
-        const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
-        existing.unshift(bookingObj);
-        localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+        if (typeof StorageManager !== 'undefined' && StorageManager.createBooking) {
+            StorageManager.createBooking(bookingObj);
+        } else {
+            const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
+            existing.unshift(bookingObj);
+            localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+            window.dispatchEvent(new CustomEvent('travelnex_storage_changed', { detail: { key: 'travelnex_bookings', value: existing } }));
+        }
     } catch(err) {
         console.error(err);
     }
 
-    document.getElementById('grpModalId').textContent = randomId;
+    document.getElementById('grpModalId').textContent = randomId;    document.getElementById('grpModalId').textContent = randomId;
     document.getElementById('grpModalType').textContent = type;
     document.getElementById('grpModalLoc').textContent = loc;
     document.getElementById('grpModalScale').textContent = size;

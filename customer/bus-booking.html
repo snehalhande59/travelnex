@@ -596,34 +596,48 @@ function handleLuxuryBusBooking(e) {
     const phone = document.getElementById('luxPhone').value;
 
     const randomId = 'TNX-LUX-' + Math.floor(1000 + Math.random() * 9000);
-    const dayRate = model.includes('32') ? 14400 : (model.includes('45') ? 16200 : (model.includes('Sleeper') ? 17400 : 15000));
+    const dayRate = model.includes('32') \u2192 14400 : (model.includes('45') \u2192 16200 : (model.includes('Sleeper') \u2192 17400 : 15000));
     const totalEst = dayRate * days;
 
     const bookingObj = {
         id: randomId,
         serviceType: 'Luxury Bus Booking',
+        pickup: origin,
         pickupLocation: origin,
+        destination: dest,
         dropLocation: dest,
+        journeyDate: date,
+        journeyTime: '07:00',
         pickupDateTime: date,
         durationDays: days,
         vehicleType: model,
         passengersCount: pax,
+        customerName: name,
         passengerName: name,
+        customerPhone: phone,
         passengerPhone: phone,
+        bookingStatus: 'Confirmed',
         status: 'Confirmed',
+        estimatedFare: totalEst,
         amount: totalEst,
+        paymentStatus: 'Pending',
         createdAt: new Date().toISOString()
     };
 
     try {
-        const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
-        existing.unshift(bookingObj);
-        localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+        if (typeof StorageManager !== 'undefined' && StorageManager.createBooking) {
+            StorageManager.createBooking(bookingObj);
+        } else {
+            const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
+            existing.unshift(bookingObj);
+            localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+            window.dispatchEvent(new CustomEvent('travelnex_storage_changed', { detail: { key: 'travelnex_bookings', value: existing } }));
+        }
     } catch(err) {
         console.error(err);
     }
 
-    document.getElementById('luxModalId').textContent = randomId;
+    document.getElementById('luxModalId').textContent = randomId;    document.getElementById('luxModalId').textContent = randomId;
     document.getElementById('luxModalRoute').textContent = `${origin} ➔ ${dest}`;
     document.getElementById('luxModalCoach').textContent = model;
     document.getElementById('luxModalDays').textContent = `${days} Day(s) (${pax} Guests)`;

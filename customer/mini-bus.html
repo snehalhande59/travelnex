@@ -597,34 +597,48 @@ function handleMiniBusBooking(e) {
     const phone = document.getElementById('miniPhone').value;
 
     const randomId = 'TNX-MIN-' + Math.floor(1000 + Math.random() * 9000);
-    const ratePerDay = capacity.includes('12') ? 7200 : (capacity.includes('17') ? 8400 : (capacity.includes('20') ? 9600 : 11400));
+    const ratePerDay = capacity.includes('12') \u2192 7200 : (capacity.includes('17') \u2192 8400 : (capacity.includes('20') \u2192 9600 : 11400));
     const totalEst = ratePerDay * days;
 
     const bookingObj = {
         id: randomId,
         serviceType: 'Mini Bus Booking',
+        pickup: pickup,
         pickupLocation: pickup,
+        destination: dest,
         dropLocation: dest,
+        journeyDate: date,
+        journeyTime: '08:00',
         pickupDateTime: date,
         durationDays: days,
         vehicleType: capacity,
         passengersCount: pax,
+        customerName: name,
         passengerName: name,
+        customerPhone: phone,
         passengerPhone: phone,
+        bookingStatus: 'Confirmed',
         status: 'Confirmed',
+        estimatedFare: totalEst,
         amount: totalEst,
+        paymentStatus: 'Pending',
         createdAt: new Date().toISOString()
     };
 
     try {
-        const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
-        existing.unshift(bookingObj);
-        localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+        if (typeof StorageManager !== 'undefined' && StorageManager.createBooking) {
+            StorageManager.createBooking(bookingObj);
+        } else {
+            const existing = JSON.parse(localStorage.getItem('travelnex_bookings') || '[]');
+            existing.unshift(bookingObj);
+            localStorage.setItem('travelnex_bookings', JSON.stringify(existing));
+            window.dispatchEvent(new CustomEvent('travelnex_storage_changed', { detail: { key: 'travelnex_bookings', value: existing } }));
+        }
     } catch(err) {
         console.error(err);
     }
 
-    document.getElementById('miniModalId').textContent = randomId;
+    document.getElementById('miniModalId').textContent = randomId;    document.getElementById('miniModalId').textContent = randomId;
     document.getElementById('miniModalRoute').textContent = `${pickup} ➔ ${dest}`;
     document.getElementById('miniModalVeh').textContent = capacity;
     document.getElementById('miniModalDur').textContent = `${days} Day(s) (${pax} Pax)`;

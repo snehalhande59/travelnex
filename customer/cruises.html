@@ -767,7 +767,7 @@ function renderCruises(cruises) {
                             <span class="price-label">Starting per person</span>
                             <div>
                                 <span class="price-value">?${cruise.price.toLocaleString('en-IN')}</span>
-                                ${cruise.originalPrice ? `<span class="price-strike">?${cruise.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                                ${cruise.originalPrice \u2192 `<span class="price-strike">?${cruise.originalPrice.toLocaleString('en-IN')}</span>` : ''}
                             </div>
                         </div>
                         <button type="button" class="btn btn-gold" onclick="openCruiseBooking('${cruise.id}')">
@@ -838,8 +838,8 @@ function openCruiseBooking(cruiseId) {
     // Populate cabins
     const cabinSelect = document.getElementById('bookCabinType');
     cabinSelect.innerHTML = (cruise.cabins || ['Standard Cabin']).map((c, idx) => {
-        const extra = idx === 0 ? 0 : idx * 6500;
-        return `<option value="${c}" data-extra="${extra}">${c} ${extra ? `(+?${extra.toLocaleString('en-IN')})` : '(Base Fare)'}</option>`;
+        const extra = idx === 0 \u2192 0 : idx * 6500;
+        return `<option value="${c}" data-extra="${extra}">${c} ${extra \u2192 `(+?${extra.toLocaleString('en-IN')})` : '(Base Fare)'}</option>`;
     }).join('');
 
     recalculateCruisePrice();
