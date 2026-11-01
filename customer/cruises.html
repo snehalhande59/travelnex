@@ -777,7 +777,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCruises(allCruises);
 
     // Pre-fill user if logged in
-    const user = AuthManager.getCurrentUser();
+    const user = Auth.getCurrentUser();
     if (user) {
         document.getElementById('bookGuestName').value = user.name || '';
         document.getElementById('bookGuestEmail').value = user.email || '';

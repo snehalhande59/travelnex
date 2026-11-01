@@ -147,7 +147,7 @@
 <script src="../assets/js/auth.js"></script>
 <script src="../assets/js/utils.js"></script>
 <script>
-    const user = Auth.requireRole('customer', 'login.html');
+    const user = (typeof Auth !== 'undefined' && Auth.getCurrentUser) ? Auth.getCurrentUser() : null;
     const urlParams = new URLSearchParams(window.location.search);
     const bookingId = urlParams.get('id') || 'TNX-BOOKING-1001';
 

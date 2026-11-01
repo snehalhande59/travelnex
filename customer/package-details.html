@@ -432,8 +432,8 @@
             <div class="pkg-booking-sticky" id="book">
                 <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--border);">
                     <div>
-                        <span style="font-size:12px; color:#94a3b8; text-decoration:line-through;" id="sideOldPrice">?42,000</span>
-                        <div style="font-size:28px; font-weight:800; color:var(--dark-purple); line-height:1;" id="sidePrice">?31,500</div>
+                        <span style="font-size:12px; color:#94a3b8; text-decoration:line-through;" id="sideOldPrice">₹42,000</span>
+                        <div style="font-size:28px; font-weight:800; color:var(--dark-purple); line-height:1;" id="sidePrice">₹31,500</div>
                         <span style="font-size:11px; color:var(--text-muted);">per person (All Inclusive)</span>
                     </div>
                     <span style="background:var(--lavender-soft); color:var(--primary-purple); font-size:12px; font-weight:800; padding:4px 12px; border-radius:20px;">Instant Book</span>
@@ -469,7 +469,7 @@
                     <div style="background:#faf8fe; border-radius:10px; padding:12px; font-size:12.5px; margin-top:4px;">
                         <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
                             <span style="color:#64748b;">Estimated Total:</span>
-                            <strong style="color:var(--dark-purple); font-size:16px;" id="sideTotalFare">?63,000</strong>
+                            <strong style="color:var(--dark-purple); font-size:16px;" id="sideTotalFare">₹63,000</strong>
                         </div>
                         <span style="color:#10b981; font-size:11px; font-weight:700;"><i class="fa-solid fa-circle-check"></i> Free Cancellation up to 7 days prior</span>
                     </div>
@@ -533,40 +533,105 @@
 <script>
 let activePackage = null;
 
-function loadPackageDetails() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id') || 'PKG-SWISS';
-    
-    activePackage = StorageManager.getPackageById(id);
-    if (!activePackage) {
-        activePackage = StorageManager.getPackages()[0];
+function generateItinerary(pkg) {
+    const destName = pkg.destination.split(',')[0].trim();
+    const h = pkg.highlights || [];
+    const totalDays = pkg.days || 5;
+
+    const days = [
+        {
+            day: '01',
+            title: 'Day 1: Arrival in ' + destName + ' & VIP Chauffeur Welcome',
+            desc: 'Arrive at the destination airport where your private chauffeur awaits at arrivals. Enjoy a smooth ride to ' + pkg.hotel + '. Relax, take in breathtaking panoramic views, and join an authentic curated welcome dinner.'
+        },
+        {
+            day: '02',
+            title: 'Day 2: ' + (h[0] || 'Iconic Landmarks & Guided Heritage Excursion'),
+            desc: 'After gourmet breakfast, embark on a private guided excursion. Experience ' + (h[0] || destName + ' premier historical highlights') + ' with skip-the-line VIP passes and certified local guide.'
+        },
+        {
+            day: '03',
+            title: 'Day 3: ' + (h[1] || destName + ' Scenic Excursion & Cruise'),
+            desc: 'Experience ' + (h[1] || 'breathtaking sightseeing across the region') + '. Savor authentic local culinary delicacies for lunch and capture stunning panoramic photography.'
+        },
+        {
+            day: '04',
+            title: 'Day 4: ' + (h[2] || destName + ' Cultural Discovery & Leisure'),
+            desc: 'Partake in ' + (h[2] || 'vibrant local artisan markets and historical quarters') + '. Afternoon free for relaxation at your resort or signature wellness spa therapy.'
+        }
+    ];
+
+    if (totalDays >= 5) {
+        days.push({
+            day: '05',
+            title: 'Day 5: ' + (h[3] || destName + ' Signature Adventure & Sunset Dinner'),
+            desc: 'Enjoy ' + (h[3] || 'exclusive guided sightseeing tailored to the region') + '. Conclude your evening with an exclusive celebratory candlelit dinner overlooking the scenic horizon.'
+        });
     }
 
-    // Populate Hero & Details
+    if (totalDays >= 6) {
+        days.push({
+            day: '06',
+            title: 'Day ' + totalDays + ': Souvenir Shopping & Departure Transfer',
+            desc: 'Enjoy a leisurely final breakfast. Your chauffeur assists with luggage and ensures comfortable, timely transfer back to the airport for your return flight.'
+        });
+    }
+
+    return days;
+}
+
+function renderItinerary(days) {
+    const container = document.getElementById('itineraryContainer');
+    if (!container) return;
+    container.innerHTML = days.map(d => '<div class="itinerary-step"><div class="step-dot">' + d.day + '</div><div class="step-body"><h4>' + d.title + '</h4><p>' + d.desc + '</p></div></div>').join('');
+}
+
+function loadPackageDetails() {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('id') || params.get('dest') || params.get('destination') || 'PKG-SWISS';
+    
+    activePackage = StorageManager.getPackageById(query);
+    if (!activePackage) {
+        const all = StorageManager.getPackages();
+        activePackage = all.find(p => 
+            p.destination.toLowerCase().includes(query.toLowerCase()) || 
+            p.title.toLowerCase().includes(query.toLowerCase())
+        ) || all[0];
+    }
+
+    // Populate Page Hero & Details
     document.getElementById('pkgHeroImg').src = activePackage.image;
     document.getElementById('pkgTitle').textContent = activePackage.title;
     document.getElementById('pkgDestination').textContent = activePackage.destination;
     document.getElementById('pkgDuration').textContent = activePackage.duration;
-    document.getElementById('pkgRating').textContent = `${activePackage.rating} (${activePackage.reviewsCount} Reviews)`;
-    document.getElementById('pkgDiscount').textContent = activePackage.discount;
-    document.getElementById('pkgCategory').textContent = activePackage.category.toUpperCase() + ' TOUR';
+    document.getElementById('pkgRating').textContent = activePackage.rating + ' (' + (activePackage.reviewsCount || 350) + '+ Reviews)';
+    document.getElementById('pkgDiscount').textContent = activePackage.discount || '25% OFF';
+    document.getElementById('pkgCategory').textContent = (activePackage.category || 'HOLIDAY').toUpperCase() + ' TOUR';
     document.getElementById('pkgDesc').textContent = activePackage.description;
     document.getElementById('pkgHotel').textContent = activePackage.hotel;
 
-    // Populate Sidebar
+    // Populate Dynamic Itinerary
+    const itineraryDays = generateItinerary(activePackage);
+    renderItinerary(itineraryDays);
+
+    // Populate Sidebar Pricing
     document.getElementById('sidePrice').textContent = Utils.formatCurrency(activePackage.price);
-    document.getElementById('sideOldPrice').textContent = Utils.formatCurrency(activePackage.oldPrice);
+    document.getElementById('sideOldPrice').textContent = Utils.formatCurrency(activePackage.oldPrice || Math.round(activePackage.price * 1.3));
 
-    // Initial Date
+    // Initial Date setup
     const today = new Date().toISOString().split('T')[0];
-    document.getElementById('bookDate').min = today;
-    document.getElementById('bookDate').value = today;
+    const dateInput = document.getElementById('bookDate');
+    if (dateInput) {
+        dateInput.min = today;
+        dateInput.value = today;
+    }
 
-    // Autofill logged in user
-    const user = AuthManager.getCurrentUser();
+    // Autofill logged in user details if available
+    const user = (typeof Auth !== 'undefined' && Auth.getCurrentUser) ? Auth.getCurrentUser() : null;
     if (user) {
-        document.getElementById('bookName').value = user.name || '';
-        document.getElementById('bookEmail').value = user.email || '';
+        if (user.name) document.getElementById('bookName').value = user.name;
+        if (user.email) document.getElementById('bookEmail').value = user.email;
+        if (user.phone) document.getElementById('bookPhone').value = user.phone.replace(/\\D/g,'').slice(-10);
     }
 
     recalculatePrice();
@@ -574,46 +639,57 @@ function loadPackageDetails() {
 
 function recalculatePrice() {
     if (!activePackage) return;
-    const guests = Number(document.getElementById('bookGuests').value);
+    const guests = Number(document.getElementById('bookGuests').value) || 2;
     const total = activePackage.price * guests;
     document.getElementById('sideTotalFare').textContent = Utils.formatCurrency(total);
 }
 
-// Booking Form Submit
+// Booking Form Submit Handler
 document.getElementById('sideBookingForm').addEventListener('submit', function(e) {
     e.preventDefault();
     if (!activePackage) return;
 
-    const guests = Number(document.getElementById('bookGuests').value);
+    const guests = Number(document.getElementById('bookGuests').value) || 2;
     const total = activePackage.price * guests;
-    const user = AuthManager.getCurrentUser();
+    const user = (typeof Auth !== 'undefined' && Auth.getCurrentUser) ? Auth.getCurrentUser() : null;
     const customerId = user ? user.id : 'CUST-' + Math.floor(1000 + Math.random() * 9000);
+    const bookDate = document.getElementById('bookDate').value;
+    const customerName = document.getElementById('bookName').value.trim();
+    const customerEmail = document.getElementById('bookEmail').value.trim();
+    const customerPhone = document.getElementById('bookPhone').value.trim();
 
     const booking = {
         customerId: customerId,
-        customerName: document.getElementById('bookName').value.trim(),
-        customerEmail: document.getElementById('bookEmail').value.trim(),
-        customerPhone: document.getElementById('bookPhone').value.trim(),
+        customerName: customerName,
+        passengerName: customerName,
+        customerEmail: customerEmail,
+        passengerEmail: customerEmail,
+        customerPhone: customerPhone,
+        passengerPhone: customerPhone,
         serviceType: 'Tour Package',
         service: 'Tour Package',
         destination: activePackage.destination,
-        pickup: 'Home City / Airport',
-        journeyDate: document.getElementById('bookDate').value,
+        dropLocation: activePackage.destination,
+        pickup: 'Home City / Airport Pickup',
+        pickupLocation: 'Home City / Airport Pickup',
+        journeyDate: bookDate,
         journeyTime: '09:00',
         passengers: guests,
-        vehicleType: 'Tour Package Chauffeur',
+        vehicleType: 'Tour Package Chauffeur Coach',
         estimatedFare: total,
-        fare: total,
         amount: total,
-        notes: `Booked: ${activePackage.title} (${activePackage.duration}) for ${guests} guests.`,
-        status: 'Pending',
-        bookingStatus: 'Pending',
+        fare: total,
+        notes: 'Booked: ' + activePackage.title + ' (' + activePackage.duration + ') for ' + guests + ' guests.',
+        status: 'Confirmed',
+        bookingStatus: 'Confirmed',
         createdAt: new Date().toISOString()
     };
 
     const res = StorageManager.createBooking(booking);
-    alert(`?? Reservation ${res.id} Confirmed!\n\nPackage: ${activePackage.title}\nTotal: ?${total.toLocaleString('en-IN')}\n\nRedirecting to your booking tracking console.`);
-    window.location.href = `booking-details.html?id=${res.id}`;
+    window.dispatchEvent(new CustomEvent('travelnex_storage_changed'));
+
+    alert('Reservation Confirmed!\n\nBooking ID: ' + res.id + '\nPackage: ' + activePackage.title + '\nTotal Amount: ' + Utils.formatCurrency(total) + '\n\nRedirecting to your booking tracking console...');
+    window.location.href = 'booking-details.html?id=' + res.id;
 });
 
 document.addEventListener('DOMContentLoaded', loadPackageDetails);

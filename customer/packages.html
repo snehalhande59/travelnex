@@ -613,7 +613,7 @@ function applyFilters() {
         const matchesCategory = (currentCategory === 'all') || 
                                 (currentCategory === 'last-minute' && (p.category === 'last-minute' || p.discount.includes('30%') || p.discount.includes('35%'))) ||
                                 (p.category === currentCategory);
-        const matchesSearch = !search || p.title.toLowerCase().includes(search) || p.destination.toLowerCase().includes(search);
+        const matchesSearch = !search || p.title.toLowerCase().includes(search) || p.destination.toLowerCase().includes(search) || (p.description && p.description.toLowerCase().includes(search)) || (p.id && p.id.toLowerCase().includes(search));
         
         let matchesDuration = true;
         if (duration === 'short') matchesDuration = p.days <= 3;
@@ -700,7 +700,7 @@ function openBookingModal(pkgId) {
     document.getElementById('modalDealTitle').textContent = pkg.title;
     document.getElementById('modalDealPrice').textContent = Utils.formatCurrency(pkg.price);
 
-    const user = AuthManager.getCurrentUser();
+    const user = Auth.getCurrentUser();
     if (user) {
         document.getElementById('dealCustName').value = user.name || '';
         document.getElementById('dealCustEmail').value = user.email || '';
@@ -717,7 +717,7 @@ document.getElementById('confirmDealForm').addEventListener('submit', function(e
     e.preventDefault();
     if (!currentBookingPkg) return;
 
-    const user = AuthManager.getCurrentUser();
+    const user = Auth.getCurrentUser();
     const customerId = user ? user.id : 'CUST-' + Math.floor(1000 + Math.random() * 9000);
 
     const newBooking = {

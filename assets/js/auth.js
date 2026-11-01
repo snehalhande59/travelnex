@@ -313,3 +313,7 @@ const Auth = {
 document.addEventListener('DOMContentLoaded', () => {
     Auth.renderHeaderProfile();
 });
+
+// Expose Auth and AuthManager globally for backwards and cross-script compatibility
+window.Auth = Auth;
+window.AuthManager = Auth;

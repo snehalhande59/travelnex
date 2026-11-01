@@ -804,7 +804,7 @@ document.addEventListener('DOMContentLoaded', () => {
     runFlightFilter();
 
     // Auto-fill logged in user
-    const user = AuthManager.getCurrentUser();
+    const user = Auth.getCurrentUser();
     if (user) {
         document.getElementById('passengerName').value = user.name || '';
         document.getElementById('passengerEmail').value = user.email || '';

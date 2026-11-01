@@ -751,8 +751,66 @@ const StorageManager = {
                 highlights: ['Universal Studios Singapore VIP express pass', 'Gardens by the Bay Flower Dome', 'Night Safari guided tram ride', 'Sentosa Cable Car & S.E.A. Aquarium', 'Marina Bay Sands observation deck'],
                 description: 'Clean, safe and packed with thrills for all ages. Enjoy futuristic gardens, marine wonderlands and Universal theme parks.'
             },
+                        {
+                id: 'PKG-ROME',
+                title: 'Ancient Rome Colosseum & Vatican Grand Tour',
+                destination: 'Rome, Italy',
+                category: 'international',
+                duration: '5 Days / 4 Nights',
+                days: 5,
+                nights: 4,
+                price: 44999,
+                oldPrice: 62000,
+                discount: '28% OFF',
+                hotel: 'Boutique Heritage Hotel near Trevi Fountain',
+                rating: 4.8,
+                reviewsCount: 395,
+                image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&auto=format&fit=crop&q=80',
+                featured: true,
+                hotDeal: true,
+                highlights: ['Colosseum & Roman Forum VIP priority tour', 'Vatican Museums & Sistine Chapel pass', 'Trevi Fountain & Spanish Steps walking excursion', 'Authentic Roman pasta cooking masterclass', 'Private Leonardo da Vinci airport transfers'],
+                description: 'Walk through thousands of years of living history, majestic Roman architecture, Renaissance art and world-class Italian cuisine.'
+            },
             {
-                id: 'PKG-LAST-THAILAND',
+                id: 'PKG-TURKEY',
+                title: 'Istanbul Hagia Sophia & Bosphorus Scenic Cruise',
+                destination: 'Istanbul, Turkey',
+                category: 'international',
+                duration: '5 Days / 4 Nights',
+                days: 5,
+                nights: 4,
+                price: 38999,
+                oldPrice: 52000,
+                discount: '25% OFF',
+                hotel: 'Sultanahmet 5-Star Hotel with Bosphorus View',
+                rating: 4.8,
+                reviewsCount: 280,
+                image: 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=800&auto=format&fit=crop&q=80',
+                featured: true,
+                hotDeal: true,
+                highlights: ['Hagia Sophia & Blue Mosque guided tour', 'Bosphorus sunset yacht cruise with dinner', 'Grand Bazaar & Spice Market shopping tour', 'Topkapi Palace sultan imperial chambers', 'Traditional Turkish hammam spa ritual'],
+                description: 'Where Europe and Asia meet. Experience rich Byzantine and Ottoman history, lively bazaars, and scenic waterways.'
+            },
+            {
+                id: 'PKG-CANADA',
+                title: 'Canada CN Tower, Toronto Skyline & Niagara Falls Tour',
+                destination: 'Toronto & Niagara, Canada',
+                category: 'international',
+                duration: '6 Days / 5 Nights',
+                days: 6,
+                nights: 5,
+                price: 64999,
+                oldPrice: 85000,
+                discount: '24% OFF',
+                hotel: 'Toronto Downtown Luxury Waterfront Hotel',
+                rating: 4.9,
+                reviewsCount: 215,
+                image: 'https://images.unsplash.com/photo-1506146332389-18140dc7b2fb?w=800&auto=format&fit=crop&q=80',
+                featured: true,
+                hotDeal: false,
+                highlights: ['CN Tower 360-degree observation deck & EdgeWalk', 'Niagara Falls Hornblower boat cruise', 'Toronto Harbour Islands scenic ferry', 'Distillery Historic District walking tour', 'Day trip to picturesque Niagara-on-the-Lake'],
+                description: 'Marvel at the roaring power of Niagara Falls and the sparkling glass towers of Toronto with luxury accommodations and guided transport.'
+            },            {\r\n                id: 'PKG-LAST-THAILAND',
                 title: 'Flash Sale: Bangkok & Phuket Island Getaway',
                 destination: 'Bangkok & Phuket, Thailand',
                 category: 'last-minute',
@@ -1508,7 +1566,12 @@ const StorageManager = {
     // PACKAGES & TOURS API
     // =========================================================================
     getPackages() {
-        const pkgs = this.get(STORAGE_KEYS.PACKAGES, []);
+        let pkgs = this.get(STORAGE_KEYS.PACKAGES, []);
+        // Auto-heal seed packages if Rome or new packages are missing
+        if (!pkgs || pkgs.length === 0 || !pkgs.find(p => p.id === 'PKG-ROME')) {
+            this.initSeedData(true);
+            pkgs = this.get(STORAGE_KEYS.PACKAGES, []);
+        }
         if (!pkgs || pkgs.length === 0) {
             this.initSeedData(true);
             return this.get(STORAGE_KEYS.PACKAGES, []);
@@ -1517,8 +1580,57 @@ const StorageManager = {
     },
 
     getPackageById(id) {
+        if (!id) return null;
         const list = this.getPackages();
-        return list.find(p => p.id === id) || null;
+        // 1. Direct ID match
+        let found = list.find(p => p.id === id);
+        if (found) return found;
+
+        // 2. Case-insensitive ID match
+        const lowerId = id.toLowerCase().trim();
+        found = list.find(p => p.id.toLowerCase() === lowerId);
+        if (found) return found;
+
+        // 3. Known ID aliases
+        const aliases = {
+            'pkg-dom-101': 'PKG-TAJ',
+            'pkg-int-106': 'PKG-FAMILY-PARIS',
+            'pkg-int-105': 'PKG-SANTORINI',
+            'pkg-paris': 'PKG-FAMILY-PARIS',
+            'pkg-taj-mahal': 'PKG-TAJ',
+            'pkg-taj': 'PKG-TAJ',
+            'pkg-colosseum': 'PKG-ROME',
+            'pkg-rome': 'PKG-ROME',
+            'pkg-hagia-sophia': 'PKG-TURKEY',
+            'pkg-turkey': 'PKG-TURKEY',
+            'pkg-istanbul': 'PKG-TURKEY',
+            'pkg-cn-tower': 'PKG-CANADA',
+            'pkg-canada': 'PKG-CANADA',
+            'pkg-toronto': 'PKG-CANADA',
+            'pkg-wat-arun': 'PKG-LAST-THAILAND',
+            'pkg-bangkok': 'PKG-LAST-THAILAND',
+            'pkg-thailand': 'PKG-LAST-THAILAND',
+            'pkg-maldives': 'PKG-MALDIVES',
+            'pkg-dubai': 'PKG-DUBAI',
+            'pkg-swiss': 'PKG-SWISS',
+            'pkg-bali': 'PKG-BALI',
+            'pkg-kashmir': 'PKG-KASHMIR',
+            'pkg-kerala': 'PKG-KERALA',
+            'pkg-goa': 'PKG-GOA',
+            'pkg-singapore': 'PKG-FAMILY-SINGAPORE'
+        };
+        if (aliases[lowerId]) {
+            found = list.find(p => p.id === aliases[lowerId]);
+            if (found) return found;
+        }
+
+        // 4. Keyword match on destination or title
+        found = list.find(p => 
+            p.destination.toLowerCase().includes(lowerId) || 
+            p.title.toLowerCase().includes(lowerId) ||
+            lowerId.includes(p.destination.toLowerCase().split(',')[0].trim())
+        );
+        return found || null;
     },
 
     getPackagesByCategory(category) {
