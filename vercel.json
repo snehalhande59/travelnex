@@ -1,15 +1,97 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "rewrites": [
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "redirects": [
     {
       "source": "/",
-      "destination": "/customer/index.html"
+      "destination": "/customer/index.html",
+      "permanent": false
     },
     {
-      "source": "/index.html",
-      "destination": "/customer/index.html"
+      "source": "/customer",
+      "destination": "/customer/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/customer/",
+      "destination": "/customer/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/corporate",
+      "destination": "/corporate/corporate.html",
+      "permanent": false
+    },
+    {
+      "source": "/corporate/",
+      "destination": "/corporate/corporate.html",
+      "permanent": false
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin/admin-dashboard.html",
+      "permanent": false
+    },
+    {
+      "source": "/admin/",
+      "destination": "/admin/admin-dashboard.html",
+      "permanent": false
+    },
+    {
+      "source": "/driver",
+      "destination": "/driver/driver-dashboard.html",
+      "permanent": false
+    },
+    {
+      "source": "/driver/",
+      "destination": "/driver/driver-dashboard.html",
+      "permanent": false
     }
+  ],
+  "rewrites": [
+    { "source": "/destinations", "destination": "/customer/destinations.html" },
+    { "source": "/destinations.html", "destination": "/customer/destinations.html" },
+    { "source": "/packages", "destination": "/customer/packages.html" },
+    { "source": "/packages.html", "destination": "/customer/packages.html" },
+    { "source": "/package-details", "destination": "/customer/package-details.html" },
+    { "source": "/package-details.html", "destination": "/customer/package-details.html" },
+    { "source": "/booking-details", "destination": "/customer/booking-details.html" },
+    { "source": "/booking-details.html", "destination": "/customer/booking-details.html" },
+    { "source": "/my-bookings", "destination": "/customer/my-bookings.html" },
+    { "source": "/my-bookings.html", "destination": "/customer/my-bookings.html" },
+    { "source": "/customer-dashboard", "destination": "/customer/customer-dashboard.html" },
+    { "source": "/customer-dashboard.html", "destination": "/customer/customer-dashboard.html" },
+    { "source": "/local-taxi", "destination": "/customer/local-taxi.html" },
+    { "source": "/local-taxi.html", "destination": "/customer/local-taxi.html" },
+    { "source": "/outstation-cabs", "destination": "/customer/outstation-cabs.html" },
+    { "source": "/outstation-cabs.html", "destination": "/customer/outstation-cabs.html" },
+    { "source": "/airport-transfer", "destination": "/customer/airport-transfer.html" },
+    { "source": "/airport-transfer.html", "destination": "/customer/airport-transfer.html" },
+    { "source": "/mini-bus", "destination": "/customer/mini-bus.html" },
+    { "source": "/mini-bus.html", "destination": "/customer/mini-bus.html" },
+    { "source": "/luxury-bus", "destination": "/customer/luxury-bus.html" },
+    { "source": "/luxury-bus.html", "destination": "/customer/luxury-bus.html" },
+    { "source": "/group-transportation", "destination": "/customer/group-transportation.html" },
+    { "source": "/group-transportation.html", "destination": "/customer/group-transportation.html" },
+    { "source": "/railway-booking", "destination": "/customer/railway-booking.html" },
+    { "source": "/railway-booking.html", "destination": "/customer/railway-booking.html" },
+    { "source": "/st-bus-booking", "destination": "/customer/st-bus-booking.html" },
+    { "source": "/st-bus-booking.html", "destination": "/customer/st-bus-booking.html" },
+    { "source": "/about", "destination": "/customer/about.html" },
+    { "source": "/about.html", "destination": "/customer/about.html" },
+    { "source": "/contact", "destination": "/customer/contact.html" },
+    { "source": "/contact.html", "destination": "/customer/contact.html" },
+    { "source": "/login", "destination": "/customer/login.html" },
+    { "source": "/login.html", "destination": "/customer/login.html" },
+    { "source": "/register", "destination": "/customer/register.html" },
+    { "source": "/register.html", "destination": "/customer/register.html" },
+    { "source": "/corporate-dashboard", "destination": "/corporate/corporate-dashboard.html" },
+    { "source": "/corporate-dashboard.html", "destination": "/corporate/corporate-dashboard.html" },
+    { "source": "/admin-dashboard", "destination": "/admin/admin-dashboard.html" },
+    { "source": "/admin-dashboard.html", "destination": "/admin/admin-dashboard.html" },
+    { "source": "/driver-dashboard", "destination": "/driver/driver-dashboard.html" },
+    { "source": "/driver-dashboard.html", "destination": "/driver/driver-dashboard.html" }
   ],
   "headers": [
     {

@@ -2,11 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="0; url=customer/index.html">
-    <title>TRAVELNEX - Tours & Travel Management Platform</title>
+    <title>TRAVELNEX - Tours &amp; Travel Management Platform</title>
+    <script>
+        window.location.replace('customer/index.html');
+    </script>
+    <style>
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #07377F;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .redirect-box {
+            background: #ffffff;
+            color: #14233F;
+            padding: 36px 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 440px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+        }
+        .btn-redirect {
+            display: inline-block;
+            background: #F5B51B;
+            color: #07377F;
+            padding: 12px 26px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 18px;
+        }
+    </style>
 </head>
-<body style="font-family:sans-serif; text-align:center; padding-top:50px;">
-    <h2>Redirecting to <a href="customer/index.html">TRAVELNEX Customer Portal</a>...</h2>
-    <p>If you are not redirected automatically, please click the link above.</p>
+<body>
+    <div class="redirect-box">
+        <h2 style="margin: 0 0 10px; color: #07377F;">TRAVEL<span style="color:#F5B51B;">NEX</span></h2>
+        <p style="margin: 0 0 16px; color: #64748B; font-size: 14px;">Redirecting to TRAVELNEX Platform...</p>
+        <a href="customer/index.html" class="btn-redirect">Continue to Website &rarr;</a>
+    </div>
 </body>
 </html>
