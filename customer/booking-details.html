@@ -166,15 +166,15 @@
             return;
         }
 
-        const driver = b.driverId \u2192 StorageManager.getDriverById(b.driverId) : null;
-        const vehicle = b.vehicleId \u2192 StorageManager.getVehicleById(b.vehicleId) : null;
+        const driver = b.driverId ? StorageManager.getDriverById(b.driverId) : null;
+        const vehicle = b.vehicleId ? StorageManager.getVehicleById(b.vehicleId) : null;
 
         // Timeline step calculation
         const status = b.bookingStatus;
         const sPending = 'completed';
-        const sConfirmed = ['Confirmed', 'In Progress', 'Completed'].includes(status) \u2192 (status === 'Confirmed' \u2192 'active' : 'completed') : '';
-        const sStarted = ['In Progress', 'Completed'].includes(status) \u2192 (status === 'In Progress' \u2192 'active' : 'completed') : '';
-        const sCompleted = status === 'Completed' \u2192 'completed active' : '';
+        const sConfirmed = ['Confirmed', 'In Progress', 'Completed'].includes(status) ? (status === 'Confirmed' ? 'active' : 'completed') : '';
+        const sStarted = ['In Progress', 'Completed'].includes(status) ? (status === 'In Progress' ? 'active' : 'completed') : '';
+        const sCompleted = status === 'Completed' ? 'completed active' : '';
 
         card.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
@@ -188,7 +188,7 @@
                 <div style="text-align: right;">
                     <div style="margin-bottom: 6px;">${Utils.getStatusBadge(b.bookingStatus)}</div>
                     <div style="font-size: 22px; font-weight: 800; color: var(--navy);">${Utils.formatCurrency(b.estimatedFare)}</div>
-                    <span style="font-size: 12px; color: ${b.paymentStatus === 'Paid' \u2192 'var(--success)' : 'var(--warning)'}; font-weight: 600;">
+                    <span style="font-size: 12px; color: ${b.paymentStatus === 'Paid' ? 'var(--success)' : 'var(--warning)'}; font-weight: 600;">
                         Payment: ${Utils.escapeHTML(b.paymentStatus)}
                     </span>
                 </div>
@@ -248,7 +248,7 @@
             <!-- Driver & Fleet Allocation -->
             <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; margin-bottom: 24px;">
                 <h4 style="margin-bottom: 12px; font-size: 16px;"><i class="fa-solid fa-id-badge" style="color:var(--orange);"></i> Chauffeur & Vehicle Allocation</h4>
-                ${driver \u2192 `
+                ${driver ? `
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
                         <div style="display: flex; align-items: center; gap: 14px;">
                             <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--blue-light); color: var(--blue); display: grid; place-items: center; font-size: 20px;">
@@ -263,10 +263,10 @@
                         </div>
                         <div style="text-align: right;">
                             <div style="font-size: 15px; font-weight: 700; color: var(--navy);">
-                                ${vehicle \u2192 Utils.escapeHTML(vehicle.name) : 'Fleet Vehicle'}
+                                ${vehicle ? Utils.escapeHTML(vehicle.name) : 'Fleet Vehicle'}
                             </div>
                             <div style="font-size: 13px; color: var(--blue); font-weight: 600;">
-                                ${vehicle \u2192 Utils.escapeHTML(vehicle.regNumber) : 'Assigned'}
+                                ${vehicle ? Utils.escapeHTML(vehicle.regNumber) : 'Assigned'}
                             </div>
                         </div>
                     </div>

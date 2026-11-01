@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Login | TRAVELNEX</title>
+    <title>Sign In &amp; Portals Access | TRAVELNEX</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -14,82 +14,128 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, rgba(7, 55, 127, 0.96) 0%, rgba(11, 43, 99, 0.92) 50%, rgba(6, 28, 64, 0.96) 100%),
-                        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1800') center/cover no-repeat;
-            padding: 30px 20px;
+            padding: 30px 16px;
+            background: linear-gradient(135deg, #07377F 0%, #0B2B63 50%, #061C40 100%);
         }
         .auth-card {
-            width: 100%;
-            max-width: 450px;
             background: #ffffff;
-            border-radius: var(--radius-lg);
+            border-radius: 18px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+            width: 100%;
+            max-width: 480px;
             padding: 36px 32px;
-            box-shadow: 0 25px 60px rgba(6, 28, 64, 0.35);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
         }
         .auth-logo {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
-            color: var(--navy);
-            margin-bottom: 22px;
+            color: var(--primary);
             text-decoration: none;
-            font-family: 'Outfit', sans-serif;
+            margin-bottom: 12px;
         }
         .auth-logo .icon {
             width: 40px;
             height: 40px;
-            border-radius: var(--radius-sm);
-            background: var(--primary);
-            color: #fff;
+            background: linear-gradient(135deg, #07377F 0%, #0B2B63 100%);
+            color: var(--gold);
+            border-radius: 10px;
             display: grid;
             place-items: center;
-            font-size: 19px;
+            font-size: 18px;
         }
         .auth-logo span { color: var(--gold); }
-        .demo-chip {
-            background: #EAF1FA;
-            border: 1px dashed var(--primary);
-            border-radius: var(--radius-md);
-            padding: 12px 14px;
-            margin-bottom: 18px;
-            font-size: 12px;
+        .role-selector-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .role-chip {
+            background: #F8FAFC;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 10px 12px;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--navy);
         }
-        .demo-chip:hover {
-            background: #dbe8f7;
-            transform: translateY(-2px);
+        .role-chip i {
+            font-size: 15px;
+            color: var(--primary);
         }
-
+        .role-chip:hover {
+            background: #EAF1FA;
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+        .role-chip.active {
+            background: #EAF1FA;
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(7, 55, 127, 0.15);
+        }
         .login-tabs {
             display: flex;
+            border-radius: 10px;
             background: #EAF1FA;
-            border-radius: 8px;
             padding: 4px;
-            margin-bottom: 18px;
-            gap: 4px;
+            margin-bottom: 20px;
         }
         .login-tab-btn {
             flex: 1;
-            padding: 8px;
-            border-radius: 6px;
-            font-size: 12.5px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
             font-weight: 700;
             cursor: pointer;
-            border: none;
-            background: none;
-            color: #53647F;
+            background: transparent;
+            color: var(--navy);
             transition: var(--transition);
-            text-align: center;
         }
         .login-tab-btn.active {
             background: #ffffff;
             color: var(--primary);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 8px rgba(11, 43, 99, 0.12);
+        }
+        .direct-portals-box {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #E2E8F0;
+            text-align: center;
+        }
+        .portals-pills-row {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .portal-pill {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: #F1F5F9;
+            color: var(--navy);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .portal-pill:hover {
+            background: var(--primary);
+            color: #ffffff;
         }
     </style>
 </head>
@@ -97,23 +143,46 @@
 
 <div class="auth-page">
     <div class="auth-card">
-        <a href="index.html" class="auth-logo">
+        <a href="index.html" class="auth-logo" title="Return to Homepage">
             <div class="icon"><i class="fa-solid fa-route"></i></div>
             TRAVEL<span>NEX</span>
         </a>
 
-        <h2 style="font-size: 22px; text-align: center; margin-bottom: 6px; color:var(--navy); font-weight:800;">Customer Sign In</h2>
-        <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 18px;">
-            Access your bookings, itineraries, flights and cruise tickets
+        <h2 style="font-size: 22px; text-align: center; margin-bottom: 6px; color:var(--navy); font-weight:800;">TRAVELNEX Sign In</h2>
+        <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">
+            Choose a demo account to instantly autofill and sign in:
         </p>
 
-        <!-- Clickable Demo Login Helper -->
-        <div class="demo-chip" onclick="fillDemoCredentials()">
-            <div style="font-weight: 800; color: var(--primary); margin-bottom: 3px;">
-                <i class="fa-solid fa-bolt"></i> Click to autofill Demo Customer Account:
+        <!-- 4 Role Selector Chips -->
+        <div class="role-selector-grid">
+            <div class="role-chip active" id="chipCustomer" onclick="selectRole('customer')">
+                <i class="fa-solid fa-circle-user" style="color:#07377F;"></i>
+                <div>
+                    <div>Customer</div>
+                    <div style="font-size:10.5px; font-weight:500; color:#64748B;">User@123</div>
+                </div>
             </div>
-            <div>Email: <strong style="color:var(--navy);">customer@travelnex.com</strong></div>
-            <div>Password: <strong style="color:var(--navy);">User@123</strong></div>
+            <div class="role-chip" id="chipCorporate" onclick="selectRole('corporate')">
+                <i class="fa-solid fa-briefcase" style="color:#0B2B63;"></i>
+                <div>
+                    <div>Corporate</div>
+                    <div style="font-size:10.5px; font-weight:500; color:#64748B;">Corp@123</div>
+                </div>
+            </div>
+            <div class="role-chip" id="chipAdmin" onclick="selectRole('admin')">
+                <i class="fa-solid fa-gauge-high" style="color:#DE9F0C;"></i>
+                <div>
+                    <div>Admin</div>
+                    <div style="font-size:10.5px; font-weight:500; color:#64748B;">Admin@123</div>
+                </div>
+            </div>
+            <div class="role-chip" id="chipDriver" onclick="selectRole('driver')">
+                <i class="fa-solid fa-id-card" style="color:#10B981;"></i>
+                <div>
+                    <div>Driver</div>
+                    <div style="font-size:10.5px; font-weight:500; color:#64748B;">Driver@123</div>
+                </div>
+            </div>
         </div>
 
         <!-- Login Tabs: Password vs Mobile OTP -->
@@ -130,74 +199,89 @@
         <form id="passwordLoginForm">
             <div class="form-group" style="margin-bottom:14px;">
                 <label for="email" style="font-weight:700; color:var(--navy); display:block; margin-bottom:5px; font-size:13px;">Email Address</label>
-                <input type="email" id="email" class="form-control" placeholder="name@example.com" required style="height:44px; border-radius:10px;">
+                <input type="email" id="email" class="form-control" placeholder="name@example.com" required value="customer@travelnex.com" style="height:44px; border-radius:10px;">
             </div>
             <div class="form-group" style="margin-bottom:18px;">
                 <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
                     <label for="password" style="font-weight:700; color:var(--navy); font-size:13px;">Password</label>
-                    <a href="#" onclick="alert('For demo, use User@123'); return false;" style="font-size:12px; color:var(--primary); font-weight:700;">Forgot?</a>
+                    <span id="roleHint" style="font-size:12px; color:var(--primary); font-weight:700;">Role: Customer</span>
                 </div>
-                <input type="password" id="password" class="form-control" placeholder="••••••••" required style="height:44px; border-radius:10px;">
+                <input type="password" id="password" class="form-control" required value="User@123" style="height:44px; border-radius:10px;">
             </div>
 
-            <button type="submit" class="btn" style="width: 100%; height: 46px; background:var(--primary); color:#ffffff; font-weight:700; border:none; border-radius:10px; font-size:14px; box-shadow:0 4px 14px rgba(7, 55, 127, 0.28);">
-                Sign In to Customer Dashboard <i class="fa-solid fa-arrow-right"></i>
+            <button type="submit" id="btnLoginSubmit" class="btn" style="width: 100%; height: 46px; background:var(--primary); color:#ffffff; font-weight:700; border:none; border-radius:10px; font-size:14px; box-shadow:0 4px 14px rgba(7, 55, 127, 0.28); cursor:pointer;">
+                <span>Sign In to Dashboard</span> <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>
             </button>
         </form>
 
-        <!-- 2. Mobile OTP Login Form -->
+        <!-- 2. Mobile OTP Form (hidden by default) -->
         <form id="otpLoginForm" style="display:none;">
             <div class="form-group" style="margin-bottom:14px;">
-                <label for="loginPhone" style="font-weight:700; color:var(--navy); font-size:13px; display:block; margin-bottom:5px;">Mobile Number</label>
+                <label for="loginPhone" style="font-weight:700; color:var(--navy); display:block; margin-bottom:5px; font-size:13px;">Registered Mobile Number</label>
                 <div style="display:flex; gap:8px;">
                     <span style="height:44px; padding:0 12px; background:#EAF1FA; border:1px solid #D5E1F0; border-radius:10px; display:grid; place-items:center; font-weight:700; color:var(--navy); font-size:13px;">+91</span>
-                    <input type="tel" id="loginPhone" pattern="[6-9][0-9]{9}" class="form-control" placeholder="9822011223" style="height:44px; border-radius:10px; flex:1;">
-                    <button type="button" id="btnLoginSendOtp" class="btn" style="height:44px; background:var(--primary); color:#fff; font-size:12.5px; padding:0 14px; border-radius:8px;" onclick="handleLoginSendOtp()">
+                    <input type="tel" id="loginPhone" pattern="[6-9][0-9]{9}" class="form-control" placeholder="9822011111" value="9822011111" style="height:44px; border-radius:10px; flex:1;">
+                    <button type="button" id="btnLoginSendOtp" class="btn" style="height:44px; background:var(--primary); color:#fff; font-size:12.5px; padding:0 14px; border-radius:8px; border:none; cursor:pointer;" onclick="handleLoginSendOtp()">
                         Send OTP
                     </button>
                 </div>
             </div>
 
-            <div id="loginOtpBox" style="display:none; background:#EAF1FA; border:1px solid #D5E1F0; border-radius:10px; padding:14px; margin-bottom:16px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                    <label style="font-size:11.5px; font-weight:800; color:var(--navy); text-transform:uppercase;">Enter 6-Digit OTP</label>
-                    <span id="loginOtpTimer" style="font-size:11px; font-weight:700; color:var(--primary);"></span>
-                </div>
-                <input type="text" id="loginOtpInput" maxlength="6" style="width:100%; height:42px; font-size:18px; letter-spacing:6px; text-align:center; font-weight:800; font-family:'Outfit', monospace; border:1.5px solid #07377F; border-radius:8px; background:#fff;" placeholder="------">
-                <div id="loginOtpNotice" style="font-size:11px; color:#53647F; margin-top:6px; line-height:1.4;"></div>
+            <div class="form-group" style="margin-bottom:18px;">
+                <label for="loginOtp" style="font-weight:700; color:var(--navy); display:block; margin-bottom:5px; font-size:13px;">Enter 6-Digit OTP</label>
+                <input type="text" id="loginOtp" maxlength="6" class="form-control" placeholder="Enter code received" style="height:44px; letter-spacing:4px; font-weight:800; font-size:16px; text-align:center; border-radius:10px;">
+                <div id="loginOtpNotice" style="font-size:11.5px; color:#53647F; margin-top:5px;"></div>
             </div>
 
-            <button type="submit" id="btnLoginWithOtpSubmit" class="btn" style="width: 100%; height: 46px; background:var(--gold); color:var(--navy); font-weight:800; border:none; border-radius:10px; font-size:14px; box-shadow:0 4px 14px rgba(245, 181, 27, 0.3);">
-                Verify & Login <i class="fa-solid fa-arrow-right"></i>
+            <button type="submit" class="btn" style="width: 100%; height: 46px; background:var(--primary); color:#ffffff; font-weight:700; border:none; border-radius:10px; font-size:14px; box-shadow:0 4px 14px rgba(7, 55, 127, 0.28); cursor:pointer;">
+                <span>Verify &amp; Sign In</span> <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>
             </button>
         </form>
 
-        <div style="text-align: center; margin-top: 20px; font-size: 13.5px; color: var(--text-muted);">
-            Don't have an account? <a href="register.html" style="color: var(--primary); font-weight: 700;">Create Account</a>
+        <!-- Direct Portal Shortcuts -->
+        <div class="direct-portals-box">
+            <div style="font-size:12px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Direct Dashboard Access</div>
+            <div class="portals-pills-row">
+                <a href="customer-dashboard.html" class="portal-pill"><i class="fa-solid fa-circle-user"></i> Customer</a>
+                <a href="../corporate/corporate-dashboard.html" class="portal-pill"><i class="fa-solid fa-briefcase"></i> Corporate</a>
+                <a href="../admin/admin-dashboard.html" class="portal-pill"><i class="fa-solid fa-gauge-high"></i> Admin</a>
+                <a href="../driver/driver-dashboard.html" class="portal-pill"><i class="fa-solid fa-id-card"></i> Driver</a>
+            </div>
         </div>
 
-        <div style="border-top: 1px solid var(--border); margin-top: 20px; padding-top: 16px; text-align: center;">
-            <span style="font-size: 12px; color: var(--text-muted);">Switch to another portal:</span><br>
-            <div style="display: flex; justify-content: center; gap: 14px; margin-top: 8px; font-size: 12px; font-weight: 700;">
-                <a href="../corporate/corporate-login.html" style="color: var(--primary);">Corporate Portal</a>
-                <span>•</span>
-                <a href="../admin/admin-login.html" style="color: var(--primary);">Admin Panel</a>
-                <span>•</span>
-                <a href="../driver/driver-login.html" style="color: var(--primary);">Driver App</a>
-            </div>
+        <div style="text-align:center; margin-top:20px; font-size:13px; color:#64748B;">
+            Don't have an account? <a href="register.html" style="color:var(--primary); font-weight:700; text-decoration:none;">Create Free Account</a>
         </div>
     </div>
 </div>
 
 <script src="../assets/js/storage.js"></script>
-<script src="../assets/js/auth.js"></script>
 <script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
 <script>
-    function fillDemoCredentials() {
-        switchLoginMethod('password');
-        document.getElementById('email').value = 'customer@travelnex.com';
-        document.getElementById('password').value = 'User@123';
-        Utils.showToast('Demo customer credentials filled!', 'info');
+    const roleAccounts = {
+        customer: { email: 'customer@travelnex.com', pwd: 'User@123', label: 'Customer', phone: '9822011111' },
+        corporate: { email: 'corporate@travelnex.com', pwd: 'Corp@123', label: 'Corporate Client', phone: '9822022222' },
+        admin: { email: 'admin@travelnex.com', pwd: 'Admin@123', label: 'Super Admin', phone: '9822011111' },
+        driver: { email: 'driver@travelnex.com', pwd: 'Driver@123', label: 'Verified Driver', phone: '9822033333' }
+    };
+
+    let selectedRoleKey = 'customer';
+
+    function selectRole(roleKey) {
+        selectedRoleKey = roleKey;
+        document.querySelectorAll('.role-chip').forEach(c => c.classList.remove('active'));
+        const chip = document.getElementById('chip' + roleKey.charAt(0).toUpperCase() + roleKey.slice(1));
+        if (chip) chip.classList.add('active');
+
+        const cred = roleAccounts[roleKey];
+        if (cred) {
+            document.getElementById('email').value = cred.email;
+            document.getElementById('password').value = cred.pwd;
+            document.getElementById('loginPhone').value = cred.phone;
+            document.getElementById('roleHint').textContent = 'Role: ' + cred.label;
+            Utils.showToast(`Selected ${cred.label} demo account. Click Sign In!`, 'info');
+        }
     }
 
     function switchLoginMethod(method) {
@@ -229,8 +313,16 @@
         if (res.success) {
             Utils.showToast('Login successful! Welcome back, ' + res.user.name, 'success');
             setTimeout(() => {
-                window.location.href = 'my-bookings.html';
-            }, 800);
+                if (res.user.role === 'admin') {
+                    window.location.href = '../admin/admin-dashboard.html';
+                } else if (res.user.role === 'corporate') {
+                    window.location.href = '../corporate/corporate-dashboard.html';
+                } else if (res.user.role === 'driver') {
+                    window.location.href = '../driver/driver-dashboard.html';
+                } else {
+                    window.location.href = 'customer-dashboard.html';
+                }
+            }, 700);
         } else {
             Utils.showToast(res.message, 'danger');
         }
@@ -251,22 +343,14 @@
         btn.disabled = true;
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
 
-        const res = await Auth.OTP.sendOtp(phone);
+        const res = await Auth.OTP.requestOtp(phone);
+        btn.disabled = false;
+        btn.innerHTML = 'Send OTP';
+
         if (!res.success) {
-            Utils.showToast(res.message, 'warning');
-            btn.disabled = false;
-            btn.textContent = 'Send OTP';
-            return;
-        }
-
-        document.getElementById('loginOtpBox').style.display = 'block';
-        document.getElementById('loginOtpInput').focus();
-
-        if (res.isLiveBackend) {
-            Utils.showToast('OTP sent via SMS!', 'success');
-            document.getElementById('loginOtpNotice').innerHTML = `Enter the 6-digit OTP received on +91 ${res.phone}`;
+            Utils.showToast(res.message, 'danger');
         } else {
-            Utils.showToast(`[SMS Simulation Mode] OTP: ${res.devOtp}`, 'info');
+            Utils.showToast(`[SMS Simulation] OTP: ${res.devOtp}`, 'info');
             document.getElementById('loginOtpNotice').innerHTML = `Local Demo OTP: <strong style="color:var(--primary); font-family:monospace; background:#fff; padding:2px 6px; border-radius:4px;">${res.devOtp}</strong> (expires in 5 mins).`;
         }
 
@@ -274,13 +358,13 @@
         clearInterval(loginCooldown);
         loginCooldown = setInterval(() => {
             remaining--;
-            document.getElementById('loginOtpTimer').textContent = `${remaining}s`;
-            btn.textContent = `${remaining}s`;
             if (remaining <= 0) {
                 clearInterval(loginCooldown);
                 btn.disabled = false;
-                btn.textContent = 'Resend';
-                document.getElementById('loginOtpTimer').textContent = '';
+                btn.innerHTML = 'Resend';
+            } else {
+                btn.disabled = true;
+                btn.innerHTML = `${remaining}s`;
             }
         }, 1000);
     }
@@ -288,46 +372,38 @@
     document.getElementById('otpLoginForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         const phone = document.getElementById('loginPhone').value.trim();
-        const otpVal = document.getElementById('loginOtpInput').value.trim();
+        const otp = document.getElementById('loginOtp').value.trim();
 
-        if (!otpVal) {
+        if (otp.length !== 6) {
             Utils.showToast('Please enter the 6-digit OTP.', 'warning');
             return;
         }
 
-        const verifyRes = await Auth.OTP.verifyOtp(phone, otpVal);
-        if (!verifyRes.success) {
-            Utils.showToast(verifyRes.message, 'danger');
-            return;
+        const res = await Auth.OTP.verifyOtp(phone, otp);
+        if (res.success) {
+            Utils.showToast('OTP verified! Welcome back, ' + res.user.name, 'success');
+            setTimeout(() => {
+                if (res.user.role === 'admin') {
+                    window.location.href = '../admin/admin-dashboard.html';
+                } else if (res.user.role === 'corporate') {
+                    window.location.href = '../corporate/corporate-dashboard.html';
+                } else if (res.user.role === 'driver') {
+                    window.location.href = '../driver/driver-dashboard.html';
+                } else {
+                    window.location.href = 'customer-dashboard.html';
+                }
+            }, 700);
+        } else {
+            Utils.showToast(res.message, 'danger');
         }
-
-        // Find or create customer account with this phone
-        const users = StorageManager.get('travelnex_users', []);
-        let user = users.find(u => (u.phone || '').replace(/\D/g,'').endsWith(phone.slice(-10)));
-
-        if (!user) {
-            user = StorageManager.saveCustomer({
-                name: 'Customer (+91 ' + phone + ')',
-                email: 'customer_' + phone.slice(-4) + '@travelnex.com',
-                phone: phone,
-                phoneVerified: true,
-                role: 'customer'
-            });
-        }
-
-        Auth.setCurrentUser(user);
-        Utils.showToast('Phone verified! Logged in successfully.', 'success');
-        setTimeout(() => {
-            window.location.href = 'my-bookings.html';
-        }, 800);
     });
 
-    // If already logged in, redirect
-    const current = Auth.getCurrentUser();
-    if (current && current.role === 'customer') {
-        window.location.href = 'my-bookings.html';
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+        // Ensure demo seed data is ready
+        if (typeof StorageManager !== 'undefined' && StorageManager.initSeedData) {
+            StorageManager.initSeedData();
+        }
+    });
 </script>
-    <script src="../assets/js/navbar.js?v=2.5"></script>
 </body>
 </html>

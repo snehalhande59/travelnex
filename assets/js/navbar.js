@@ -33,8 +33,23 @@
             }
         });
         if (isServiceActive) {
-            const sToggle = document.querySelector('.nav-dropdown-toggle');
+            const sToggle = document.querySelector('.services-toggle');
             if (sToggle) sToggle.classList.add('active');
+        }
+
+        // 1c. If on any portal/dashboard page, highlight Dashboards parent toggle
+        const portalLinks = document.querySelectorAll('.dropdown-portals a, #mobilePortalsSub a');
+        let isPortalActive = false;
+        portalLinks.forEach(pLink => {
+            const pHref = (pLink.getAttribute('href') || '').toLowerCase();
+            if (pHref && path.endsWith('/' + pHref.replace('../', ''))) {
+                isPortalActive = true;
+                pLink.style.fontWeight = '700';
+            }
+        });
+        if (isPortalActive) {
+            const pToggle = document.querySelector('.portals-toggle');
+            if (pToggle) pToggle.classList.add('active');
         }
 
         // 2. Auth State Sync
@@ -42,18 +57,24 @@
             const user = Auth.getCurrentUser();
             if (user && user.name) {
                 const firstName = user.name.split(' ')[0];
+                let dashHref = 'customer-dashboard.html';
+                if (user.role === 'admin') dashHref = '../admin/admin-dashboard.html';
+                else if (user.role === 'corporate') dashHref = '../corporate/corporate-dashboard.html';
+                else if (user.role === 'driver') dashHref = '../driver/driver-dashboard.html';
+
                 const authBtns = document.querySelectorAll('#navbarAuthBtn, .nav-auth-pill');
                 authBtns.forEach(btn => {
                     if (btn.id === 'navbarAuthBtn' || btn.classList.contains('nav-auth-pill')) {
-                        btn.innerHTML = `<i class="fa-solid fa-circle-user"></i> <span>${Utils.escapeHTML(firstName)}</span>`;
-                        btn.href = 'customer-dashboard.html';
+                        btn.innerHTML = `<i class="fa-solid fa-circle-user"></i> <span>${(typeof Utils !== 'undefined' && Utils.escapeHTML) ? Utils.escapeHTML(firstName) : firstName}</span>`;
+                        btn.href = dashHref;
+                        btn.title = `Logged in as ${user.name} (${user.role.toUpperCase()}) - Open Dashboard`;
                     }
                 });
 
                 const drawerAuth = document.getElementById('drawerAuthLink');
                 if (drawerAuth) {
-                    drawerAuth.innerHTML = `<i class="fa-solid fa-circle-user"></i> My Dashboard (${Utils.escapeHTML(firstName)})`;
-                    drawerAuth.href = 'customer-dashboard.html';
+                    drawerAuth.innerHTML = `<i class="fa-solid fa-circle-user"></i> My Dashboard (${firstName})`;
+                    drawerAuth.href = dashHref;
                 }
             }
         }
@@ -77,6 +98,16 @@
     window.toggleMobileSubMenu = function () {
         const subMenu = document.getElementById('mobileSubMenu') || document.getElementById('mobileIndexSub') || document.querySelector('.mobile-sub-menu');
         const caret = document.getElementById('mobileSubCaret');
+        if (subMenu) {
+            subMenu.classList.toggle('show');
+            subMenu.classList.toggle('active');
+            if (caret) caret.style.transform = (subMenu.classList.contains('show') || subMenu.classList.contains('active')) ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+    };
+
+    window.toggleMobilePortalsSub = function () {
+        const subMenu = document.getElementById('mobilePortalsSub');
+        const caret = document.getElementById('mobilePortalsCaret');
         if (subMenu) {
             subMenu.classList.toggle('show');
             subMenu.classList.toggle('active');

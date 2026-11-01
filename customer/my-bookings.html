@@ -327,7 +327,7 @@
                         <button class="action-btn" title="Tax Invoice" onclick="Utils.showInvoiceModal('${b.id}')">
                             <i class="fa-solid fa-file-invoice"></i>
                         </button>
-                        ${canCancel \u2192 `
+                        ${canCancel ? `
                             <button class="action-btn delete" title="Cancel Booking" onclick="cancelBooking('${b.id}')">
                                 <i class="fa-solid fa-ban"></i>
                             </button>
@@ -343,8 +343,8 @@
         const b = StorageManager.getBookingById(id);
         if (!b) return;
 
-        const driver = b.driverId \u2192 StorageManager.getDriverById(b.driverId) : null;
-        const vehicle = b.vehicleId \u2192 StorageManager.getVehicleById(b.vehicleId) : null;
+        const driver = b.driverId ? StorageManager.getDriverById(b.driverId) : null;
+        const vehicle = b.vehicleId ? StorageManager.getVehicleById(b.vehicleId) : null;
 
         document.getElementById('modalBookingId').textContent = `Booking: ${b.id}`;
         document.getElementById('modalBookingBody').innerHTML = `
@@ -395,15 +395,15 @@
                 <!-- Assigned Driver Details -->
                 <div style="border-top:1px solid var(--border); padding-top:12px; margin-top:6px;">
                     <label style="font-size:11px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px;">ASSIGNED DRIVER & FLEET</label>
-                    ${driver \u2192 `
+                    ${driver ? `
                         <div style="display:flex; justify-content:space-between; align-items:center; background:#f1f5f9; padding:10px 14px; border-radius:8px;">
                             <div>
                                 <div style="font-weight:700; color:var(--navy);"><i class="fa-solid fa-user-tie"></i> ${Utils.escapeHTML(driver.name)}</div>
                                 <div style="font-size:12px; color:var(--text-muted);"><i class="fa-solid fa-phone"></i> ${Utils.escapeHTML(driver.phone)}</div>
                             </div>
                             <div style="text-align:right;">
-                                <div style="font-weight:700; color:var(--blue);">${vehicle \u2192 Utils.escapeHTML(vehicle.regNumber) : 'Assigned'}</div>
-                                <div style="font-size:12px; color:var(--text-muted);">${vehicle \u2192 Utils.escapeHTML(vehicle.name) : 'Fleet Car'}</div>
+                                <div style="font-weight:700; color:var(--blue);">${vehicle ? Utils.escapeHTML(vehicle.regNumber) : 'Assigned'}</div>
+                                <div style="font-size:12px; color:var(--text-muted);">${vehicle ? Utils.escapeHTML(vehicle.name) : 'Fleet Car'}</div>
                             </div>
                         </div>
                     ` : `

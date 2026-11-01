@@ -256,7 +256,41 @@
                 </li>
                 <li><a href="destinations.html">Destinations</a></li>
                 <li><a href="packages.html">Packages</a></li>
-                <li><a href="../corporate/corporate.html">Corporate</a></li>
+                                <li class="nav-dropdown-item">
+                    <a href="javascript:void(0)" class="nav-dropdown-toggle portals-toggle">
+                        <span>Dashboards</span> <i class="fa-solid fa-chevron-down nav-caret"></i>
+                    </a>
+                    <div class="nav-dropdown-panel dropdown-portals">
+                        <a href="customer-dashboard.html" class="portal-dropdown-item">
+                            <div class="portal-dropdown-icon" style="background:#EAF1FA; color:#07377F;"><i class="fa-solid fa-circle-user"></i></div>
+                            <div class="portal-dropdown-info">
+                                <span class="portal-dropdown-title">Customer Dashboard</span>
+                                <span class="portal-dropdown-sub">Bookings, tickets &amp; live trip status</span>
+                            </div>
+                        </a>
+                        <a href="../corporate/corporate-dashboard.html" class="portal-dropdown-item">
+                            <div class="portal-dropdown-icon" style="background:#EAF1FA; color:#0B2B63;"><i class="fa-solid fa-briefcase"></i></div>
+                            <div class="portal-dropdown-info">
+                                <span class="portal-dropdown-title">Corporate Portal</span>
+                                <span class="portal-dropdown-sub">Employee commute &amp; B2B fleet billing</span>
+                            </div>
+                        </a>
+                        <a href="../admin/admin-dashboard.html" class="portal-dropdown-item">
+                            <div class="portal-dropdown-icon" style="background:#FEF8E7; color:#DE9F0C;"><i class="fa-solid fa-gauge-high"></i></div>
+                            <div class="portal-dropdown-info">
+                                <span class="portal-dropdown-title">Admin Dashboard</span>
+                                <span class="portal-dropdown-sub">Fleet dispatch, revenue &amp; all bookings</span>
+                            </div>
+                        </a>
+                        <a href="../driver/driver-dashboard.html" class="portal-dropdown-item">
+                            <div class="portal-dropdown-icon" style="background:#DCFCE7; color:#10B981;"><i class="fa-solid fa-id-card"></i></div>
+                            <div class="portal-dropdown-info">
+                                <span class="portal-dropdown-title">Driver Dashboard</span>
+                                <span class="portal-dropdown-sub">Duty status, trip alerts &amp; earnings</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -308,7 +342,41 @@
         </li>
         <li><a href="destinations.html">Destinations</a></li>
         <li><a href="packages.html">Packages</a></li>
-        <li><a href="../corporate/corporate.html">Corporate</a></li>
+                        <li class="nav-dropdown-item">
+                    <a href="javascript:void(0)" class="nav-dropdown-toggle portals-toggle">
+                        <span>Dashboards</span> <i class="fa-solid fa-chevron-down nav-caret"></i>
+                    </a>
+                    <div class="nav-dropdown-panel dropdown-portals">
+                        <a href="customer-dashboard.html" class="portal-dropdown-item">
+                            <div class="portal-dropdown-icon" style="background:#EAF1FA; color:#07377F;"><i class="fa-solid fa-circle-user"></i></div>
+                            <div class="portal-dropdown-info">
+                                <span class="portal-dropdown-title">Customer Dashboard</span>
+                                <span class="portal-dropdown-sub">Bookings, tickets &amp; live trip status</span>
+                            </div>
+                        </a>
+                        <a href="../corporate/corporate-dashboard.html" class="portal-dropdown-item">
+                            <div class="portal-dropdown-icon" style="background:#EAF1FA; color:#0B2B63;"><i class="fa-solid fa-briefcase"></i></div>
+                            <div class="portal-dropdown-info">
+                                <span class="portal-dropdown-title">Corporate Portal</span>
+                                <span class="portal-dropdown-sub">Employee commute &amp; B2B fleet billing</span>
+                            </div>
+                        </a>
+                        <a href="../admin/admin-dashboard.html" class="portal-dropdown-item">
+                            <div class="portal-dropdown-icon" style="background:#FEF8E7; color:#DE9F0C;"><i class="fa-solid fa-gauge-high"></i></div>
+                            <div class="portal-dropdown-info">
+                                <span class="portal-dropdown-title">Admin Dashboard</span>
+                                <span class="portal-dropdown-sub">Fleet dispatch, revenue &amp; all bookings</span>
+                            </div>
+                        </a>
+                        <a href="../driver/driver-dashboard.html" class="portal-dropdown-item">
+                            <div class="portal-dropdown-icon" style="background:#DCFCE7; color:#10B981;"><i class="fa-solid fa-id-card"></i></div>
+                            <div class="portal-dropdown-info">
+                                <span class="portal-dropdown-title">Driver Dashboard</span>
+                                <span class="portal-dropdown-sub">Duty status, trip alerts &amp; earnings</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -596,7 +664,7 @@ function handleLuxuryBusBooking(e) {
     const phone = document.getElementById('luxPhone').value;
 
     const randomId = 'TNX-LUX-' + Math.floor(1000 + Math.random() * 9000);
-    const dayRate = model.includes('32') \u2192 14400 : (model.includes('45') \u2192 16200 : (model.includes('Sleeper') \u2192 17400 : 15000));
+    const dayRate = model.includes('32') ? 14400 : (model.includes('45') ? 16200 : (model.includes('Sleeper') ? 17400 : 15000));
     const totalEst = dayRate * days;
 
     const bookingObj = {

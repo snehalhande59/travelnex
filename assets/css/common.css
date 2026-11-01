@@ -1656,6 +1656,56 @@ textarea.form-control {
     border-radius: 3px 3px 0 0;
 }
 
+
+/* Dashboards / Portals Navbar Dropdown */
+.dropdown-portals {
+    width: 320px !important;
+    left: -40px !important;
+    padding: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+.portal-dropdown-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+    color: #14233F !important;
+    height: auto !important;
+    white-space: normal !important;
+}
+.portal-dropdown-item:hover {
+    background: #EAF1FA !important;
+    transform: translateX(3px) !important;
+}
+.portal-dropdown-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+.portal-dropdown-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+}
+.portal-dropdown-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #07377F;
+}
+.portal-dropdown-sub {
+    font-size: 11px;
+    color: #53647F;
+}
+
 /* Services Dropdown (Desktop Two-Column Panel) */
 .nav-dropdown-item {
     height: 100%;
